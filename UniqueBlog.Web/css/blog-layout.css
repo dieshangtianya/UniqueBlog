@@ -1,0 +1,67 @@
+﻿  body {
+	  margin: 0; 
+	  /*background-color: #787777;*/
+	  background-image:url("../images/blog_bg.jpg")
+  }
+
+.blog-container {
+	margin-top:100px;
+	margin-bottom:50px;
+	/*border: solid 1px #CBCACA;*/
+	border-radius:5px;
+	background-color:#FFFFFF;
+	padding:15px 0 0 0;
+	/**
+		阴影有5个值h-shadow（水平阴影位置），v-shadow（垂直阴影位置），blur（模糊距离），spread（阴影尺寸），color（颜色）
+		这里不设阴影尺寸
+	**/
+	/*-webkit-box-shadow: 0px 0px 10px 5px #B1AFAF;
+	box-shadow: 0px 0px 10px 5px #B1AFAF;*/
+}
+
+.blog-title{
+	font-family:'Microsoft YaHei';
+	padding:20px 0;
+	padding-left:10px;
+}
+
+.blog-title .title-text{
+	font-size:30px;
+}
+
+.blog-title .description-text{
+	font-size:16px;
+	margin-left:100px;
+}
+
+.navigation{
+	background-color:#CBCACA;
+}
+
+	.navigation .menuItem {
+	  padding:28px 32px;
+	  font-size:24px;
+	  cursor:pointer;
+	}
+
+	.navigation .menuItem:hover{
+		background-color:#A5A3A3;
+		font-weight:bold;
+	}
+
+.blog-body{
+	min-height:600px;
+	margin-left:10px;
+}
+
+.footer
+{
+	background-color:#CBCACA;
+	height:30px;
+}
+
+	.footer p {
+		text-align:center;
+		line-height:30px;
+	}
+

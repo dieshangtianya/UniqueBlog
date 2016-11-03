@@ -1,0 +1,55 @@
+﻿@{
+	Layout = null;
+}
+
+@model UniqueBlog.DTO.UserDto
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<meta name="description" content="The description of my page" />
+
+    <link href="~/css/browser-override.css" rel="stylesheet" />
+    <link href="~/vendor/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/basic.css" rel="stylesheet" />
+    <link href="~/css/user_login.css" rel="stylesheet" />
+	
+	<script src="@Url.Content("~/vendor/require/2.1.15/require.min.js")" data-main="app/user/user-login-main"></script>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="login-center-area">
+			<div class="login-area">
+				<div class="login-content">
+					@using (Html.BeginForm())
+					{
+						<div id="title" class="row text-center login-title">UQ博客登录</div>
+						<div class="login-row">
+							用户名称：
+						</div>
+						<div class="login-row">
+							@Html.TextBoxFor(user=>user.UserName,new { @class="text-box", placeholder="用户名"})
+                            @Html.ValidationMessageFor(user=>user.UserName)
+						</div>
+						<div class="login-row">
+							用户密码：
+						</div>
+						<div class="login-row">
+							@Html.PasswordFor(user => user.Password, new { @class = "text-box", placeholder = "密码" })
+                            @Html.ValidationMessageFor(user => user.Password)
+						</div>
+						<div class="login-row login-operation">
+							<input class="button-default" type="submit" value="登录" />
+							<input class="button-default button-clear" type="button" value="清空" />
+						</div>
+					}
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

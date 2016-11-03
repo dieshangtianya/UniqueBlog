@@ -1,0 +1,78 @@
+﻿body {
+	background-color: #3f3f40;
+	color: #FFFFFF;
+}
+
+.login-center-area {
+	width: 0;
+	height: 0;
+	position: fixed;
+	left: 50%;
+	right: 50%;
+	top: 50%;
+	bottom: 50%;
+}
+
+	.login-center-area .login-area {
+		border: solid 5px #FFFFFF;
+		border-radius: 10px;
+		background: url("../images/uqblog-login.png") no-repeat;
+		width: 800px;
+		height: 320px;
+		margin-left: -400px;
+		margin-top: -160px;
+	}
+
+.login-content {
+	margin-top: 5px;
+	margin-right: 20px;
+	width: 240px;
+	height: 300px;
+	float: right;
+}
+
+	.login-content .login-title {
+		font-size: 26px;
+		font-weight: bold;
+		padding: 10px 0;
+	}
+
+	.login-content .login-row {
+		padding: 2px 0;
+	}
+
+	.login-content .text-box {
+		width: 100%;
+		padding: 0.5em;
+		border: solid 1px #4E4E47;
+		color: #000000;
+		-webkit-transition: border-color 0.4s;
+		-moz-transition: border-color 0.4s;
+		-o-transition: border-color 0.4s;
+		transition: border-color 0.4s;
+		margin:5px 0;
+	}
+
+		.login-content .text-box:hover {
+			border-color: #064417;
+		}
+	.login-content .login-error{
+		height:30px;
+		color:#E56464;
+	}
+
+	.login-content label.error{
+		color:#F93C3C;
+	}
+
+.login-operation {
+	margin-top: 5px;
+}
+
+	.login-operation .button-clear {
+		background-color: #31b0d5;
+	}
+
+		.login-operation .button-clear:hover {
+			background-color: #E74C3C;
+		}

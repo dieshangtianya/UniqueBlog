@@ -1,0 +1,59 @@
+﻿.button-default {
+	padding: 0.5em 2em;
+	border: none;
+	display: inline-block;
+	background-color: #5DB11F;
+	color: #F3EFEF;
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+	margin: 5px 10px 5px 0;
+}
+
+.clearfix {
+	*zoom: 1;
+}
+
+	.clearfix:after {
+		content: "";
+		display: block;
+		height: 0;
+		clear: both;
+	}
+
+.horizontal-list > * {
+	float: left;
+}
+
+	.horizontal-list > *:first-child {
+		margin-left: 0;
+	}
+
+.button-default:hover {
+	background-color: #E74C3C;
+}
+
+.field-validation-error {
+	color: #b94a48;
+}
+
+l .field-validation-valid {
+	display: none;
+}
+
+input.input-validation-error {
+	border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+	border: 0 none;
+}
+
+.validation-summary-errors {
+	color: #b94a48;
+}
+
+.validation-summary-valid {
+	display: none;
+}

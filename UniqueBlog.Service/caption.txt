@@ -1,0 +1,2 @@
+﻿The UniqueBlog.AppService will act as a service role which used to support service to kinds of devices.
+such as phone,web and windows desktop project and so on.
