@@ -1,0 +1,18 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/packages
+/Bin
+/UniqueBlog.Controllers/obj/Debug
+/UniqueBlog.DBManager/obj/Debug
+/UniqueBlog.Domain/obj/Debug
+/UniqueBlog.DTO/bin/Debug
+/UniqueBlog.DTO/obj/Debug
+/UniqueBlog.Infrastructure/obj/Debug
+/UniqueBlog.Repository/obj/Debug
+/UniqueBlog.Service/obj/Debug
+/UniqueBlog.Web/bin
+/UniqueBlog.Web/obj/Debug
+/UniqueBlogDB/bin/Debug
+/UniqueBlogDB/obj/Debug
