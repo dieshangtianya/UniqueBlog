@@ -7,7 +7,9 @@
 		'domready': '../vendor/requirejs-domready/domReady',
 		'jqueryValidate': "../vendor/jquery-validate/1.15.0/jquery.validate.min",
 		'jqueryValidateUnobtrusive': "../vendor/jquery-unobtrusive/jquery.validate.unobtrusive",
-		'jquery-ui': '../vendor/jquery-ui/1.12.1/jquery-ui.min'
+		'jquery-ui': '../vendor/jquery-ui/1.12.1/jquery-ui.min',
+		'ckeditor': '../vendor/ckeditor/4.5.11/ckeditor'
+
 		//other javascript dependencies and custom module which used in other modules 
 	},
 	shim: {
@@ -26,11 +28,14 @@
 		'jquery-ui': {
 			exports: "$",
 			deps: ["jquery"]
+		},
+		'ckeditor': {
+			deps:["jquery","domready"]
 		}
 	}
 });
 
 //Libraries and modules that will be needed on all pages of the site
-//require(['jquery', 'lodash', 'bootstrap'], function () {
+require(['jquery', 'lodash', 'bootstrap'], function () {
 
-//});
+});

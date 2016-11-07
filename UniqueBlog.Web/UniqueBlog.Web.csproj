@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -90,16 +91,22 @@
     <Content Include="app\config.js" />
     <Content Include="app\home\home-main.js" />
     <Content Include="app\home\home.js" />
+    <Content Include="app\post\new-post-main.js" />
+    <Content Include="app\post\new-post.js" />
     <Content Include="app\user\user-login-main.js" />
     <Content Include="app\user\user-login.js" />
     <Content Include="css\basic.css" />
     <Content Include="css\blog-layout.css" />
     <Content Include="css\browser-override.css" />
     <Content Include="css\home.css" />
+    <Content Include="css\post-list.css" />
+    <Content Include="css\post-new.css" />
     <Content Include="css\user_login.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\blog_bg.jpg" />
+    <Content Include="images\comment.png" />
+    <Content Include="images\eye.png" />
     <Content Include="images\uqblog-login.png" />
     <Content Include="vendor\bootstrap\3.3.5\css\bootstrap-theme.css" />
     <Content Include="vendor\bootstrap\3.3.5\css\bootstrap-theme.min.css" />
@@ -109,6 +116,35 @@
     <Content Include="vendor\bootstrap\3.3.5\js\bootstrap.js" />
     <Content Include="vendor\bootstrap\3.3.5\js\bootstrap.min.js" />
     <Content Include="vendor\bootstrap\3.3.5\js\npm.js" />
+    <Content Include="vendor\ckeditor\4.5.11\ckeditor.js" />
+    <Content Include="vendor\ckeditor\4.5.11\config.js" />
+    <Content Include="vendor\ckeditor\4.5.11\contents.css" />
+    <Content Include="vendor\ckeditor\4.5.11\lang\en.js" />
+    <Content Include="vendor\ckeditor\4.5.11\lang\zh-cn.js" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\dialog.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\dialog_ie.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\dialog_ie7.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\dialog_ie8.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\dialog_iequirks.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\editor.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\editor_gecko.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\editor_ie.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\editor_ie7.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\editor_ie8.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\editor_iequirks.css" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\icons.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\icons_hidpi.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\arrow.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\close.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\hidpi\close.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\hidpi\lock.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\hidpi\refresh.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\lock-open.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\lock.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\refresh.png" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\images\spinner.gif" />
+    <Content Include="vendor\ckeditor\4.5.11\styles.js" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-bg_glass_65_ffffff_1x400.png" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-bg_highlight-soft_100_f6f6f6_1x100.png" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-bg_highlight-soft_25_0073ea_1x100.png" />
@@ -160,7 +196,9 @@
     <None Include="Properties\PublishProfiles\Web.config.pubxml" />
     <Content Include="Views\Shared\_Blog_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\BlogPost\Post.cshtml" />
+    <Content Include="Views\BlogPost\NewPost.cshtml" />
+    <Content Include="Views\BlogPost\PostList.cshtml" />
+    <Content Include="vendor\ckeditor\4.5.11\skins\moono\readme.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

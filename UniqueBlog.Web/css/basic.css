@@ -1,4 +1,8 @@
-﻿.button-default {
+﻿body
+{
+	font-family:'Microsoft YaHei'
+}
+.button-default {
 	padding: 0.5em 2em;
 	border: none;
 	display: inline-block;

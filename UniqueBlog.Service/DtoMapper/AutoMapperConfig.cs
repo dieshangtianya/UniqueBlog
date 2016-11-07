@@ -29,6 +29,10 @@ namespace UniqueBlog.Service.DtoMapper
 				//Category ---- CategoryDto
 				cfg.CreateMap<Category, CategoryDto>();
 				cfg.CreateMap<CategoryDto, Category>();
+
+				//BlogPost ---- PostDto
+				cfg.CreateMap<BlogPost, PostDto>();
+				cfg.CreateMap<PostDto, BlogPost>();
 			});
 
 			MapperInstance = mappingConfigInstance.CreateMapper();

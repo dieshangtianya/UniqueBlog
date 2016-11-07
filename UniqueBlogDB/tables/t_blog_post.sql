@@ -1,0 +1,24 @@
+﻿--========================================
+--创建博客文章t_blog_post表脚本
+--========================================
+
+use UniqueBlogDB;
+GO
+
+IF EXISTS ( SELECT * 
+			FROM sysobjects
+			WHERE name='t_blog_post' AND type='u')
+DROP TABLE t_blog_post;
+GO
+
+CREATE TABLE t_blog_post
+(
+	BlogPostId INT NOT NULL IDENTITY(1,1) CONSTRAINT pk_BlogPostId PRIMARY KEY,
+	BlogId INT NOT NULL FOREIGN KEY REFERENCES t_blog(BlogId),
+	CategoryId INT NOT NULL FOREIGN KEY REFERENCES t_category(CategoryId),
+	PostTitle NVARCHAR(100) NOT NULL,
+	PostContent NTEXT NOT NULL DEFAULT(''),
+	CreatedDate DATETIME NOT NULL DEFAULT(GETDATE()),
+	Tags NVARCHAR(100) NULL,
+)
+GO
