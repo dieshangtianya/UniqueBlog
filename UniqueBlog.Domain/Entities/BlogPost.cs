@@ -15,7 +15,7 @@ namespace UniqueBlog.Domain.Entities
 
 		public string Content { get; set; }
 
-		public int CategoryId { get; set; }
+		public Category[] Categories { get; set; }
 
 		public int BlogId { get; set; }
 

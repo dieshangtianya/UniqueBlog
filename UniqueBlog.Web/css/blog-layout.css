@@ -65,14 +65,14 @@
 	min-height:600px;
 }
 
-.footer
+.blog-footer
 {
 	background-color:#CBCACA;
 	height:50px;
 	border-radius:0 0 5px 5px;
 }
 
-	.footer p {
+	.blog-footer p {
 		text-align:center;
 		line-height:50px;
 	}

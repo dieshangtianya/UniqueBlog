@@ -5,32 +5,36 @@
 		'lodash': '../vendor/lodash/4.6.1/lodash.min',
 		'bootstrap': '../vendor/bootstrap/3.3.5/js/bootstrap.min',
 		'domready': '../vendor/requirejs-domready/domReady',
-		'jqueryValidate': "../vendor/jquery-validate/1.15.0/jquery.validate.min",
-		'jqueryValidateUnobtrusive': "../vendor/jquery-unobtrusive/jquery.validate.unobtrusive",
+		'jqueryValidate': '../vendor/jquery-validate/1.15.0/jquery.validate.min',
+		'jqueryValidateUnobtrusive': '../vendor/jquery-unobtrusive/jquery.validate.unobtrusive',
 		'jquery-ui': '../vendor/jquery-ui/1.12.1/jquery-ui.min',
-		'ckeditor': '../vendor/ckeditor/4.5.11/ckeditor'
+		'ckeditor': '../vendor/ckeditor/4.6.0/ckeditor',
+		'tag-input': '../vendor/bootstrap-tag-input/0.8.0/bootstrap-tagsinput.min'
 
 		//other javascript dependencies and custom module which used in other modules 
 	},
 	shim: {
 		'bootstrap': {
-			deps: ["jquery"]
+			deps: ['jquery']
+		},
+		'tag-input': {
+            deps:['jquery','bootstrap']
 		},
 		'jqueryValidate': {
-			deps: ["jquery"]
+			deps: ['jquery']
 		},
 		'jqueryValidateUnobtrusive': {
 			deps: [
-				"jquery",
-				"jqueryValidate"
+				'jquery',
+				'jqueryValidate'
 			]
 		},
 		'jquery-ui': {
-			exports: "$",
-			deps: ["jquery"]
+			exports: '$',
+			deps: ['jquery']
 		},
 		'ckeditor': {
-			deps:["jquery","domready"]
+			deps:['jquery','domready']
 		}
 	}
 });

@@ -15,7 +15,7 @@ namespace UniqueBlog.DTO
 
 		public string Content { get; set; }
 
-		public int CategoryId { get; set; }
+		public CategoryDto[] Categories { get; set; }
 
 		public int BlogId { get; set; }
 

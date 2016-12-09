@@ -13,11 +13,8 @@ namespace UniqueBlog.Controllers
 {
 	[Export]
 	[PartCreationPolicy(CreationPolicy.NonShared)]
-	public class AccountController : Controller
+	public class AccountController : BlogControllerBase
 	{
-		//[Import(typeof(IAccountService))]
-		//public IAccountService AccountService { get; set; }
-
 		public IAccountService AccountService { get; set; }
 
 		[ImportingConstructor]

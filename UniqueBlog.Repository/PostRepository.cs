@@ -105,7 +105,6 @@ namespace UniqueBlog.Repository
 			BlogPost post = new BlogPost();
 			post.PostId = (int)dataReader["BlogPostId"];
 			post.Title = dataReader["PostTitle"].ToString();
-			post.CategoryId = (int)dataReader["CategoryId"];
 			post.BlogId = (int)dataReader["BlogId"];
 			post.Content = dataReader["PostContent"].ToString();
 			post.CreatedDate = DateTime.Parse(dataReader["CreatedDate"].ToString());

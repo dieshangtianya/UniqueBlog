@@ -9,3 +9,18 @@
     /*because bootstrap has high priority than here, so with !important make it to reach the goal*/
 	margin-left:30px !important;
 }
+
+.button-post-operation{
+    background-color:#BABDBC;
+    color:#000000;
+}
+
+.button-post-operation:hover{
+    background-color:#5DB11F;
+}
+
+.button-post-operation-cancel{
+    background-color:#BABDBC;
+    color:#000000;
+}
+

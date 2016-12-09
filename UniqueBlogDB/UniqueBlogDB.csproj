@@ -43,16 +43,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="execute sql.ps1" />
+    <None Include="createDb.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="db.sql" />
+    <Content Include="presetdata\prestoredata.sql" />
+    <Content Include="storeprocedure\sp_getblogbyusername.sql" />
+    <Content Include="tables\t_blog.sql" />
+    <Content Include="tables\t_blog_post.sql" />
+    <Content Include="tables\t_category.sql" />
+    <Content Include="tables\t_post_category.sql" />
+    <Content Include="tables\t_user.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="presetdata\" />
-    <Folder Include="storeprocedure\" />
-    <Folder Include="tables\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
