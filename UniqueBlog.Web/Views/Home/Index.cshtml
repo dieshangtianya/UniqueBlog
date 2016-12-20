@@ -5,6 +5,8 @@
 <!--script-->
 <script type="text/javascript" src="@Url.Content("~/vendor/require/2.1.15/require.min.js")" data-main="/app/home/home-main"></script>
 
+@model UniqueBlog.Controllers.Models.ViewModels.HomeViewModel
+
 <div class="row">
     <div class="col-md-3">
         <div class="row">
@@ -13,7 +15,7 @@
         <div class="row">
 			<div class="widget-container widget-post-category widget-container-border">
 				<div class="widget-post-category-title">博客分类</div>
-				@foreach (var category in ViewBag.CommonBlogData.CategoryList)
+				@foreach (var category in Model.GlobalBlogData.CategoryList)
 				{
 					<div><a>@category.CategoryName</a></div>
 				}
@@ -33,6 +35,6 @@
             @*@Html.Partial("~/Views/BlogPost/PostList.cshtml")*@
             @*@{Html.RenderPartial("~/Views/BlogPost/PostList.cshtml");}*@
         -->
-		@{Html.RenderAction("PostList", "BlogPost", new { BlogId = ViewBag.CommonBlogData.BlogData.BlogId });}
+		@{Html.RenderAction("PostList", "BlogPost", new { BlogId = Model.GlobalBlogData.BlogData.BlogId });}
     </div>
 </div>

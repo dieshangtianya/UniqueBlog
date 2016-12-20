@@ -49,6 +49,8 @@ ExecuteSqlFile -sqlFile ".\$tableFolder\t_post_category.sql";
 
 <#----------------------------create procedure-------------------------------------#>
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_getblogbyusername.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_addblogpost.sql";
+
 <#----------------------------preset data-------------------------------------#>
 if($isPresetData){
 	ExecuteSqlFile -sqlFile ".\$presetDataFolder\prestoredata.sql";

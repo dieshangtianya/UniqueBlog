@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using UniqueBlog.Service.Interfaces;
 using UniqueBlog.DTO;
+using UniqueBlog.Controllers.Models;
+using UniqueBlog.Controllers.Models.ViewModels;
 
 namespace UniqueBlog.Controllers
 {
@@ -32,15 +34,44 @@ namespace UniqueBlog.Controllers
 
 		public ActionResult NewPost()
 		{
-			var viewBlogData =(CommonBlogData)ViewBag.CommonBlogData;
-			ViewBag.CategoryList = this.categoryService.GetCategoriesByBlogId(viewBlogData.BlogData.BlogId);
-			return View();
+            NewPostViewModel newPostVM = new NewPostViewModel();
+            newPostVM.CategoryList = new List<SelectedItem>();
+
+            var categoryList = this.categoryService.GetCategoriesByBlogId(newPostVM.GlobalBlogData.BlogData.BlogId);
+            foreach(CategoryDto categoryItem in categoryList)
+            {
+                var selectedItem = new SelectedItem(categoryItem.CategoryId.ToString(), categoryItem.CategoryName);
+                newPostVM.CategoryList.Add(selectedItem);
+            }
+
+			return View(newPostVM);
 		}
 
         [HttpPost]
-        public ActionResult SavePost(PostDto post)
+        public ActionResult SavePost(NewPostViewModel postViewModel)
         {
+            PostDto postDto = new PostDto();
+            postDto.BlogId = postViewModel.GlobalBlogData.BlogData.BlogId;
+            postDto.Categories = new List<CategoryDto>();
+            postViewModel.CategoryList.ForEach(x =>
+            {
+               var categoryItem = postViewModel.GlobalBlogData.CategoryList.First(c => c.CategoryId == Convert.ToInt32(x.ItemId));
+                postDto.Categories.Add(categoryItem);
+            });
+
+            postDto.CreatedDate = DateTime.Now;
+            postDto.Title = postViewModel.PostTitle;
+            postDto.Tags = postViewModel.PostTags;
+            postDto.Content = postViewModel.PostContent;
+
+            this.postService.AddPost(postDto);
             return RedirectToAction("Index","Home");
+        }
+
+        [HttpPost]
+        public ActionResult SaveDraft(PostDto post)
+        {
+            return RedirectToAction("Index", "Home");
         }
 	}
 }

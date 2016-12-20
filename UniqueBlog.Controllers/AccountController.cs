@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using UniqueBlog.Service;
 using UniqueBlog.Service.Interfaces;
 using UniqueBlog.DTO;
+using UniqueBlog.Controllers.Models.ViewModels;
 
 namespace UniqueBlog.Controllers
 {
@@ -26,10 +27,10 @@ namespace UniqueBlog.Controllers
 		[HttpGet]
 		public ActionResult Login()
 		{
-			ViewBag.Title = Constants.ConstantData.TitleOfLogin;
-			ViewBag.ProductName = Constants.ConstantData.ProductName;
-			UserDto user = new UserDto();
-			return View();
+            LoginViewModel loginViewModel = new LoginViewModel();
+            loginViewModel.ProductName = Constants.ConstantData.ProductName;
+            loginViewModel.Title = Constants.ConstantData.TitleOfLogin;
+            return View(loginViewModel);
 		}
 
 		[HttpPost]

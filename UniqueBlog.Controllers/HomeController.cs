@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using UniqueBlog.Controllers.Models.ViewModels;
 using UniqueBlog.DTO;
 using UniqueBlog.Service.Interfaces;
 
@@ -23,8 +24,9 @@ namespace UniqueBlog.Controllers
 		}
 
 		public ActionResult Index()
-		{ 
-			return View();
+		{
+            HomeViewModel homeViewModel = new HomeViewModel();
+			return View(homeViewModel);
 		}
 	}
 }

@@ -10,6 +10,7 @@ using UniqueBlog.DTO;
 using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.Service.Interfaces;
 using UniqueBlog.Service.DtoMapper;
+using UniqueBlog.Infrastructure.UnitOfWork;
 
 namespace UniqueBlog.Service
 {
@@ -24,7 +25,7 @@ namespace UniqueBlog.Service
 			this._postRepository = pository;
 		}
 
-		public IEnumerable<PostDto> GetPostListByBlogId(int blogId)
+        public IEnumerable<PostDto> GetPostListByBlogId(int blogId)
 		{
 			Query query=new Query ();
 
@@ -41,5 +42,14 @@ namespace UniqueBlog.Service
 
 			return postDtoList;
 		}
-	}
+
+
+        public bool AddPost(PostDto postDto)
+        {
+            BlogPost post = postDto.ConvertTo();
+            this._postRepository.Add(post);
+
+            return true;
+        }
+    }
 }

@@ -7,24 +7,27 @@ using System.Threading.Tasks;
 using System.ComponentModel.Composition;
 using UniqueBlog.Domain.Repository;
 using UniqueBlog.Domain.Entities;
+using UniqueBlog.Infrastructure.UnitOfWork;
 using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.DBManager;
-
-
+using UniqueBlog.Infrastructure;
+using System.Data;
 
 namespace UniqueBlog.Repository
 {
 	[Export(typeof(IPostRepository))]
-	public class PostRepository : IPostRepository
-	{
+	public class PostRepository : IPostRepository,IUnitOfWorkRepository
+    {
 		private IDatabase _dbbase;
+        private IUnitOfWork _unitOfWork;
 
 		private string _baseSql = "select * from t_blog_post";
 
 		#region constructor
 
-		public PostRepository()
+		public PostRepository(IUnitOfWork unitofwork)
 		{
+            _unitOfWork = unitofwork;
 			_dbbase = DatabaseFactory.CreateDataBase();
 		}
 
@@ -84,23 +87,74 @@ namespace UniqueBlog.Repository
 
 		public void Add(BlogPost entity)
 		{
-			throw new NotImplementedException();
+            this._unitOfWork.RegisterNew(entity, this);
 		}
 
 		public void Save(BlogPost entity)
 		{
-			throw new NotImplementedException();
+            this._unitOfWork.RegisterAmended(entity, this);
 		}
 
 		public void Remove(BlogPost entity)
 		{
-			throw new NotImplementedException();
+            this._unitOfWork.RegisterRemoved(entity, this);
 		}
 
-		#endregion
+        #endregion
 
-		#region private methods
-		private BlogPost GetBlogFromReader(DbDataReader dataReader)
+        #region IUnitOfWorkRepository Implementation
+
+        public void PersistCreationOf(IAggregate entity)
+        {
+            var blogPost = entity as BlogPost;
+
+            try
+            {
+                using (var dbConnection = this._dbbase.CreateDbConnection())
+                {
+                    using (var transaction = dbConnection.BeginTransaction())
+                    {
+                        dbConnection.Open();
+                        DbCommand dbCommand = dbConnection.CreateCommand();
+                        dbCommand.CommandText = "sp_addblogpost";
+
+                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", blogPost.BlogId));
+                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
+                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
+                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", blogPost.CreatedDate));
+                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", blogPost.Tags));
+
+                        dbCommand.ExecuteNonQuery();
+
+                        DataTable dt = this.GetPostCategoryRelationship(blogPost.Categories, blogPost.PostId);
+                        DbCommand relationCommand = dbConnection.CreateCommand();
+                        relationCommand.CommandText = "sp_add_blogpost_relation";
+                        relationCommand.Parameters.Add(this._dbbase.CreateDbParameter("postCategoryTable", dt));
+
+                        relationCommand.ExecuteNonQuery();
+                        
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void PersistUpdateOf(IAggregate entity)
+        {
+        }
+
+        public void PersistDeleteOf(IAggregate entity)
+        {
+        }
+
+        #endregion
+
+
+        #region private methods
+        private BlogPost GetBlogFromReader(DbDataReader dataReader)
 		{
 			BlogPost post = new BlogPost();
 			post.PostId = (int)dataReader["BlogPostId"];
@@ -117,6 +171,22 @@ namespace UniqueBlog.Repository
 			return post;
 		}
 
-		#endregion
-	}
+        private DataTable GetPostCategoryRelationship(IList<Category> categories,int postId)
+        {
+            DataTable relationDt = new DataTable();
+            relationDt.Columns.Add("PostId",typeof(int));
+            relationDt.Columns.Add("CategoryId",typeof(int));
+
+            foreach (var category in categories) {
+                DataRow drow = relationDt.NewRow();
+                drow["PostId"] = postId;
+                drow["CategoryId"] = category.CategoryId;
+                relationDt.Rows.Add(drow);
+            }
+
+            return relationDt;
+        }
+
+        #endregion
+    }
 }

@@ -41,6 +41,10 @@
 	background-color:#CBCACA;
 }
 
+.navigation ul li{
+    list-style:none;
+}
+
 	.navigation .menuItem {
 	  padding:28px 32px;
 	  font-size:24px;
