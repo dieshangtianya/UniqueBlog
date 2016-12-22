@@ -5,6 +5,9 @@
 
 CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
-	// config.language = 'fr';
-	// config.uiColor = '#AADC6E';
+    config.language = "zh-cn";
+    config.height = 400;
+    config.extraPlugins = 'codesnippet';
+    //for more themes please visit the link https://highlightjs.org/static/demo/
+    config.codeSnippet_theme = 'obsidian';
 };
