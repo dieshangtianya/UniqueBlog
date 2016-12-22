@@ -7,26 +7,32 @@ using System.Threading.Tasks;
 namespace UniqueBlog.Infrastructure.UnitOfWork
 {
 	/// <summary>
-	/// IUnitOfWorkRepository接口用于在Unit Of Work中的Repository需要实现的接口
+	/// IUnitOfWorkRepository should be implemented in the repositories which would be call in a unit of work
 	/// </summary>
 	public interface IUnitOfWorkRepository
 	{
-		/// <summary>
-		/// 持久化Create操作
-		/// </summary>
-		/// <param name="entity">实体对象</param>
-		void PersistCreationOf(IAggregate entity);
+        /// <summary>
+        /// Set the unit of work instance
+        /// </summary>
+        /// <param name="unitOfWork">instance of IUnitOfWork</param>
+        void SetUnitOfWork(IUnitOfWork unitOfWork);
+
+        /// <summary>
+        /// Persist the creation operation
+        /// </summary>
+        /// <param name="entity">entity</param>
+        void PersistCreationOf(IAggregate entity);
 
 		/// <summary>
-		/// 持久化Update操作
+		/// Persist the update operation
 		/// </summary>
-		/// <param name="entity">实体对象</param>
+		/// <param name="entity">entity</param>
 		void PersistUpdateOf(IAggregate entity);
 
 		/// <summary>
-		/// 持久化Delete操作
+		/// Persist the delete operation
 		/// </summary>
-		/// <param name="entity">实体对象</param>
+		/// <param name="entity">entity</param>
 		void PersistDeleteOf(IAggregate entity);
 	}
 }

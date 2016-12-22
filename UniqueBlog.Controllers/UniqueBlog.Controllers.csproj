@@ -47,18 +47,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilters\CommonBlogDataFilter.cs" />
+    <Compile Include="BlogControllerBase.cs" />
     <Compile Include="BlogPostController.cs" />
     <Compile Include="CommonBlogData.cs" />
     <Compile Include="Constants\ConstantData.cs" />
     <Compile Include="DtoMapperManager\AutoMapperConfig.cs" />
     <Compile Include="MEF\MefConfiguration.cs" />
     <Compile Include="MEF\MEFControllerFactory.cs" />
+    <Compile Include="Models\SelectedItem.cs" />
+    <Compile Include="ResponseResults\ResponseResult.cs" />
     <Compile Include="RouteConfig\GlobalRoutesConfig.cs" />
     <Compile Include="HomeController.cs" />
     <Compile Include="MEF\MefDependencyResolver .cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AccountController.cs" />
+    <Compile Include="Models\ViewModels\HomeViewModel.cs" />
+    <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\NewPostViewModel.cs" />
+    <Compile Include="Models\ViewModels\PageViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UniqueBlog.DTO\UniqueBlog.DTO.csproj">
@@ -76,7 +82,9 @@
   <ItemGroup>
     <Content Include="TextFile1.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ActionFilters\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

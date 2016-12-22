@@ -15,7 +15,8 @@ using System.Data.Common;
 namespace UniqueBlog.Repository
 {
 	[Export(typeof(ICategoryRepository))]
-	public class CategoryRepsitory:ICategoryRepository
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class CategoryRepsitory:ICategoryRepository
 	{
 		private IDatabase _dbbase;
 

@@ -15,7 +15,8 @@ using UniqueBlog.Service.DtoMapper;
 namespace UniqueBlog.Service
 {
 	[Export(typeof(IBlogService))]
-	public class BlogService : IBlogService
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class BlogService : IBlogService
 	{
 		[Import]
 		public IBlogRepository blogRepository;

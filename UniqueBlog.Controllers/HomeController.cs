@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using UniqueBlog.Controllers.ActionFilters;
+using UniqueBlog.Controllers.Models.ViewModels;
 using UniqueBlog.DTO;
 using UniqueBlog.Service.Interfaces;
 
@@ -13,7 +13,7 @@ namespace UniqueBlog.Controllers
 {
 	[Export]
 	[PartCreationPolicy(CreationPolicy.NonShared)]
-	public class HomeController : Controller
+	public class HomeController : BlogControllerBase
 	{
 		public IBlogService BlogService { get; private set; }
 
@@ -23,10 +23,10 @@ namespace UniqueBlog.Controllers
 			this.BlogService = service;
 		}
 
-		[CommonBlogDataFilter]
 		public ActionResult Index()
-		{ 
-			return View();
+		{
+            HomeViewModel homeViewModel = new HomeViewModel();
+			return View(homeViewModel);
 		}
 	}
 }

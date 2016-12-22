@@ -22,12 +22,12 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
 			deletedEntities = new Dictionary<IAggregate, IUnitOfWorkRepository>();
 		}
 
-		/// <summary>
-		/// 注册要在Unit Of Work中的新增操作
-		/// </summary>
-		/// <param name="entity">将要新增的对象实体</param>
-		/// <param name="unitOfWorkRepository">用于新增的Repository对象</param>
-		public void RegisterNew(IAggregate entity, IUnitOfWorkRepository unitOfWorkRepository)
+        /// <summary>
+        /// Register the addtion in the unit of work
+        /// </summary>
+        /// <param name="entity">Entity will be added</param>
+        /// <param name="unitOfWorkRepository">Repository used to execute the add operation</param>
+        public void RegisterNew(IAggregate entity, IUnitOfWorkRepository unitOfWorkRepository)
 		{
 			if(!addedEntities.ContainsKey(entity))
 			{
@@ -35,12 +35,12 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
 			}
 		}
 
-		/// <summary>
-		/// 注册要在Unit Of Work中的更新操作
-		/// </summary>
-		/// <param name="entity">将要更新的对象实体</param>
-		/// <param name="unitOfWorkRepository">用于更新的Repository对象</param>
-		public void RegisterAmended(IAggregate entity, IUnitOfWorkRepository unitOfWorkRepository)
+        /// <summary>
+        /// Register the amendment in the unit of work
+        /// </summary>
+        /// <param name="entity">Entity will be updated</param>
+        /// <param name="unitOfWorkRepository">Repository used to execute the amendment operation</param>
+        public void RegisterAmended(IAggregate entity, IUnitOfWorkRepository unitOfWorkRepository)
 		{
 			if (!changedEntities.ContainsKey(entity)) 
 			{
@@ -48,12 +48,12 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
 			}
 		}
 
-		/// <summary>
-		/// 注册要在Unit Of Work中的更新操作
-		/// </summary>
-		/// <param name="entity">将要删除的对象实体</param>
-		/// <param name="unitWorkRepository">用于删除的Repository对象</param>
-		public void RegisterRemoved(IAggregate entity, IUnitOfWorkRepository unitWorkRepository)
+        /// <summary>
+        /// Register the removement in the unit of work
+        /// </summary>
+        /// <param name="entity">>Entity will be deleted</param>
+        /// <param name="unitWorkRepository">Repository used to execute the removement operation</param>
+        public void RegisterRemoved(IAggregate entity, IUnitOfWorkRepository unitWorkRepository)
 		{
 			if(!deletedEntities.ContainsKey(entity))
 			{
@@ -61,10 +61,10 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
 			}
 		}
 
-		/// <summary>
-		/// 提交Unit Of Work里的所有对象操作
-		/// </summary>
-		public void Commit()
+        /// <summary>
+        /// Commit all the operations in a unit of work
+        /// </summary>
+        public void Commit()
 		{
 			using (TransactionScope transactionScope = new TransactionScope()) 
 			{

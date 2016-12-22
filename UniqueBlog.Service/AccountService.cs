@@ -16,7 +16,8 @@ using AutoMapper.Mappers;
 namespace UniqueBlog.Service
 {
 	[Export(typeof(IAccountService))]
-	public class AccountService : IAccountService
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class AccountService : IAccountService
 	{
 		private IUserRepository _UserRepository;
 

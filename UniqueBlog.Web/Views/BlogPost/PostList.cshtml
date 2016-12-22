@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+<link href="~/css/post-list.css" rel="stylesheet" />
+
+<div class="post-container">
+    @foreach (var postItem in ViewBag.PostList)
+    {
+        string title = postItem.Title;
+        string content = postItem.Content;
+        <div class="post-item">
+            <div class="post-title">@Html.ActionLink(title, "", "")</div>
+            <div class="post-item-brief">@Html.Raw(content!=null?content.Substring(0):"")</div>
+            <div class="post-item-detail clearfix">
+               <span>@postItem.CreatedDate.ToString("yyyy-MM-dd HH:mm")</span>
+               <span class="read">阅读(200)</span>
+               <span class="comment">评论(10)</span>
+            </div>
+        </div>
+    }
+</div>

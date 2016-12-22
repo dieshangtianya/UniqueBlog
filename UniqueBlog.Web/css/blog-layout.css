@@ -1,7 +1,9 @@
 ﻿  body {
 	  margin: 0; 
 	  /*background-color: #787777;*/
-	  background-image:url("../images/blog_bg.jpg")
+	  background-image:url("../images/blog_bg.jpg");
+	  background-repeat:no-repeat;
+	  background-attachment:fixed;
   }
 
 .blog-container {
@@ -10,7 +12,6 @@
 	/*border: solid 1px #CBCACA;*/
 	border-radius:5px;
 	background-color:#FFFFFF;
-	padding:15px 0 0 0;
 	/**
 		阴影有5个值h-shadow（水平阴影位置），v-shadow（垂直阴影位置），blur（模糊距离），spread（阴影尺寸），color（颜色）
 		这里不设阴影尺寸
@@ -21,8 +22,7 @@
 
 .blog-title{
 	font-family:'Microsoft YaHei';
-	padding:20px 0;
-	padding-left:10px;
+	padding:20px 10px;
 }
 
 .blog-title .title-text{
@@ -35,7 +35,14 @@
 }
 
 .navigation{
+}
+
+.navigation ul{
 	background-color:#CBCACA;
+}
+
+.navigation ul li{
+    list-style:none;
 }
 
 	.navigation .menuItem {
@@ -47,21 +54,30 @@
 	.navigation .menuItem:hover{
 		background-color:#A5A3A3;
 		font-weight:bold;
+		
+	}
+
+	.navigation .menuItem a{
+		color:black;
+	}
+
+	.navigation .menuItem a:hover{
+		text-decoration:none;
 	}
 
 .blog-body{
 	min-height:600px;
-	margin-left:10px;
 }
 
-.footer
+.blog-footer
 {
 	background-color:#CBCACA;
-	height:30px;
+	height:50px;
+	border-radius:0 0 5px 5px;
 }
 
-	.footer p {
+	.blog-footer p {
 		text-align:center;
-		line-height:30px;
+		line-height:50px;
 	}
 
