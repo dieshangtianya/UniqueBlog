@@ -4,19 +4,21 @@
         , "bootbox"
 		, "ckeditor"
         , "tag-input"
+        , "highlight"
 ], function ($, domready,bootbox) {
 
     domready(function () {
         configCKEditor();
         configTagInput();
         registerEventHandler();
+
+        window.hljs.initHighlightingOnLoad();
     });
 
     function configCKEditor() {
-        CKEDITOR.replace('postEditor', {
-            height: 400,
-            language: 'zh-cn'
-        });
+        if (!CKEDITOR.instances['postEditor']) {
+            CKEDITOR.replace('postEditor');
+        }
     }
 
     function configTagInput() {

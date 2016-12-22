@@ -10,7 +10,8 @@
         'jquery-ui': '../vendor/jquery-ui/1.12.1/jquery-ui.min',
         'ckeditor': '../vendor/ckeditor/4.6.0/ckeditor',
         'tag-input': '../vendor/bootstrap-tag-input/0.8.0/bootstrap-tagsinput.min',
-        'bootbox': '../vendor/bootbox/4.4.0/bootbox.min'
+        'bootbox': '../vendor/bootbox/4.4.0/bootbox.min',
+        'highlight': '../vendor/ckeditor/4.6.0/plugins/codesnippet/lib/highlight/highlight.pack'
         //other javascript dependencies and custom module which used in other modules 
     },
     shim: {
