@@ -14,42 +14,55 @@ using UniqueBlog.Infrastructure.UnitOfWork;
 
 namespace UniqueBlog.Service
 {
-	[Export(typeof(IPostService))]
-	public class PostService:IPostService
-	{
-		private IPostRepository _postRepository;
+    [Export(typeof(IPostService))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class PostService : IPostService
+    {
+        private IPostRepository _postRepository;
 
-		[ImportingConstructor]
-		public PostService(IPostRepository pository)
-		{
-			this._postRepository = pository;
-		}
+        private IUnitOfWork _unitOfWork;
+
+        [ImportingConstructor]
+        public PostService(IPostRepository pository, IUnitOfWork unitOfWork)
+        {
+            this._postRepository = pository;
+            this._unitOfWork = unitOfWork;
+
+            ((IUnitOfWorkRepository)this._postRepository).SetUnitOfWork(unitOfWork);
+        }
 
         public IEnumerable<PostDto> GetPostListByBlogId(int blogId)
-		{
-			Query query=new Query ();
+        {
+            Query query = new Query();
 
-			query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
+            query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
 
-			var postList = _postRepository.FindBy(query);
+            var postList = _postRepository.FindBy(query);
 
-			IList<PostDto> postDtoList = new List<PostDto>();
+            IList<PostDto> postDtoList = new List<PostDto>();
 
-			foreach (BlogPost post in postList)
-			{
-				postDtoList.Add(post.ConvertTo());
-			}
+            foreach (BlogPost post in postList)
+            {
+                postDtoList.Add(post.ConvertTo());
+            }
 
-			return postDtoList;
-		}
+            return postDtoList;
+        }
 
 
         public bool AddPost(PostDto postDto)
         {
-            BlogPost post = postDto.ConvertTo();
-            this._postRepository.Add(post);
-
-            return true;
+            try
+            {
+                BlogPost post = postDto.ConvertTo();
+                this._postRepository.Add(post);
+                this._unitOfWork.Commit();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

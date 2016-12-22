@@ -23,6 +23,7 @@ $sqlserverDB="master";
 $tableFolder="tables";
 $spFolder="storeprocedure";
 $presetDataFolder="presetdata";
+$tableTypeFolder="types";
 
 $isPresetData=$true;
 
@@ -46,10 +47,13 @@ ExecuteSqlFile -sqlFile ".\$tableFolder\t_category.sql";
 ExecuteSqlFile -sqlFile ".\$tableFolder\t_blog_post.sql";
 ExecuteSqlFile -sqlFile ".\$tableFolder\t_post_category.sql";
 
+<#----------------------------create table types-------------------------------------#>
+ExecuteSqlFile -sqlFile ".\$tableTypeFolder\udt_post_category_relation.sql";
 
 <#----------------------------create procedure-------------------------------------#>
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_getblogbyusername.sql";
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_addblogpost.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogbyusername.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost_relation.sql";
 
 <#----------------------------preset data-------------------------------------#>
 if($isPresetData){

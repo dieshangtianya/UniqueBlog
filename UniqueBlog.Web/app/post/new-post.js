@@ -44,8 +44,10 @@
             type: $('#postform').attr('method'),
             data: JSON.stringify(postData),
             contentType: "application/json;charset=utf-8",
-            success: function () {
-
+            success: function (jsonResult) {
+                if (jsonResult.Result==true) {
+                    window.location.href = '/Home/Index';
+                }
             },
             error: function () {
 

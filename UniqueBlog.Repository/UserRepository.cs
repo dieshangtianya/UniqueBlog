@@ -14,7 +14,8 @@ using UniqueBlog.Infrastructure.UnitOfWork;
 namespace UniqueBlog.Repository
 {
 	[Export(typeof(IUserRepository))]
-	public class UserRepository : IUserRepository, IUnitOfWorkRepository
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class UserRepository : IUserRepository, IUnitOfWorkRepository
 	{
 		private IDatabase _dbbase;
 
@@ -133,16 +134,22 @@ namespace UniqueBlog.Repository
 			throw new NotImplementedException();
 		}
 
-		#endregion
 
-		#region private methods
+        public void SetUnitOfWork(IUnitOfWork unitOfWork)
+        {
+            this._unitOfWork = unitOfWork;
+        }
 
-		/// <summary>
-		/// 通过IDataReader创建User信息
-		/// </summary>
-		/// <param name="reader"></param>
-		/// <returns>User信息</returns>
-		private User GetUserFromReader(DbDataReader reader)
+        #endregion
+
+        #region private methods
+
+        /// <summary>
+        /// 通过IDataReader创建User信息
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <returns>User信息</returns>
+        private User GetUserFromReader(DbDataReader reader)
 		{
 			User user = new User();
 			user.UserId = (int)reader["UserId"];
@@ -153,6 +160,6 @@ namespace UniqueBlog.Repository
 
 			return user;
 		}
-		#endregion
-	}
+        #endregion
+    }
 }

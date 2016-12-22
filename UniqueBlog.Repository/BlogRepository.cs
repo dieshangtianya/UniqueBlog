@@ -14,7 +14,8 @@ using System.Data.Common;
 namespace UniqueBlog.Repository
 {
 	[Export(typeof(IBlogRepository))]
-	public class BlogRepository:IBlogRepository
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class BlogRepository:IBlogRepository
 	{
 		private IDatabase _dbbase;
 

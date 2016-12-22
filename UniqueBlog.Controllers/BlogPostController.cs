@@ -9,6 +9,7 @@ using UniqueBlog.Service.Interfaces;
 using UniqueBlog.DTO;
 using UniqueBlog.Controllers.Models;
 using UniqueBlog.Controllers.Models.ViewModels;
+using UniqueBlog.Controllers.ResponseResults;
 
 namespace UniqueBlog.Controllers
 {
@@ -48,7 +49,7 @@ namespace UniqueBlog.Controllers
 		}
 
         [HttpPost]
-        public ActionResult SavePost(NewPostViewModel postViewModel)
+        public JsonResult SavePost(NewPostViewModel postViewModel)
         {
             PostDto postDto = new PostDto();
             postDto.BlogId = postViewModel.GlobalBlogData.BlogData.BlogId;
@@ -64,8 +65,14 @@ namespace UniqueBlog.Controllers
             postDto.Tags = postViewModel.PostTags;
             postDto.Content = postViewModel.PostContent;
 
-            this.postService.AddPost(postDto);
-            return RedirectToAction("Index","Home");
+            bool flag = this.postService.AddPost(postDto);
+            ResponseJsonResult responseJsonResult = new ResponseResults.ResponseJsonResult(flag);
+            if (!flag) {
+                responseJsonResult.Message = "There is some error happen";
+            }
+
+            return Json(responseJsonResult);
+
         }
 
         [HttpPost]

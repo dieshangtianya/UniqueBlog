@@ -8,7 +8,7 @@ GO
 
 CREATE PROCEDURE sp_add_blogpost_relation
 (
-	@postCategoryTable udt_post_category_relation readonly
+	@postCategoryTable udt_post_category_relationship readonly
 )
 AS
 BEGIN

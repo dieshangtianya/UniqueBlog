@@ -55,6 +55,7 @@
     <Compile Include="MEF\MefConfiguration.cs" />
     <Compile Include="MEF\MEFControllerFactory.cs" />
     <Compile Include="Models\SelectedItem.cs" />
+    <Compile Include="ResponseResults\ResponseResult.cs" />
     <Compile Include="RouteConfig\GlobalRoutesConfig.cs" />
     <Compile Include="HomeController.cs" />
     <Compile Include="MEF\MefDependencyResolver .cs" />
