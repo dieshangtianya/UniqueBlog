@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using UniqueBlog.Infrastructure.Log;
 using UniqueBlog.Service.Interfaces;
 using UniqueBlog.DTO;
 using UniqueBlog.Controllers.Models;
@@ -19,6 +20,7 @@ namespace UniqueBlog.Controllers
 	{
 		private IPostService postService;
 		private ICategoryService categoryService;
+        private static readonly ILog logger =LogFactory.GetLog(typeof(BlogPostController));
 
 		[ImportingConstructor]
 		public BlogPostController(IPostService postService,ICategoryService categoryService)
@@ -67,6 +69,10 @@ namespace UniqueBlog.Controllers
 
             bool flag = this.postService.AddPost(postDto);
             ResponseJsonResult responseJsonResult = new ResponseResults.ResponseJsonResult(flag);
+
+
+            logger.Info("save a new post");
+
             if (!flag) {
                 responseJsonResult.Message = "There is some error happen";
             }

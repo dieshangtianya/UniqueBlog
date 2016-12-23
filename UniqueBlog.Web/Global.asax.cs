@@ -9,6 +9,7 @@ using System.Web.SessionState;
 using UniqueBlog.Controllers.DtoMapperManager;
 using UniqueBlog.Controllers.MEF;
 using UniqueBlog.Controllers.RouteConfig;
+using UniqueBlog.Infrastructure.Log;
 
 namespace UniqueBlog.Web
 {
@@ -25,6 +26,8 @@ namespace UniqueBlog.Web
 			MefConfiguration.RegisterMef();
 			//注册AutoMapper
 			MapperManager.RegisterTypeMapper();
+            //配置日志
+            LogConfiguration.ConfigLog();
 		}
 
 		protected void Session_Start(object sender, EventArgs e)

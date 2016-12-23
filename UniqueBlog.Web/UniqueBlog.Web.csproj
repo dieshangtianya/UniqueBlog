@@ -196,6 +196,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="log4net.config" />
     <None Include="Properties\PublishProfiles\Web.config.pubxml" />
     <Content Include="Views\Shared\_Blog_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -217,6 +218,10 @@
     <ProjectReference Include="..\UniqueBlog.DTO\UniqueBlog.DTO.csproj">
       <Project>{cdb556f2-d203-4383-ae11-ec4a4aede119}</Project>
       <Name>UniqueBlog.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniqueBlog.Infrastructure\UniqueBlog.Infrastructure.csproj">
+      <Project>{fd65f9e6-dfca-4706-b594-d0bc45a051fc}</Project>
+      <Name>UniqueBlog.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
