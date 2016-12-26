@@ -2,51 +2,55 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using UniqueBlog.Service.Interfaces;
-using UniqueBlog.DTO;
 using UniqueBlog.Controllers.Models;
 using UniqueBlog.Controllers.Models.ViewModels;
 using UniqueBlog.Controllers.ResponseResults;
+using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure.Log;
+using UniqueBlog.Service.Interfaces;
 
 namespace UniqueBlog.Controllers
 {
-	[Export]
-	[PartCreationPolicy(CreationPolicy.NonShared)]
-	public class BlogPostController:BlogControllerBase
-	{
-		private IPostService postService;
-		private ICategoryService categoryService;
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class BlogPostController : BlogControllerBase
+    {
+        private IPostService postService;
+        private ICategoryService categoryService;
 
-		[ImportingConstructor]
-		public BlogPostController(IPostService postService,ICategoryService categoryService)
-		{
-			this.postService = postService;
-			this.categoryService = categoryService;
-		}
+        private static readonly ILog logger = LoggerFactory.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		public ActionResult PostList(int blogId)
-		{
-			ViewBag.PostList = this.postService.GetPostListByBlogId(blogId);
-			return View();
-		}
+        [ImportingConstructor]
+        public BlogPostController(IPostService postService, ICategoryService categoryService)
+        {
+            this.postService = postService;
+            this.categoryService = categoryService;
+        }
 
-		public ActionResult NewPost()
-		{
+        public ActionResult PostList(int blogId)
+        {
+            ViewBag.PostList = this.postService.GetPostListByBlogId(blogId);
+            return View();
+        }
+
+        public ActionResult NewPost()
+        {
             NewPostViewModel newPostVM = new NewPostViewModel();
             newPostVM.CategoryList = new List<SelectedItem>();
 
             var categoryList = this.categoryService.GetCategoriesByBlogId(newPostVM.GlobalBlogData.BlogData.BlogId);
-            foreach(CategoryDto categoryItem in categoryList)
+            foreach (CategoryDto categoryItem in categoryList)
             {
                 var selectedItem = new SelectedItem(categoryItem.CategoryId.ToString(), categoryItem.CategoryName);
                 newPostVM.CategoryList.Add(selectedItem);
             }
 
-			return View(newPostVM);
-		}
+            return View(newPostVM);
+        }
 
         [HttpPost]
         public JsonResult SavePost(NewPostViewModel postViewModel)
@@ -56,7 +60,7 @@ namespace UniqueBlog.Controllers
             postDto.Categories = new List<CategoryDto>();
             postViewModel.CategoryList.ForEach(x =>
             {
-               var categoryItem = postViewModel.GlobalBlogData.CategoryList.First(c => c.CategoryId == Convert.ToInt32(x.ItemId));
+                var categoryItem = postViewModel.GlobalBlogData.CategoryList.First(c => c.CategoryId == Convert.ToInt32(x.ItemId));
                 postDto.Categories.Add(categoryItem);
             });
 
@@ -67,8 +71,13 @@ namespace UniqueBlog.Controllers
 
             bool flag = this.postService.AddPost(postDto);
             ResponseJsonResult responseJsonResult = new ResponseResults.ResponseJsonResult(flag);
-            if (!flag) {
-                responseJsonResult.Message = "There is some error happen";
+
+
+            logger.Info("save a new post");
+
+            if (!flag)
+            {
+                responseJsonResult.Message = "There is an error happen";
             }
 
             return Json(responseJsonResult);
@@ -80,5 +89,5 @@ namespace UniqueBlog.Controllers
         {
             return RedirectToAction("Index", "Home");
         }
-	}
+    }
 }

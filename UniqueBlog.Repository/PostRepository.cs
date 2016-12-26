@@ -50,29 +50,22 @@ namespace UniqueBlog.Repository
         {
             List<BlogPost> postList = new List<BlogPost>();
 
-            try
+            using (var dbConnection = _dbbase.CreateDbConnection())
             {
-                using (var dbConnection = _dbbase.CreateDbConnection())
+                dbConnection.Open();
+                DbCommand command = dbConnection.CreateCommand();
+                query.TranslateIntoSql(command, _baseSql);
+                using (DbDataReader dataReader = command.ExecuteReader())
                 {
-                    dbConnection.Open();
-                    DbCommand command = dbConnection.CreateCommand();
-                    query.TranslateIntoSql(command, _baseSql);
-                    using (DbDataReader dataReader = command.ExecuteReader())
+                    while (dataReader.Read())
                     {
-                        while (dataReader.Read())
-                        {
-                            BlogPost post = this.GetBlogFromReader(dataReader);
-                            postList.Add(post);
-                        }
+                        BlogPost post = this.GetBlogFromReader(dataReader);
+                        postList.Add(post);
                     }
                 }
+            }
 
-                return postList;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return postList;
         }
 
         public IEnumerable<BlogPost> FindBy(Query query, int index, int count)
@@ -112,44 +105,37 @@ namespace UniqueBlog.Repository
         {
             var blogPost = entity as BlogPost;
 
-            try
+            using (var dbConnection = this._dbbase.CreateDbConnection())
             {
-                using (var dbConnection = this._dbbase.CreateDbConnection())
+                dbConnection.Open();
+
+                using (var transaction = dbConnection.BeginTransaction())
                 {
-                    dbConnection.Open();
 
-                    using (var transaction = dbConnection.BeginTransaction())
-                    {
+                    DbCommand dbCommand = dbConnection.CreateCommand();
+                    dbCommand.CommandText = "sp_add_blogpost";
+                    dbCommand.CommandType = CommandType.StoredProcedure;
 
-                        DbCommand dbCommand = dbConnection.CreateCommand();
-                        dbCommand.CommandText = "sp_add_blogpost";
-                        dbCommand.CommandType = CommandType.StoredProcedure;
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", blogPost.BlogId));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", blogPost.CreatedDate));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
 
-                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", blogPost.BlogId));
-                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
-                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
-                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", blogPost.CreatedDate));
-                        dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
+                    blogPost.PostId = Convert.ToInt32(dbCommand.ExecuteScalar());
 
-                        blogPost.PostId = Convert.ToInt32(dbCommand.ExecuteScalar());
+                    DataTable dt = this.GetPostCategoryRelationship(blogPost.Categories, blogPost.PostId);
+                    DbCommand relationCommand = dbConnection.CreateCommand();
+                    relationCommand.CommandText = "sp_add_blogpost_relation";
+                    relationCommand.CommandType = CommandType.StoredProcedure;
 
-                        DataTable dt = this.GetPostCategoryRelationship(blogPost.Categories, blogPost.PostId);
-                        DbCommand relationCommand = dbConnection.CreateCommand();
-                        relationCommand.CommandText = "sp_add_blogpost_relation";
-                        relationCommand.CommandType = CommandType.StoredProcedure;
+                    relationCommand.Parameters.Add(this._dbbase.CreateDbParameter("postCategoryTable", dt));
 
-                        relationCommand.Parameters.Add(this._dbbase.CreateDbParameter("postCategoryTable", dt));
+                    relationCommand.ExecuteNonQuery();
 
-                        relationCommand.ExecuteNonQuery();
+                    transaction.Commit();
 
-                        transaction.Commit();
-
-                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
 

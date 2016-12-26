@@ -9,11 +9,14 @@ using System.Web.SessionState;
 using UniqueBlog.Controllers.DtoMapperManager;
 using UniqueBlog.Controllers.MEF;
 using UniqueBlog.Controllers.RouteConfig;
+using UniqueBlog.Infrastructure.Log;
+using System.Reflection;
 
 namespace UniqueBlog.Web
 {
 	public class Global: System.Web.HttpApplication
 	{
+        private static readonly ILog logger = LoggerFactory.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 		protected void Application_Start(object sender, EventArgs e)
 		{
@@ -25,6 +28,8 @@ namespace UniqueBlog.Web
 			MefConfiguration.RegisterMef();
 			//注册AutoMapper
 			MapperManager.RegisterTypeMapper();
+            //配置日志
+            LogConfiguration.ConfigLog();
 		}
 
 		protected void Session_Start(object sender, EventArgs e)
@@ -44,7 +49,9 @@ namespace UniqueBlog.Web
 
 		protected void Application_Error(object sender, EventArgs e)
 		{
-
+            Exception exception = Server.GetLastError();
+            logger.Fatal("There is an fatal error happen when the web application is running", exception);
+            Response.Clear();
 		}
 
 		protected void Session_End(object sender, EventArgs e)

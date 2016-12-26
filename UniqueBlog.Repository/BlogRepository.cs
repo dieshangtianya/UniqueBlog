@@ -13,110 +13,102 @@ using System.Data.Common;
 
 namespace UniqueBlog.Repository
 {
-	[Export(typeof(IBlogRepository))]
+    [Export(typeof(IBlogRepository))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
-    public class BlogRepository:IBlogRepository
-	{
-		private IDatabase _dbbase;
+    public class BlogRepository : IBlogRepository
+    {
+        private IDatabase _dbbase;
 
-		public BlogRepository()
-		{
-			_dbbase = DatabaseFactory.CreateDataBase();
-		}
+        public BlogRepository()
+        {
+            _dbbase = DatabaseFactory.CreateDataBase();
+        }
 
-		#region IBlogRepository members
+        #region IBlogRepository members
 
-		public IEnumerable<Blog> FindAll()
-		{
-			throw new NotImplementedException();
-		}
+        public IEnumerable<Blog> FindAll()
+        {
+            throw new NotImplementedException();
+        }
 
-		public IEnumerable<Blog> FindAll(int index, int count)
-		{
-			throw new NotImplementedException();
-		}
+        public IEnumerable<Blog> FindAll(int index, int count)
+        {
+            throw new NotImplementedException();
+        }
 
-		public IEnumerable<Blog> FindBy(Query query)
-		{
-			List<Blog> blogList = new List<Blog>();
+        public IEnumerable<Blog> FindBy(Query query)
+        {
+            List<Blog> blogList = new List<Blog>();
 
-			try
-			{
-				using (var dbConnection = _dbbase.CreateDbConnection())
-				{
-					dbConnection.Open();
-					DbCommand command = dbConnection.CreateCommand();
+            using (var dbConnection = _dbbase.CreateDbConnection())
+            {
+                dbConnection.Open();
+                DbCommand command = dbConnection.CreateCommand();
 
-					query.TranslateIntoSql(command);
+                query.TranslateIntoSql(command);
 
-					using (DbDataReader dataReader = command.ExecuteReader())
-					{
-						while (dataReader.Read())
-						{
-							Blog blog = this.GetBlogFromReader(dataReader);
-							blogList.Add(blog);
-						}
-					}
-				}
+                using (DbDataReader dataReader = command.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        Blog blog = this.GetBlogFromReader(dataReader);
+                        blogList.Add(blog);
+                    }
+                }
+            }
 
-				return blogList;
-			}
-			catch(Exception ex)
-			{
-				throw ex;
-			}
-		}
+            return blogList;
+        }
 
+        public Blog FindByUserName(string userName)
+        {
+            string procedureName = "sp_getblogbyusername";
 
-		public Blog FindByUserName(string userName)
-		{
-			string procedureName="sp_getblogbyusername";
+            IList<Criterion> criteria = new List<Criterion>();
+            criteria.Add(new Criterion("UserName", userName, CriterionOperator.Equal));
+            Query query = new Query(procedureName, criteria);
 
-			IList<Criterion> criteria = new List<Criterion>();
-			criteria.Add(new Criterion("UserName", userName, CriterionOperator.Equal));
-			Query query = new Query(procedureName, criteria);
+            IEnumerable<Blog> blogList = this.FindBy(query);
+            return blogList.FirstOrDefault();
+        }
 
-			IEnumerable<Blog> blogList = this.FindBy(query);
-			return blogList.FirstOrDefault();
-		}
+        public IEnumerable<Blog> FindBy(Query query, int index, int count)
+        {
+            throw new NotImplementedException();
+        }
 
-		public IEnumerable<Blog> FindBy(Query query, int index, int count)
-		{
-			throw new NotImplementedException();
-		}
+        public Blog FindBy(int entityId)
+        {
+            throw new NotImplementedException();
+        }
 
-		public Blog FindBy(int entityId)
-		{
-			throw new NotImplementedException();
-		}
+        public void Add(Blog entity)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void Add(Blog entity)
-		{
-			throw new NotImplementedException();
-		}
+        public void Save(Blog entity)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void Save(Blog entity)
-		{
-			throw new NotImplementedException();
-		}
+        public void Remove(Blog entity)
+        {
+            throw new NotImplementedException();
+        }
 
-		public void Remove(Blog entity)
-		{
-			throw new NotImplementedException();
-		}
+        #endregion
 
-		#endregion
-
-		#region private methods
-		private Blog GetBlogFromReader(DbDataReader dataReader)
-		{
-			Blog blog = new Blog();
-			blog.BlogId = (int)dataReader["BlogId"];
-			blog.BlogTitle = dataReader["BlogTitle"].ToString();
-			blog.Description = dataReader["Description"].ToString();
-			blog.CreationDate = (DateTime)dataReader["CreationDate"];
-			return blog;
-		}
-		#endregion
-	}
+        #region private methods
+        private Blog GetBlogFromReader(DbDataReader dataReader)
+        {
+            Blog blog = new Blog();
+            blog.BlogId = (int)dataReader["BlogId"];
+            blog.BlogTitle = dataReader["BlogTitle"].ToString();
+            blog.Description = dataReader["Description"].ToString();
+            blog.CreationDate = (DateTime)dataReader["CreationDate"];
+            return blog;
+        }
+        #endregion
+    }
 }

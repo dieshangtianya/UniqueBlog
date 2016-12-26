@@ -1,48 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.Composition;
-using UniqueBlog.Infrastructure.Query;
-using UniqueBlog.Service.Interfaces;
-using UniqueBlog.Domain.Repository;
-using UniqueBlog.Domain.Entities;
-using UniqueBlog.DTO;
 using AutoMapper;
 using AutoMapper.Mappers;
-
+using UniqueBlog.Domain.Entities;
+using UniqueBlog.Domain.Repository;
+using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure.Log;
+using UniqueBlog.Infrastructure.Query;
+using UniqueBlog.Service.Interfaces;
 
 namespace UniqueBlog.Service
 {
-	[Export(typeof(IAccountService))]
+    [Export(typeof(IAccountService))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class AccountService : IAccountService
-	{
-		private IUserRepository _UserRepository;
+    {
+        private IUserRepository _UserRepository;
 
-		[ImportingConstructor]
-		public AccountService(IUserRepository userRepository)
-		{
-			this._UserRepository = userRepository;
-		}
+        private static readonly ILog logger = LoggerFactory.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		public bool VerifyUser(UserDto userDto)
-		{
-			Query query = new Query();
+        [ImportingConstructor]
+        public AccountService(IUserRepository userRepository)
+        {
+            this._UserRepository = userRepository;
+        }
 
-			query.Add(Criterion.Create<User>(item => item.UserName, userDto.UserName, CriterionOperator.Equal));
-			query.Add(Criterion.Create<User>(item => item.Password, userDto.Password, CriterionOperator.Equal));
+        public bool VerifyUser(UserDto userDto)
+        {
+            var isExist = false;
 
-			User user = this._UserRepository.FindBy(query).FirstOrDefault();
-			var isExist = false;
+            try
+            {
+                Query query = new Query();
 
-			if (user != null)
-			{
-				isExist = true;
-			}
+                query.Add(Criterion.Create<User>(item => item.UserName, userDto.UserName, CriterionOperator.Equal));
+                query.Add(Criterion.Create<User>(item => item.Password, userDto.Password, CriterionOperator.Equal));
 
-			return isExist;
-		}
-	}
+                User user = this._UserRepository.FindBy(query).FirstOrDefault();
+
+                if (user != null)
+                {
+                    isExist = true;
+                }
+            }
+
+            catch (Exception exception)
+            {
+                logger.Error("There is an error happen", exception);
+            }
+
+            return isExist;
+        }
+    }
 }
