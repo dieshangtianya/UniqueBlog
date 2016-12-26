@@ -1,45 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.Composition;
-using UniqueBlog.Service.Interfaces;
-using UniqueBlog.Domain.Repository;
-using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.Domain.Entities;
+using UniqueBlog.Domain.Repository;
 using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure.Log;
+using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.Service.DtoMapper;
+using UniqueBlog.Service.Interfaces;
 
 namespace UniqueBlog.Service
 {
-	[Export(typeof(ICategoryService))]
-	public class CategoryService:ICategoryService
-	{
-		private ICategoryRepository _CategoryRepository;
+    [Export(typeof(ICategoryService))]
+    public class CategoryService : ICategoryService
+    {
+        private ICategoryRepository _CategoryRepository;
 
-		[ImportingConstructor]
-		public CategoryService(ICategoryRepository categoryRepository)
-		{
-			_CategoryRepository = categoryRepository;
-		}
+        private static readonly ILog logger = LoggerFactory.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		public IEnumerable<DTO.CategoryDto> GetCategoriesByBlogId(int blogId)
-		{
-			Query query=new Query ();
+        [ImportingConstructor]
+        public CategoryService(ICategoryRepository categoryRepository)
+        {
+            _CategoryRepository = categoryRepository;
+        }
 
-			query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
+        public IEnumerable<CategoryDto> GetCategoriesByBlogId(int blogId)
+        {
+            IList<CategoryDto> categoryDtoList = new List<CategoryDto>();
 
-			var categoryList = _CategoryRepository.FindBy(query);
+            try
+            {
+                Query query = new Query();
 
-			IList<CategoryDto> categoryDtoList = new List<CategoryDto>();
+                query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
 
-			foreach (Category category in categoryList)
-			{
-				categoryDtoList.Add(category.ConvertTo());
-			}
+                var categoryList = _CategoryRepository.FindBy(query);
 
-			return categoryDtoList;
-		}
-	}
+                foreach (Category category in categoryList)
+                {
+                    categoryDtoList.Add(category.ConvertTo());
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Error("There is an error happen", exception);
+            }
+
+            return categoryDtoList;
+        }
+    }
 }

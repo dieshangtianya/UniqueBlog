@@ -9,25 +9,30 @@ using System.Web.Mvc;
 
 namespace UniqueBlog.Controllers.MEF
 {
-	public class MEFControllerFactory : DefaultControllerFactory
-	{
-		private readonly CompositionContainer _container;
+    public class MEFControllerFactory : DefaultControllerFactory
+    {
+        private readonly CompositionContainer _container;
 
-		public MEFControllerFactory(CompositionContainer container)
-		{
-			this._container = container;
-		}
+        public MEFControllerFactory(CompositionContainer container)
+        {
+            this._container = container;
+        }
 
-		protected override IController GetControllerInstance(System.Web.Routing.RequestContext requestContext, Type controllerType)
-		{
-			Lazy<object, object> export = _container.GetExports(controllerType, null, null).FirstOrDefault();
+        protected override IController GetControllerInstance(System.Web.Routing.RequestContext requestContext, Type controllerType)
+        {
+            if (controllerType != null)
+            {
+                Lazy<object, object> export = _container.GetExports(controllerType, null, null).FirstOrDefault();
 
-			return null == export ? base.GetControllerInstance(requestContext, controllerType) : (IController)export.Value;
-		}
+                return null == export ? base.GetControllerInstance(requestContext, controllerType) : (IController)export.Value;
+            }
 
-		public override void ReleaseController(IController controller)
-		{
-			((IDisposable)controller).Dispose();
-		}
-	}
+            return null;
+        }
+
+        public override void ReleaseController(IController controller)
+        {
+            ((IDisposable)controller).Dispose();
+        }
+    }
 }

@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using UniqueBlog.Domain.Repository;
 using UniqueBlog.Domain.Entities;
+using UniqueBlog.Domain.Repository;
 using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure.Log;
 using UniqueBlog.Infrastructure.Query;
-using UniqueBlog.Service.Interfaces;
-using UniqueBlog.Service.DtoMapper;
 using UniqueBlog.Infrastructure.UnitOfWork;
+using UniqueBlog.Service.DtoMapper;
+using UniqueBlog.Service.Interfaces;
 
 namespace UniqueBlog.Service
 {
@@ -18,6 +20,8 @@ namespace UniqueBlog.Service
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PostService : IPostService
     {
+        private static readonly ILog logger = LoggerFactory.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private IPostRepository _postRepository;
 
         private IUnitOfWork _unitOfWork;
@@ -33,17 +37,24 @@ namespace UniqueBlog.Service
 
         public IEnumerable<PostDto> GetPostListByBlogId(int blogId)
         {
-            Query query = new Query();
-
-            query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
-
-            var postList = _postRepository.FindBy(query);
-
             IList<PostDto> postDtoList = new List<PostDto>();
 
-            foreach (BlogPost post in postList)
+            try
             {
-                postDtoList.Add(post.ConvertTo());
+                Query query = new Query();
+
+                query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
+
+                var postList = _postRepository.FindBy(query);
+
+                foreach (BlogPost post in postList)
+                {
+                    postDtoList.Add(post.ConvertTo());
+                }
+            }
+            catch (Exception exception)
+            {
+                logger.Error("There is an error happen", exception);
             }
 
             return postDtoList;
@@ -59,8 +70,9 @@ namespace UniqueBlog.Service
                 this._unitOfWork.Commit();
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception exception)
             {
+                logger.Error("There is an error happen", exception);
                 return false;
             }
         }

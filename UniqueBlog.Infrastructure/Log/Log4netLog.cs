@@ -7,13 +7,18 @@ using log4net;
 
 namespace UniqueBlog.Infrastructure.Log
 {
-    public class Log4netLog : ILog
+    public class Log4netLogger : ILog
     {
         private log4net.ILog log4netLogger;
 
-        public Log4netLog(Type type)
+        public Log4netLogger(Type type)
         {
             log4netLogger = LogManager.GetLogger(type);
+        }
+
+        public Log4netLogger(string loggerName)
+        {
+            log4netLogger = LogManager.GetLogger(loggerName);
         }
 
         #region implementation

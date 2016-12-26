@@ -49,7 +49,7 @@
     <Compile Include="Log\ILog.cs" />
     <Compile Include="Log\Log4netLog.cs" />
     <Compile Include="Log\LogConfiguration.cs" />
-    <Compile Include="Log\LogFactory.cs" />
+    <Compile Include="Log\LoggerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\CriterionOperator.cs" />
     <Compile Include="Query\Criterion.cs" />
