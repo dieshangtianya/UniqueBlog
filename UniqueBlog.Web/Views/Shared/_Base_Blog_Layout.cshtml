@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href=@Url.Content("~/css/browser-override.css") rel="stylesheet" />
+    <link href=@Url.Content("~/vendor/bootstrap/3.3.5/css/bootstrap.min.css") rel="stylesheet" />
+    <link href=@Url.Content("~/css/home.css") rel="stylesheet" />
+    <link href=@Url.Content("~/vendor/jquery-ui/1.12.1/jquery-ui.min.css") rel="stylesheet" />
+    <link href=@Url.Content("~/css/basic.css") rel="stylesheet" />
+    <link href=@Url.Content("~/css/blog-layout.css") rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container blog-container">
+        <div class="row">
+            <div class="col-md-12" id="header">
+                @RenderPage("_Blog_Header.cshtml")
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 blog-body" id="main">
+                @RenderBody()
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="footer">
+                @RenderPage("_Blog_Footer.cshtml")
+            </div>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

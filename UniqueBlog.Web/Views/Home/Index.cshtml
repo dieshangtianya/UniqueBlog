@@ -1,40 +1,8 @@
-﻿<!--css-->
-<link href="~/vendor/jquery-ui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
-<link href="~/css/home.css" rel="stylesheet" />
+﻿@using UniqueBlog.Web.Extensions
 
-<!--script-->
-<script type="text/javascript" src="@Url.Content("~/vendor/require/2.1.15/require.min.js")" data-main="/app/home/home-main"></script>
+@{Html.RenderAction("PostList", "BlogPost", new { BlogId = Model.GlobalBlogData.BlogData.BlogId });}
 
-@model UniqueBlog.Controllers.Models.ViewModels.HomeViewModel
-
-<div class="row">
-    <div class="col-md-3">
-        <div class="row">
-			<div class="widget-container widget-calendar" id="widget-calendar"></div>
-        </div>
-        <div class="row">
-			<div class="widget-container widget-post-category widget-container-border">
-				<div class="widget-post-category-title">博客分类</div>
-				@foreach (var category in Model.GlobalBlogData.CategoryList)
-				{
-					<div><a>@category.CategoryName</a></div>
-				}
-			</div>
-
-        </div>
-        <div class="row">
-			<div class="widget-container"></div>
-        </div>
-    </div>
-    <div class="col-md-9">
-        <!--
-            There are about four ways to implment a partial views
-            such as Partial(),RenderPartial(),Action(),RenderAction().
-            @*@Html.Action("PostList", "BlogPost")*@
-            @*@{Html.RenderAction("PostList", "BlogPost");}*@
-            @*@Html.Partial("~/Views/BlogPost/PostList.cshtml")*@
-            @*@{Html.RenderPartial("~/Views/BlogPost/PostList.cshtml");}*@
-        -->
-		@{Html.RenderAction("PostList", "BlogPost", new { BlogId = Model.GlobalBlogData.BlogData.BlogId });}
-    </div>
-</div>
+@section scripts
+{
+    @Html.RenderRequireJS("/app/home/home")  
+}

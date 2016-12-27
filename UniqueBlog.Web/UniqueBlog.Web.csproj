@@ -89,10 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\config.js" />
-    <Content Include="app\home\home-main.js" />
     <Content Include="app\home\home.js" />
-    <Content Include="app\post\new-post-main.js" />
     <Content Include="app\post\new-post.js" />
+    <Content Include="app\sidebar\sidebar.js" />
     <Content Include="app\user\user-login-main.js" />
     <Content Include="app\user\user-login.js" />
     <Content Include="css\basic.css" />
@@ -175,6 +174,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\HtmlHelperRequireJS.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,11 +198,14 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="log4net.config" />
     <None Include="Properties\PublishProfiles\Web.config.pubxml" />
-    <Content Include="Views\Shared\_Blog_Layout.cshtml" />
+    <Content Include="Views\Shared\_Base_Blog_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\BlogPost\NewPost.cshtml" />
     <Content Include="Views\BlogPost\PostList.cshtml" />
     <Content Include="vendor\ckeditor\4.6.0\skins\moono-lisa\readme.md" />
+    <Content Include="Views\Shared\_Blog_Header.cshtml" />
+    <Content Include="Views\Shared\_Blog_Footer.cshtml" />
+    <Content Include="Views\Shared\_Standard_Blog_Layout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
