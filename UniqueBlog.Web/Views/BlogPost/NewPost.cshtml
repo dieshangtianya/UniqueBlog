@@ -1,14 +1,22 @@
-﻿<!--stylesheet-->
+﻿@{ 
+    Layout = "~/Views/Shared/_Base_Blog_Layout.cshtml";
+}
+
+@using UniqueBlog.Controllers.Models;
+@using UniqueBlog.Web.Extensions;
+
+@model UniqueBlog.Controllers.Models.ViewModels.NewPostViewModel
+
+<!--stylesheet-->
 <link href="~/vendor/bootstrap-tag-input/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
 <link href="~/vendor/ckeditor/4.6.0/plugins/codesnippet/lib/highlight/styles/default.css" rel="stylesheet">
 <link href="~/css/tag-input.css" rel="stylesheet" />
 <link href="~/css/post-new.css" rel="stylesheet" />
-<!--script-->
-<script src="@Url.Content("~/vendor/require/2.1.15/require.min.js")" data-main="/app/post/new-post-main"></script>
 
-@using UniqueBlog.Controllers.Models;
-
-@model UniqueBlog.Controllers.Models.ViewModels.NewPostViewModel
+@section scripts
+{
+    @Html.RenderRequireJS("/app/post/new-post")
+}
 
 @using (Html.BeginForm("SavePost","BlogPost",FormMethod.Post,new { id="postform"}))
 {

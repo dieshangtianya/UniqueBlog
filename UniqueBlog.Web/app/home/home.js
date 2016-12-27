@@ -1,10 +1,14 @@
-﻿define([
+﻿require(["./../config"], function () {
+    require(["home.module"]);
+}),
+define(
+    "home.module", [
 		"jquery"
-		, "domready"
-		, "jquery-ui"
-], function ($, domready) {
+        , "domready"
+        , "sidebar/sidebar"
+    ], function ($, domready, sidebar) {
 
-	domready(function () {
-		$("#widget-calendar").datepicker();
-	});
-});
+        domready(function () {
+            sidebar.initialize();
+        });
+    });
