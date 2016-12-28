@@ -16,6 +16,7 @@ using UniqueBlog.Service.Interfaces;
 namespace UniqueBlog.Service
 {
     [Export(typeof(ICategoryService))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CategoryService : ICategoryService
     {
         private ICategoryRepository _CategoryRepository;

@@ -1,0 +1,30 @@
+﻿@using UniqueBlog.Web.Extensions
+@model UniqueBlog.Controllers.Models.ViewModels.PostViewModel
+
+
+@*<link href="~/vendor/ckeditor/4.6.0/contents.css" rel="stylesheet" />*@
+<link href="~/vendor/ckeditor/4.6.0/plugins/codesnippet/lib/highlight/styles/obsidian.css" rel="stylesheet"/>
+<link href="~/css/post.css" rel="stylesheet" />
+
+@section scripts
+{
+    @Html.RenderRequireJS("/app/post/post")
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="post-title"><a href="@Request.Url.PathAndQuery">@Model.PostTitle</a></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="post-content">
+           @(new HtmlString(Model.PostContent))
+        </div>
+    </div>
+</div>
+<div class="row">
+
+</div>
