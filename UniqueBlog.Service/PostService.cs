@@ -60,6 +60,17 @@ namespace UniqueBlog.Service
             return postDtoList;
         }
 
+        public PostDto GetPostById(int postId)
+        {
+            Query query = new Query();
+            query.Add(new Criterion("BlogPostId", postId, CriterionOperator.Equal));
+
+            var post = _postRepository.FindBy(postId);
+
+            var postDto = post.ConvertTo();
+
+            return postDto;
+        }
 
         public bool AddPost(PostDto postDto)
         {

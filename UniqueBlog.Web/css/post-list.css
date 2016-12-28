@@ -15,6 +15,10 @@
 
 .post-container .post-item .post-item-brief{
 	padding:10px 0;
+    height:200px;
+    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .post-container .post-item .post-item-detail{

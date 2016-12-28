@@ -11,6 +11,8 @@ namespace UniqueBlog.Service.Interfaces
 	{
 		IEnumerable<PostDto> GetPostListByBlogId(int blogId);
 
+        PostDto GetPostById(int postId);
+
         bool AddPost(PostDto post);
 	}
 }

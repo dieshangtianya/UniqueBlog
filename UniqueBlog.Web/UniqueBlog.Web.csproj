@@ -91,6 +91,7 @@
     <Content Include="app\config.js" />
     <Content Include="app\home\home.js" />
     <Content Include="app\post\new-post.js" />
+    <Content Include="app\post\post.js" />
     <Content Include="app\sidebar\sidebar.js" />
     <Content Include="app\user\user-login-main.js" />
     <Content Include="app\user\user-login.js" />
@@ -100,6 +101,7 @@
     <Content Include="css\home.css" />
     <Content Include="css\post-list.css" />
     <Content Include="css\post-new.css" />
+    <Content Include="css\post.css" />
     <Content Include="css\tag-input.css" />
     <Content Include="css\user_login.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -206,6 +208,7 @@
     <Content Include="Views\Shared\_Blog_Header.cshtml" />
     <Content Include="Views\Shared\_Blog_Footer.cshtml" />
     <Content Include="Views\Shared\_Standard_Blog_Layout.cshtml" />
+    <Content Include="Views\BlogPost\Post.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

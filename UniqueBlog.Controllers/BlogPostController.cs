@@ -52,9 +52,26 @@ namespace UniqueBlog.Controllers
             return View(newPostVM);
         }
 
+        public ActionResult Post(int id)
+        {
+            PostDto postDto = this.postService.GetPostById(id);
+
+            PostViewModel postViewModel = new PostViewModel();
+            postViewModel.PostId = postDto.PostId;
+            postViewModel.PostTitle = postDto.Title;
+            postViewModel.PostContent = postDto.Content;
+            postViewModel.CreatedDate = postDto.CreatedDate;
+            postViewModel.PostTags = postDto.Tags;
+
+            return View(postViewModel);
+        }
+
         [HttpPost]
         public JsonResult SavePost(NewPostViewModel postViewModel)
         {
+            if (postViewModel.CategoryList == null)
+                return Json(null);
+
             PostDto postDto = new PostDto();
             postDto.BlogId = postViewModel.GlobalBlogData.BlogData.BlogId;
             postDto.Categories = new List<CategoryDto>();

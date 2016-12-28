@@ -1,0 +1,14 @@
+﻿pre{
+    border:none;
+    background-color:transparent !important;
+}
+
+.post-title{
+    text-align:left;
+    font-size:20px;
+    margin-top:30px;
+}
+
+.post-content{
+    margin-top:20px;
+}

@@ -32,37 +32,32 @@ INSERT INTO t_category (BlogId,CategoryName,[Description],CreatedDate) VALUES (@
 GO
 
 --t_blog_post
-DECLARE @blogId INT;
-SELECT @blogId=(SELECT TOP 1 BlogId FROM t_blog);
+--DECLARE @blogId INT;
+--SELECT @blogId=(SELECT TOP 1 BlogId FROM t_blog);
 
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 分部视图');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 路由机制');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 模型处理');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 客户端验证');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 服务器验证');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 部署');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 分部视图');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 分部视图');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 分部视图');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 分部视图');
-INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 分部视图');
+--INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 分部视图');
+--INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 路由机制');
+--INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 模型处理');
+--INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 客户端验证');
+--INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 服务器验证');
+--INSERT INTO t_blog_post(BlogId,PostTitle) VALUES (@blogId,'Asp.net MVC 部署');
 
-GO
+--GO
 
---t_post_category
-DECLARE @categoryId INT,
-		@index INT;
+----t_post_category
+--DECLARE @categoryId INT,
+--		@index INT;
 
-SELECT @categoryId=(SELECT TOP 1 CategoryId FROM t_category);
-SELECT @index=0;
+--SELECT @categoryId=(SELECT TOP 1 CategoryId FROM t_category);
+--SELECT @index=0;
 
-WHILE(@index<5)
-BEGIN
-INSERT INTO t_post_category (PostId,CategoryId) values(@index+1,@categoryId);
-SELECT @index=@index+1;
-END
+--WHILE(@index<5)
+--BEGIN
+--INSERT INTO t_post_category (PostId,CategoryId) values(@index+1,@categoryId);
+--SELECT @index=@index+1;
+--END
 
-GO
+--GO
 
 
 
