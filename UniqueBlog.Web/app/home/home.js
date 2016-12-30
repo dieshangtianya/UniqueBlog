@@ -6,6 +6,7 @@ define(
 		"jquery"
         , "domready"
         , "sidebar/sidebar"
+        ,"post/post-list"
     ], function ($, domready, sidebar) {
 
         domready(function () {

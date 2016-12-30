@@ -74,7 +74,9 @@ define(
         function validateData() {
             var postTitle = $("#PostTitle").val();
 
-            var postContent = CKEDITOR.instances['postEditor'].getData()
+            var postContent = CKEDITOR.instances['postEditor'].getData();
+
+            var postPlainContent = CKEDITOR.instances["postEditor"].document.getBody().getText();
 
             var categories = [];
             //traverse the all categories to choose selected category
@@ -110,6 +112,7 @@ define(
             var post = {
                 PostTitle: postTitle,
                 PostContent: postContent,
+                PostPlainContent:postPlainContent,
                 CategoryList: categories,
                 PostTags: tags,
             };

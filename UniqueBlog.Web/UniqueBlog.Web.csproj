@@ -91,6 +91,7 @@
     <Content Include="app\config.js" />
     <Content Include="app\home\home.js" />
     <Content Include="app\post\new-post.js" />
+    <Content Include="app\post\post-list.js" />
     <Content Include="app\post\post.js" />
     <Content Include="app\sidebar\sidebar.js" />
     <Content Include="app\user\user-login-main.js" />
@@ -98,10 +99,11 @@
     <Content Include="css\basic.css" />
     <Content Include="css\blog-layout.css" />
     <Content Include="css\browser-override.css" />
-    <Content Include="css\home.css" />
+    <Content Include="css\blog-standard-layout.css" />
     <Content Include="css\post-list.css" />
     <Content Include="css\post-new.css" />
     <Content Include="css\post.css" />
+    <Content Include="css\predefined-post-extra-style.css" />
     <Content Include="css\tag-input.css" />
     <Content Include="css\user_login.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -149,6 +151,7 @@
     <Content Include="vendor\ckeditor\4.6.0\skins\moono-lisa\images\refresh.png" />
     <Content Include="vendor\ckeditor\4.6.0\skins\moono-lisa\images\spinner.gif" />
     <Content Include="vendor\ckeditor\4.6.0\styles.js" />
+    <Content Include="vendor\jquery-dotdotdot\jquery.dotdotdot.min.js" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-bg_glass_65_ffffff_1x400.png" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-bg_highlight-soft_100_f6f6f6_1x100.png" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-bg_highlight-soft_25_0073ea_1x100.png" />

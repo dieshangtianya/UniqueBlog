@@ -1,14 +1,29 @@
 ﻿pre{
-    border:none;
+    /*border:none;*/
+    background-color:#F4F4F4 !important;
+}
+
+code{
     background-color:transparent !important;
+}
+
+.post-container{
+    margin:10px 0;
+    height:100%;
 }
 
 .post-title{
     text-align:left;
     font-size:20px;
-    margin-top:30px;
+    padding:10px 10px;
+    background-color:#DDDDDD;
+    margin-right:-15px;
+}
+
+.post-title a{
+    color:#3B3A3A;
 }
 
 .post-content{
-    margin-top:20px;
+    margin:10px;
 }

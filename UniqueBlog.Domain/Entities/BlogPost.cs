@@ -15,6 +15,8 @@ namespace UniqueBlog.Domain.Entities
 
 		public string Content { get; set; }
 
+        public string PlainContent { get; set; }
+
 		public IList<Category> Categories { get; set; }
 
 		public int BlogId { get; set; }

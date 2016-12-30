@@ -85,6 +85,7 @@ namespace UniqueBlog.Controllers
             postDto.Title = postViewModel.PostTitle;
             postDto.Tags = postViewModel.PostTags;
             postDto.Content = postViewModel.PostContent;
+            postDto.PlainContent = postViewModel.PostPlainContent;
 
             bool flag = this.postService.AddPost(postDto);
             ResponseJsonResult responseJsonResult = new ResponseResults.ResponseJsonResult(flag);

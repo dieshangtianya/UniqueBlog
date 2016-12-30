@@ -3,14 +3,20 @@
 }
 <link href="~/css/post-list.css" rel="stylesheet" />
 
-<div class="post-container">
+<div class="post-list-container">
+    @if (ViewBag.PostList.Count == 0) {
+        <span>暂无任何文章</span>
+    }
+
     @foreach (var postItem in ViewBag.PostList)
     {
         string title = postItem.Title;
-        string content = postItem.Content;
+        string content = postItem.PlainContent;
         <div class="post-item">
             <div class="post-title">@Html.ActionLink(title,"Post",new { id=postItem.PostId})</div>
-            <div class="post-item-brief">@Html.Raw(content!=null?content:"")</div>
+            <div class="post-item-brief">
+                @Html.Raw(content!=null?content:"")
+            </div>
             <div class="post-item-detail clearfix">
                <span>@postItem.CreatedDate.ToString("yyyy-MM-dd HH:mm")</span>
                <span class="read">阅读(200)</span>

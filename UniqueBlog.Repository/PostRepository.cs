@@ -139,6 +139,7 @@ namespace UniqueBlog.Repository
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", blogPost.BlogId));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostPlainContent", blogPost.PlainContent));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", blogPost.CreatedDate));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
 
@@ -177,6 +178,7 @@ namespace UniqueBlog.Repository
             post.Title = dataReader["PostTitle"].ToString();
             post.BlogId = (int)dataReader["BlogId"];
             post.Content = dataReader["PostContent"].ToString();
+            post.PlainContent = dataReader["PostPlainContent"].ToString();
             post.CreatedDate = DateTime.Parse(dataReader["CreatedDate"].ToString());
             string tagStr = dataReader["Tags"].ToString();
             if (tagStr.Length > 0)
