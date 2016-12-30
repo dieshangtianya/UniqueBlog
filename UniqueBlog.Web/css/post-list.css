@@ -1,40 +1,43 @@
-﻿.post-container{
+﻿.post-list-container{
 	height:auto;
-	margin:15px;
 }
 
-.post-container .post-item{
+.post-list-container .post-item{
 	padding:10px 0;
 	border-bottom:dashed 1px #DDDDDD;
 }
 
-.post-container .post-item .post-title{
+.post-list-container .post-item .post-title{
+    padding:5px 10px;
+    background-color:#CDCCCA;
 	font-weight:normal;
-	font-size:14px;	
+	font-size:18px;
 }
 
-.post-container .post-item .post-item-brief{
-	padding:10px 0;
-    height:200px;
-    overflow:hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+.post-title a{
+    /*color:#ED4E2A;*/
+    color:#3B3A3A;
 }
 
-.post-container .post-item .post-item-detail{
+.post-list-container .post-item .post-item-brief{
+	margin:10px 0;
+    height:160px;
+    line-height:25px;
+}
+
+.post-list-container .post-item .post-item-detail{
 	text-align:right;
-	padding-top:10px;
-	font-size:10px;
+	font-size:12px;
 }
 
-.post-container .post-item .post-item-detail span{
+.post-list-container .post-item .post-item-detail span{
 	margin:0 20px;
 }
 
-.post-container .post-item .post-item-detail .read{
+.post-list-container .post-item .post-item-detail .read{
 	position:relative;
 }
-.post-container .post-item .post-item-detail .read:before{
+.post-list-container .post-item .post-item-detail .read:before{
 	content:"";
 	background-image:url("../images/eye.png");
 	background-size:16px 16px;
@@ -44,10 +47,10 @@
 	left:-18px;
 }
 
-.post-container .post-item .post-item-detail .comment{
+.post-list-container .post-item .post-item-detail .comment{
 	position:relative;
 }
-.post-container .post-item .post-item-detail .comment:before{
+.post-list-container .post-item .post-item-detail .comment:before{
 	content:"";
 	background-image:url("../images/comment.png");
 	background-size:16px 16px;

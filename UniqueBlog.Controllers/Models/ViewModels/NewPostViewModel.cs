@@ -13,6 +13,8 @@ namespace UniqueBlog.Controllers.Models.ViewModels
 
         public string PostContent { get; set; }
 
+        public string PostPlainContent { get; set; }
+
         public string[] PostTags { get; set; }
 
         public List<SelectedItem> CategoryList { get; set; }
