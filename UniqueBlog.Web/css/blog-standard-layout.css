@@ -17,7 +17,8 @@
 }
 
 .widget-container-border{
-	border:solid 1px #DDDDDD;
+    background-color:#6A6A6A;
+    border-radius:5px
 }
 
 .widget-calendar{
@@ -32,9 +33,11 @@
 .widget-post-category .widget-post-category-title{
 	font-weight:bold;
 	line-height:30px;
+
 }
 
 .widget-post-category div a{
+    color:#D8D8D8;
 	line-height:30px;
 	cursor:pointer;	
 }
@@ -42,4 +45,9 @@
 /***overide css***/
 .ui-datepicker {
 	width:auto;
+}
+
+.ui-widget-content 
+{
+    background:#6A6A6A !important;
 }

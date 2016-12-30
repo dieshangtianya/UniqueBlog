@@ -3,24 +3,24 @@
 }
 
 .post-list-container .post-item{
-	padding:10px 0;
-	border-bottom:dashed 1px #DDDDDD;
+    margin:15px 0;
+    padding-bottom:10px;
+    background-color:#6A6A6A;
 }
 
 .post-list-container .post-item .post-title{
-    padding:5px 10px;
-    background-color:#CDCCCA;
+    padding:10px 10px;
+    background-color:#999797;
 	font-weight:normal;
 	font-size:18px;
 }
 
 .post-title a{
-    /*color:#ED4E2A;*/
-    color:#3B3A3A;
+    color:#F9F9F9;
 }
 
 .post-list-container .post-item .post-item-brief{
-	margin:10px 0;
+	padding:10px;
     height:160px;
     line-height:25px;
 }
@@ -44,7 +44,7 @@
 	width:16px;
 	height:16px;
 	position:absolute;
-	left:-18px;
+	left:-20px;
 }
 
 .post-list-container .post-item .post-item-detail .comment{
@@ -57,5 +57,13 @@
 	width:16px;
 	height:16px;
 	position:absolute;
-	left:-18px;
+	left:-20px;
+}
+
+.post-item-hidden{
+    visibility:hidden;
+}
+
+.post-item-visible{
+   visibility:visible;
 }

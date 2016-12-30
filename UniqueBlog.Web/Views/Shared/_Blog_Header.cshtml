@@ -1,15 +1,24 @@
-﻿<div class="row">
-    <div class="col-md-12 blog-title">
-        <p class="title-text">@Model.GlobalBlogData.BlogData.BlogTitle</p>
-        <span class="description-text">────&nbsp;@Model.GlobalBlogData.BlogData.Description</span>
+﻿<div class="blog-title-container">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 blog-title">
+                <p class="title-text">@Model.GlobalBlogData.BlogData.BlogTitle</p>
+                <span class="description-text">────&nbsp;@Model.GlobalBlogData.BlogData.Description</span>
+            </div>
+        </div>
     </div>
 </div>
-<div class="row navigation">
-    <ul class="horizontal-list clearfix">
-        <li class="menuItem">@Html.ActionLink("首页", "Index", "Home")</li>
-        <li class="menuItem">@Html.ActionLink("新随笔", "NewPost", "BlogPost")</li>
-        <li class="menuItem">@Html.ActionLink("工具", "")</li>
-        <li class="menuItem">@Html.ActionLink("资源", "")</li>
-        <li class="menuItem">@Html.ActionLink("订阅", "")</li>
-    </ul>
+<div class="navigation">
+    <div class="container">
+        <div class="row">
+            <ul class="horizontal-list clearfix">
+                <li>@Html.ActionLink("首页", "Index", "Home")</li>
+                <li>@Html.ActionLink("新随笔", "NewPost", "BlogPost")</li>
+                <li>@Html.ActionLink("工具", "")</li>
+                <li>@Html.ActionLink("资源", "")</li>
+                <li>@Html.ActionLink("订阅", "")</li>
+            </ul>
+        </div>
+    </div>
 </div>
+
