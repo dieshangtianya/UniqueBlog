@@ -12,19 +12,15 @@
 
 </head>
 <body>
-    <div class="container blog-container">
-        <div class="row">
-            <div class="col-md-12" id="header">
-                @RenderPage("_Blog_Header.cshtml")
-            </div>
+    <div class="blog-container">
+        <div class="full-width-container">
+            @RenderPage("_Blog_Header.cshtml")
         </div>
-        <div class="row">
-            <div class="col-md-12 blog-body" id="main">
-                @RenderBody()
-            </div>
+        <div class="container blog-body-container">
+            @RenderBody()
         </div>
-        <div class="row">
-            <div class="col-md-12" id="footer">
+        <div class="full-width-container blog-footer-container">
+            <div class="container">
                 @RenderPage("_Blog_Footer.cshtml")
             </div>
         </div>

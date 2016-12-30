@@ -108,7 +108,7 @@
     <Content Include="css\user_login.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="images\blog_bg.jpg" />
+    <Content Include="images\black_bg.png" />
     <Content Include="images\comment.png" />
     <Content Include="images\eye.png" />
     <Content Include="images\uqblog-login.png" />
@@ -161,7 +161,6 @@
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-icons_666666_256x240.png" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-icons_ff0084_256x240.png" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="vendor\jquery-ui\1.12.1\jquery-ui.css" />
     <Content Include="vendor\jquery-ui\1.12.1\jquery-ui.min.css" />
     <Content Include="vendor\jquery-ui\1.12.1\jquery-ui.min.js" />
     <Content Include="vendor\jquery-ui\1.12.1\jquery-ui.theme.min.css" />

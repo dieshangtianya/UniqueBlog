@@ -1,83 +1,71 @@
-﻿  body {
-	  margin: 0; 
-	  /*background-color: #787777;*/
-	  background-image:url("../images/blog_bg.jpg");
-	  background-repeat:no-repeat;
-	  background-attachment:fixed;
-  }
+﻿body {
+    margin: 0;
+    background-color: #000000;
+    color: #D8D8D8;
+}
 
 .blog-container {
-	margin-top:100px;
-	margin-bottom:50px;
-	/*border: solid 1px #CBCACA;*/
-	border-radius:5px;
-	background-color:#FFFFFF;
-	/**
-		阴影有5个值h-shadow（水平阴影位置），v-shadow（垂直阴影位置），blur（模糊距离），spread（阴影尺寸），color（颜色）
-		这里不设阴影尺寸
-	**/
-	/*-webkit-box-shadow: 0px 0px 10px 5px #B1AFAF;
-	box-shadow: 0px 0px 10px 5px #B1AFAF;*/
+    background:url(../images/black_bg.png);
 }
 
-.blog-title{
-	font-family:'Microsoft YaHei';
-	padding:20px 10px;
+.full-width-container {
+    width: 100%;
 }
 
-.blog-title .title-text{
-	font-size:30px;
+.blog-title-container {
+    color: #D8D8D8;
 }
 
-.blog-title .description-text{
-	font-size:16px;
-	margin-left:100px;
+.blog-title {
+    font-family: 'Microsoft YaHei';
+    padding: 20px 10px;
 }
 
-.navigation{
+    .blog-title .title-text {
+        font-size: 30px;
+    }
+
+    .blog-title .description-text {
+        font-size: 16px;
+        margin-left: 100px;
+    }
+
+.navigation {
+    background-color: #6A6A6A;
 }
 
-.navigation ul{
-	background-color:#CBCACA;
+    .navigation ul {
+        margin: 0;
+    }
+
+        .navigation ul li a {
+            padding: 24px 32px;
+            font-size: 24px;
+            cursor: pointer;
+            display: inline-block;
+            color: #D8D8D8;
+        }
+
+            .navigation ul li a:hover {
+                text-decoration: none;
+                background-color: #AAA9A9;
+                color: #EFEDED;
+            }
+
+.blog-body-container{
+    min-height:700px;
 }
 
-.navigation ul li{
-    list-style:none;
+.blog-footer-container{
+    background-color:#6A6A6A;
 }
 
-	.navigation .menuItem {
-	  padding:28px 32px;
-	  font-size:24px;
-	  cursor:pointer;
-	}
-
-	.navigation .menuItem:hover{
-		background-color:#A5A3A3;
-		font-weight:bold;
-		
-	}
-
-	.navigation .menuItem a{
-		color:black;
-	}
-
-	.navigation .menuItem a:hover{
-		text-decoration:none;
-	}
-
-.blog-body{
-	min-height:600px;
+.blog-footer {
+    color:#FFFFFF;
+    padding:20px;
 }
 
-.blog-footer
-{
-	background-color:#CBCACA;
-	height:50px;
-	border-radius:0 0 5px 5px;
-}
-
-	.blog-footer p {
-		text-align:center;
-		line-height:50px;
-	}
-
+    .blog-footer p {
+        text-align: center;
+        margin:0px;
+    }
