@@ -25,27 +25,30 @@ namespace UniqueBlog.Controllers
 		}
 
 		[HttpGet]
-		public ActionResult Login()
+		public new ActionResult Login()
 		{
-            LoginViewModel loginViewModel = new LoginViewModel();
-            loginViewModel.ProductName = Constants.ConstantData.ProductName;
-            loginViewModel.Title = Constants.ConstantData.TitleOfLogin;
-            return View(loginViewModel);
+			LoginViewModel loginViewModel = new LoginViewModel();
+			return View(loginViewModel);
 		}
 
 		[HttpPost]
-		public ActionResult Login(UserDto user)
+		public ActionResult Login(LoginViewModel loginViewModel)
 		{
-			var result = this.AccountService.VerifyUser(user);
+			var user = new UserDto();
+			user.UserName = loginViewModel.UserName;
+			user.Password = loginViewModel.Password;
 
-			if (result)
+			var currentUser= this.AccountService.VerifyUser(user);
+
+			if (currentUser != null)
 			{
+				HttpContext.Session["CurrentUser"] = user;
 				return RedirectToAction("Index", "Home");
 			}
 			else
 			{
-				ViewBag.LoginError = "用户名或密码错误";
-				return View();
+				loginViewModel.LoginError = "用户名或密码错误";
+				return View(loginViewModel);
 			}
 		}
 	}

@@ -93,17 +93,17 @@ define(
             });
 
             if (postTitle == "") {
-                bootbox.alert("博客标题不能为空");
+                bootbox.alert("博客标题不能为空!");
                 return;
             }
 
             if (postContent == "") {
-                bootbox.alert("博客内容不能为空");
+                bootbox.alert("博客内容不能为空!");
                 return;
             }
 
             if (categories.length == 0) {
-                bootbox.alert("请为博客选择所属类别");
+                bootbox.alert("请为博客选择所属类别!");
                 return;
             }
 

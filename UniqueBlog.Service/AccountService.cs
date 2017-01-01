@@ -13,6 +13,7 @@ using UniqueBlog.DTO;
 using UniqueBlog.Infrastructure.Log;
 using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.Service.Interfaces;
+using UniqueBlog.Service.DtoMapper;
 
 namespace UniqueBlog.Service
 {
@@ -30,10 +31,9 @@ namespace UniqueBlog.Service
             this._UserRepository = userRepository;
         }
 
-        public bool VerifyUser(UserDto userDto)
+        public UserDto VerifyUser(UserDto userDto)
         {
-            var isExist = false;
-
+			UserDto currentUserDto = null;
             try
             {
                 Query query = new Query();
@@ -43,10 +43,10 @@ namespace UniqueBlog.Service
 
                 User user = this._UserRepository.FindBy(query).FirstOrDefault();
 
-                if (user != null)
-                {
-                    isExist = true;
-                }
+				if (user != null)
+				{
+					currentUserDto = user.ConvertTo();
+				}
             }
 
             catch (Exception exception)
@@ -54,7 +54,7 @@ namespace UniqueBlog.Service
                 logger.Error("There is an error happen", exception);
             }
 
-            return isExist;
+			return currentUserDto;
         }
     }
 }

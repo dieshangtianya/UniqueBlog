@@ -10,6 +10,6 @@ namespace UniqueBlog.Service.Interfaces
 {
 	public interface IAccountService
 	{
-		bool VerifyUser(UserDto user);
+		UserDto VerifyUser(UserDto user);
 	}
 }

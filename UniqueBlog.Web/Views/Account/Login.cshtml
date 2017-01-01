@@ -2,14 +2,14 @@
 	Layout = null;
 }
 
-@model UniqueBlog.DTO.UserDto
+@model UniqueBlog.Controllers.Models.ViewModels.LoginViewModel
 
 <!DOCTYPE html>
 
 <html>
 <head>
 	<meta name="viewport" content="width=device-width" />
-	<title>@ViewBag.Title</title>
+	<title>@Model.Title</title>
 	<meta name="description" content="The description of my page" />
 
     <link href="~/css/browser-override.css" rel="stylesheet" />
@@ -17,7 +17,7 @@
     <link href="~/css/basic.css" rel="stylesheet" />
     <link href="~/css/user_login.css" rel="stylesheet" />
 	
-	<script src="@Url.Content("~/vendor/require/2.1.15/require.min.js")" data-main="app/user/user-login-main"></script>
+	<script src="@Url.Content("~/vendor/require/2.1.15/require.min.js")" data-main="/app/user/user-login"></script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -31,15 +31,18 @@
 							用户名称：
 						</div>
 						<div class="login-row">
-							@Html.TextBoxFor(user=>user.UserName,new { @class="text-box", placeholder="用户名"})
+							@Html.TextBoxFor(m=>m.UserName,new { @class="text-box", placeholder="用户名"})
                             @Html.ValidationMessageFor(user=>user.UserName)
 						</div>
 						<div class="login-row">
 							用户密码：
 						</div>
 						<div class="login-row">
-							@Html.PasswordFor(user => user.Password, new { @class = "text-box", placeholder = "密码" })
+							@Html.PasswordFor(m => m.Password, new { @class = "text-box", placeholder = "密码" })
                             @Html.ValidationMessageFor(user => user.Password)
+						</div>
+						<div class="login-row">
+							<span class="login-error">@Model.LoginError</span>
 						</div>
 						<div class="login-row login-operation">
 							<input class="button-default" type="submit" value="登录" />
