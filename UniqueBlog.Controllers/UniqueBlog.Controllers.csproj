@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -47,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionFilters\GlobalAuthorizeAttribute.cs" />
     <Compile Include="BlogControllerBase.cs" />
     <Compile Include="BlogPostController.cs" />
     <Compile Include="CommonBlogData.cs" />
@@ -87,9 +89,7 @@
   <ItemGroup>
     <Content Include="TextFile1.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ActionFilters\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

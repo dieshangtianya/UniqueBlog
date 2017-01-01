@@ -37,6 +37,7 @@ namespace UniqueBlog.Controllers
             return View();
         }
 
+		[GlobalAuthorize]
         public ActionResult NewPost()
         {
             NewPostViewModel newPostVM = new NewPostViewModel();

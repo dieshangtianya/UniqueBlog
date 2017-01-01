@@ -94,7 +94,6 @@
     <Content Include="app\post\post-list.js" />
     <Content Include="app\post\post.js" />
     <Content Include="app\sidebar\sidebar.js" />
-    <Content Include="app\user\user-login-main.js" />
     <Content Include="app\user\user-login.js" />
     <Content Include="css\basic.css" />
     <Content Include="css\blog-layout.css" />
