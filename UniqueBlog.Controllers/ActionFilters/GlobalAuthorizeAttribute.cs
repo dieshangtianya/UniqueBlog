@@ -17,7 +17,7 @@ namespace UniqueBlog.Controllers
 	{
 		public override void OnAuthorization(AuthorizationContext filterContext)
 		{
-			UserDto user = filterContext.HttpContext.Session["CurrentUser"] as UserDto;
+			UserDto user = filterContext.HttpContext.Session[Constants.ConstantData.CurrentUserSessionKey] as UserDto;
 			if (user == null)
 			{
 				filterContext.Result = new RedirectResult("~/Account/Login");

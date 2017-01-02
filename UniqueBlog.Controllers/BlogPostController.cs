@@ -33,16 +33,20 @@ namespace UniqueBlog.Controllers
 
         public ActionResult PostList(int blogId)
         {
-            ViewBag.PostList = this.postService.GetPostListByBlogId(blogId);
-            return View();
+			PostListViewModel postListViewModel = new PostListViewModel();
+			postListViewModel.PostList = this.postService.GetPostListByBlogId(blogId);
+			postListViewModel.HasUserLogin = this.IsUserLogin();
+
+            return View(postListViewModel);
         }
 
 		[GlobalAuthorize]
         public ActionResult NewPost()
         {
             NewPostViewModel newPostVM = new NewPostViewModel();
-            newPostVM.CategoryList = new List<SelectedItem>();
+			newPostVM.HasUserLogin = this.IsUserLogin();
 
+            newPostVM.CategoryList = new List<SelectedItem>();
             var categoryList = this.categoryService.GetCategoriesByBlogId(newPostVM.GlobalBlogData.BlogData.BlogId);
             foreach (CategoryDto categoryItem in categoryList)
             {
@@ -52,6 +56,28 @@ namespace UniqueBlog.Controllers
 
             return View(newPostVM);
         }
+
+		[GlobalAuthorize]
+		public ActionResult EditPost(int id)
+		{
+			var post = this.postService.GetPostById(id);
+
+			NewPostViewModel newPostViewModel = new NewPostViewModel();
+			newPostViewModel.CategoryList = this.GetCategoriesSelectedItem(newPostViewModel.GlobalBlogData.BlogData.BlogId);
+
+			foreach(CategoryDto category in post.Categories)
+			{
+				var item = newPostViewModel.CategoryList.Where(t => t.ItemId == category.CategoryId.ToString()).First();
+				if (item != null) {
+					item.IsSelected = true;
+				}
+			}
+			newPostViewModel.HasUserLogin=this.IsUserLogin();
+			newPostViewModel.PostContent=post.Content;
+			newPostViewModel.PostTags=post.Tags;
+			newPostViewModel.PostTitle=post.Title;
+			return View("NewPost", newPostViewModel);
+		}
 
         public ActionResult Post(int id)
         {
@@ -107,6 +133,22 @@ namespace UniqueBlog.Controllers
         public ActionResult SaveDraft(PostDto post)
         {
             return RedirectToAction("Index", "Home");
-        }
-    }
+		}
+
+		#region Set category list for the NewPostViewModel
+		private List<SelectedItem> GetCategoriesSelectedItem(int blogId)
+		{
+			var selectedItemList = new List<SelectedItem>();
+			var categoryList = this.categoryService.GetCategoriesByBlogId(blogId);
+			foreach (CategoryDto categoryItem in categoryList)
+			{
+				var selectedItem = new SelectedItem(categoryItem.CategoryId.ToString(), categoryItem.CategoryName);
+				selectedItemList.Add(selectedItem);
+			}
+
+			return selectedItemList;
+		}
+
+		#endregion
+	}
 }
