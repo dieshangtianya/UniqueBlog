@@ -9,8 +9,8 @@ namespace UniqueBlog.Domain.Entities
 	/// <summary>
 	/// 用户详细信息
 	/// </summary>
-	public class UserDetailInfo : IAggregate
-	{
+	public class UserDetailInfo : IAggregateRoot
+    {
 
 	}
 }

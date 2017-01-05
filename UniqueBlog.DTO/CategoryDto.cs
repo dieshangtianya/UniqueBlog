@@ -11,7 +11,7 @@ namespace UniqueBlog.DTO
 		/// <summary>
 		/// 类别编号
 		/// </summary>
-		public int CategoryId { get; set; }
+		public int Id { get; set; }
 
 		/// <summary>
 		/// 类别名称

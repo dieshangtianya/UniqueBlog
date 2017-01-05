@@ -20,10 +20,10 @@
 		string content = postItem.PlainContent;
 		<div class="post-item">
 			<div class="post-title">
-				@Html.ActionLink(title, "Post", new { id = postItem.PostId })
+				@Html.ActionLink(title, "Post", new { id = postItem.Id })
 				@if (Model.HasUserLogin)
 				{
-					@Html.ActionLink("【编辑】", "EditPost", "BlogPost", new { id = postItem.PostId }, new { @class = "edit-link" });
+					@Html.ActionLink("【编辑】", "EditPost", "BlogPost", new { id = postItem.Id }, new { @class = "edit-link" });
 				}
 			</div>
 			<div class="post-item-brief post-item-hidden">

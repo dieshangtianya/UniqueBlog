@@ -25,7 +25,7 @@ namespace UniqueBlog.Web
 			//注册路由
 			GlobalRoutesConfig.RegisterRoutes(RouteTable.Routes);
 			//初始化MEF
-			MefConfiguration.RegisterMef();
+			MVCMEFConfiguration.RegisterMef();
 			//注册AutoMapper
 			MapperManager.RegisterTypeMapper();
             //配置日志

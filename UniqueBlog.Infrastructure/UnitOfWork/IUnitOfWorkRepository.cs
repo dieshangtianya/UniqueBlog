@@ -21,18 +21,18 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
         /// Persist the creation operation
         /// </summary>
         /// <param name="entity">entity</param>
-        void PersistCreationOf(IAggregate entity);
+        void PersistCreationOf(IAggregateRoot entity);
 
 		/// <summary>
 		/// Persist the update operation
 		/// </summary>
 		/// <param name="entity">entity</param>
-		void PersistUpdateOf(IAggregate entity);
+		void PersistUpdateOf(IAggregateRoot entity);
 
 		/// <summary>
 		/// Persist the delete operation
 		/// </summary>
 		/// <param name="entity">entity</param>
-		void PersistDeleteOf(IAggregate entity);
+		void PersistDeleteOf(IAggregateRoot entity);
 	}
 }

@@ -98,15 +98,8 @@ namespace UniqueBlog.Infrastructure.Query
 		/// <param name="criterion"></param>
 		public void Add(Criterion criterion)
 		{
-			if (!IsNamedQuery())
-			{
-				this.criteria.Add(criterion);
-			}
-			else
-			{
-				throw new ApplicationException("You cannot add additional criteria to named query");
-			}
-		}
+            this.criteria.Add(criterion);
+        }
 
 		#endregion
 	}

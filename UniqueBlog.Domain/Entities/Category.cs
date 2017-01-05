@@ -9,12 +9,13 @@ namespace UniqueBlog.Domain.Entities
     /// <summary>
     /// 博文类型
     /// </summary>
-    public class Category:IAggregate 
+    public class Category:EntityBase,IAggregateRoot
     {
-		/// <summary>
-		/// 类别编号
-		/// </summary>
-		public int CategoryId { get; set; }
+        public Category(int id = default(int))
+            : base(id)
+        {
+
+        }
 
 		/// <summary>
 		/// 类别名称

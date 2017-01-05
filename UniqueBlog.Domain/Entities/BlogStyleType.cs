@@ -9,7 +9,7 @@ namespace UniqueBlog.Domain.Entities
     /// <summary>
     /// Blog主题类型实体
     /// </summary>
-    public class BlogStyleType : IAggregate
+    public class BlogStyleType : IAggregateRoot
     {
 
     }

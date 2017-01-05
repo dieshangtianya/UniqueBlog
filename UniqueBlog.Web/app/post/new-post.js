@@ -37,6 +37,7 @@ define(
 
         function registerEventHandler() {
             $("#btnPublish").on("click", function (e) { savePost(e) });
+            $("#btnSave").on("click", function (e) { savePost(e) });
             $("#btnSaveDraft").on("click", saveAsDraft);
             $("#btnCancel").on("click", cancel);
         }
@@ -46,6 +47,7 @@ define(
             if (!postData) {
                 return;
             }
+
             $.ajax({
                 url: $('#postform').attr('action'),
                 type: $('#postform').attr('method'),
@@ -54,6 +56,8 @@ define(
                 success: function (jsonResult) {
                     if (jsonResult.Result == true) {
                         window.location.href = '/Home/Index';
+                    }else{
+                        bootbox.alert(jsonResult.Message);
                     }
                 },
                 error: function () {
@@ -69,7 +73,6 @@ define(
         function cancel() {
 
         }
-
 
         function validateData() {
             var postTitle = $("#PostTitle").val();
@@ -109,10 +112,13 @@ define(
 
             var tags = $("#postTag").tagsinput('items');
 
+            var postId = $("#postId").val();
+
             var post = {
+                PostId: postId,
                 PostTitle: postTitle,
                 PostContent: postContent,
-                PostPlainContent:postPlainContent,
+                PostPlainContent: postPlainContent,
                 CategoryList: categories,
                 PostTags: tags,
             };

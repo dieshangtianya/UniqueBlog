@@ -1,11 +1,11 @@
-﻿@{ 
+﻿@{
     Layout = "~/Views/Shared/_Base_Blog_Layout.cshtml";
 }
 
 @using UniqueBlog.Controllers.Models;
 @using UniqueBlog.Web.Extensions;
 
-@model UniqueBlog.Controllers.Models.ViewModels.NewPostViewModel
+@model UniqueBlog.Controllers.Models.ViewModels.PostViewModel
 
 <!--stylesheet-->
 <link href="~/vendor/bootstrap-tag-input/0.8.0/bootstrap-tagsinput.css" rel="stylesheet" />
@@ -19,9 +19,9 @@
     @Html.RenderRequireJS("/app/post/new-post")
 }
 
-@using (Html.BeginForm("SavePost","BlogPost",FormMethod.Post,new { id="postform"}))
+@using (Html.BeginForm("SavePost", "BlogPost", FormMethod.Post, new { id = "postform" }))
 {
-
+    @Html.Hidden("postId",Model.PostId)
     <div id="post-editor" class="post-edit-container">
         <div class="form-group">
             <label for="博文标题" class="control-label">博文标题:</label>
@@ -30,23 +30,15 @@
             </div>
         </div>
         <div class="form-group post-editor-container">
-            <textarea id="postEditor" name="postEditor" cols="20" rows="2" class="ckeditor"></textarea>
+            @Html.TextAreaFor(post=>post.PostContent, new { id = "postEditor", name = "postEditor", cols = "20", rows = "2" , @class="ckeditor"})
         </div>
         <div class="form-group">
             <label for="选择所属分类">选择所属分类：</label>
             <div class="row" id="categoryList">
-                @*@for (var i = 0; i < Model.CategoryList.Count; i++)
-                {
-                    <div class="col-md-3 col-sm-4 col-xs-6">
-                        @Html.CheckBoxFor(x => x.CategoryList[i].IsSelected)
-                        @Html.DisplayFor(x => x.CategoryList[i].ItemName)
-                    </div>
-                }*@
-
                 @foreach (SelectedItem item in Model.CategoryList)
                 {
                     <div class="col-md-3 col-sm-4 col-xs-6">
-                        @Html.CheckBox("chkCategory" + item.ItemId, false, new { @class = "category-item", categoryName = item.ItemName, categoryId=item.ItemId})
+                        @Html.CheckBox("chkCategory" + item.ItemId, item.IsSelected, new { @class = "category-item", categoryName = item.ItemName, categoryId = item.ItemId })
                         @item.ItemName
                     </div>
                 }
@@ -56,13 +48,20 @@
         <div class="form-group">
             <label for="选择相关标签">选择相关标签：</label>
             <div>
-                <input type="text" id="postTag" />
+                <input type="text" id="postTag" value="@(Model.PostTags==null?"":string.Join(",",Model.PostTags))"/>
             </div>
         </div>
 
         <div class="form-group">
-            <input id="btnPublish" type="button" value="发布" class="button-default button-post-operation" />
-            <input id="btnSaveDraft" type="button" value="存为草稿" class="button-default button-post-operation" />
+           @if (Model.PostViewType == UniqueBlog.Controllers.Models.ViewModels.ViewType.New)
+           {
+                <input id="btnPublish" type="button" value="发布" class="button-default button-post-operation" />
+                <input id="btnSaveDraft" type="button" value="存为草稿" class="button-default button-post-operation" />
+           }
+           else
+           {
+                <input id="btnSave" type="button" value="保存修改" class="button-default button-post-operation" />
+           }
             <input id="btnCancel" type="button" value="取消" class="button-default button-post-operation-cancel" />
         </div>
     </div>

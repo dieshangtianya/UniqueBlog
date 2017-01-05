@@ -8,16 +8,16 @@ using UniqueBlog.Infrastructure.Query;
 
 namespace UniqueBlog.Domain.Repository
 {
-	public interface IRepository<T>
-			where T : IAggregate
-	{
-		IEnumerable<T> FindAll();
-		IEnumerable<T> FindAll(int index, int count);
-		IEnumerable<T> FindBy(Query query);
-		IEnumerable<T> FindBy(Query query, int index, int count);
-		T FindBy(int entityId);
-		void Add(T entity);
-		void Save(T entity);
-		void Remove(T entity);
-	}
+    public interface IRepository<TEntity>
+            where TEntity : EntityBase, IAggregateRoot
+    {
+        IEnumerable<TEntity> FindAll();
+        IEnumerable<TEntity> FindAll(int index, int count);
+        IEnumerable<TEntity> FindBy(Query query);
+        IEnumerable<TEntity> FindBy(Query query, int index, int count);
+        TEntity FindBy(int entityId);
+        void Add(TEntity entity);
+        void Save(TEntity entity);
+        void Remove(TEntity entity);
+    }
 }

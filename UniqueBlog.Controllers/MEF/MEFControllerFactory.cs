@@ -20,19 +20,26 @@ namespace UniqueBlog.Controllers.MEF
 
         protected override IController GetControllerInstance(System.Web.Routing.RequestContext requestContext, Type controllerType)
         {
-            if (controllerType != null)
+            try
             {
-                Lazy<object, object> export = _container.GetExports(controllerType, null, null).FirstOrDefault();
+                if (controllerType != null)
+                {
+                    Lazy<object, object> export = _container.GetExports(controllerType, null, null).FirstOrDefault();
 
-                return null == export ? base.GetControllerInstance(requestContext, controllerType) : (IController)export.Value;
+                    return null == export ? base.GetControllerInstance(requestContext, controllerType) : (IController)export.Value;
+                }
+
+                return null;
             }
-
-            return null;
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public override void ReleaseController(IController controller)
         {
-            ((IDisposable)controller).Dispose();
+            //((IDisposable)controller).Dispose();
         }
     }
 }

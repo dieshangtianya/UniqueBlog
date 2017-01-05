@@ -102,8 +102,9 @@ namespace UniqueBlog.Repository
         #region private methods
         private Blog GetBlogFromReader(DbDataReader dataReader)
         {
-            Blog blog = new Blog();
-            blog.BlogId = (int)dataReader["BlogId"];
+            int blogId = (int)dataReader["BlogId"];
+
+            Blog blog = new Blog(blogId);
             blog.BlogTitle = dataReader["BlogTitle"].ToString();
             blog.Description = dataReader["Description"].ToString();
             blog.CreationDate = (DateTime)dataReader["CreationDate"];

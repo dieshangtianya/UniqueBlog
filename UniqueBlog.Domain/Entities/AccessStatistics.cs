@@ -9,7 +9,7 @@ namespace UniqueBlog.Domain.Entities
     /// <summary>
     /// 访问统计信息
     /// </summary>
-    public class AccessStatistics : IAggregate
+    public class AccessStatistics : IAggregateRoot
     {
       
     }

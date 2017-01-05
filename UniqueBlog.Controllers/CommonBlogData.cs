@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel.Composition;
 using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure.MEF;
 using UniqueBlog.Service;
-using System.ComponentModel.Composition.Hosting;
 using UniqueBlog.Service.Interfaces;
-
 
 namespace UniqueBlog.Controllers
 {
@@ -29,8 +29,8 @@ namespace UniqueBlog.Controllers
 					//(2)Using the reflection in .net to create the instance
 					//(3)Using the MEF compositionContainer
 					//Here we use the third way
-					IBlogService blogService = (IBlogService)MEF.MefConfiguration.MEFContainer.GetExport<IBlogService>().Value;
-					ICategoryService categoryService = (ICategoryService)MEF.MefConfiguration.MEFContainer.GetExport<ICategoryService>().Value;
+					IBlogService blogService = (IBlogService)MEFConfiguration.MEFContainer.GetExport<IBlogService>().Value;
+					ICategoryService categoryService = (ICategoryService)MEFConfiguration.MEFContainer.GetExport<ICategoryService>().Value;
 					_CurrentInstance = new CommonBlogData(blogService, categoryService);
 				}
 				return _CurrentInstance;
@@ -59,7 +59,7 @@ namespace UniqueBlog.Controllers
 		public CommonBlogData(IBlogService blogService,ICategoryService categoryService)
 		{
 			BlogData = blogService.GetBlogByUserName();
-			CategoryList = categoryService.GetCategoriesByBlogId(BlogData.BlogId).ToList();
+			CategoryList = categoryService.GetCategoriesByBlogId(BlogData.Id).ToList();
 		}
 	}
 }

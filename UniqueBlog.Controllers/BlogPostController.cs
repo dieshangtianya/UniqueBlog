@@ -43,48 +43,52 @@ namespace UniqueBlog.Controllers
 		[GlobalAuthorize]
         public ActionResult NewPost()
         {
-            NewPostViewModel newPostVM = new NewPostViewModel();
-			newPostVM.HasUserLogin = this.IsUserLogin();
+            PostViewModel postViewModel = new PostViewModel();
+			postViewModel.HasUserLogin = this.IsUserLogin();
 
-            newPostVM.CategoryList = new List<SelectedItem>();
-            var categoryList = this.categoryService.GetCategoriesByBlogId(newPostVM.GlobalBlogData.BlogData.BlogId);
+            postViewModel.CategoryList = new List<SelectedItem>();
+            var categoryList = this.categoryService.GetCategoriesByBlogId(postViewModel.GlobalBlogData.BlogData.Id);
             foreach (CategoryDto categoryItem in categoryList)
             {
-                var selectedItem = new SelectedItem(categoryItem.CategoryId.ToString(), categoryItem.CategoryName);
-                newPostVM.CategoryList.Add(selectedItem);
+                var selectedItem = new SelectedItem(categoryItem.Id.ToString(), categoryItem.CategoryName);
+                postViewModel.CategoryList.Add(selectedItem);
             }
 
-            return View(newPostVM);
+            return View(postViewModel);
         }
 
-		[GlobalAuthorize]
-		public ActionResult EditPost(int id)
-		{
-			var post = this.postService.GetPostById(id);
+        [GlobalAuthorize]
+        public ActionResult EditPost(int id)
+        {
+            var post = this.postService.GetPostById(id);
 
-			NewPostViewModel newPostViewModel = new NewPostViewModel();
-			newPostViewModel.CategoryList = this.GetCategoriesSelectedItem(newPostViewModel.GlobalBlogData.BlogData.BlogId);
+            PostViewModel newPostViewModel = new PostViewModel();
+            newPostViewModel.CategoryList = this.GetCategoriesSelectedItem(newPostViewModel.GlobalBlogData.BlogData.Id);
 
-			foreach(CategoryDto category in post.Categories)
-			{
-				var item = newPostViewModel.CategoryList.Where(t => t.ItemId == category.CategoryId.ToString()).First();
-				if (item != null) {
-					item.IsSelected = true;
-				}
-			}
-			newPostViewModel.HasUserLogin=this.IsUserLogin();
-			newPostViewModel.PostContent=post.Content;
-			newPostViewModel.PostTags=post.Tags;
-			newPostViewModel.PostTitle=post.Title;
-			return View("NewPost", newPostViewModel);
-		}
+            foreach (CategoryDto category in post.Categories)
+            {
+                var item = newPostViewModel.CategoryList.Where(t => t.ItemId == category.Id.ToString()).First();
+                if (item != null)
+                {
+                    item.IsSelected = true;
+                }
+            }
+            newPostViewModel.PostId = post.Id;
+            newPostViewModel.HasUserLogin = this.IsUserLogin();
+            newPostViewModel.PostContent = post.Content;
+            newPostViewModel.PostTags = post.Tags;
+            newPostViewModel.PostTitle = post.Title;
+            newPostViewModel.PostViewType = Models.ViewModels.ViewType.Edit;
+
+            return View("NewPost", newPostViewModel);
+        }
 
         public ActionResult Post(int id)
         {
             PostDto postDto = this.postService.GetPostById(id);
 
             PostViewModel postViewModel = new PostViewModel();
-            postViewModel.PostId = postDto.PostId;
+            postViewModel.PostId = postDto.Id;
             postViewModel.PostTitle = postDto.Title;
             postViewModel.PostContent = postDto.Content;
             postViewModel.CreatedDate = postDto.CreatedDate;
@@ -94,35 +98,23 @@ namespace UniqueBlog.Controllers
         }
 
         [HttpPost]
-        public JsonResult SavePost(NewPostViewModel postViewModel)
+        [GlobalAuthorize]
+        public JsonResult SavePost(PostViewModel postViewModel)
         {
             if (postViewModel.CategoryList == null)
                 return Json(null);
 
-            PostDto postDto = new PostDto();
-            postDto.BlogId = postViewModel.GlobalBlogData.BlogData.BlogId;
-            postDto.Categories = new List<CategoryDto>();
-            postViewModel.CategoryList.ForEach(x =>
+            var postDto = this.GeneratePostDtoFromViewModel(postViewModel);
+
+            ResponseJsonResult responseJsonResult;
+
+            if(postDto.Id==default(int))
             {
-                var categoryItem = postViewModel.GlobalBlogData.CategoryList.First(c => c.CategoryId == Convert.ToInt32(x.ItemId));
-                postDto.Categories.Add(categoryItem);
-            });
-
-            postDto.CreatedDate = DateTime.Now;
-            postDto.Title = postViewModel.PostTitle;
-            postDto.Tags = postViewModel.PostTags;
-            postDto.Content = postViewModel.PostContent;
-            postDto.PlainContent = postViewModel.PostPlainContent;
-
-            bool flag = this.postService.AddPost(postDto);
-            ResponseJsonResult responseJsonResult = new ResponseResults.ResponseJsonResult(flag);
-
-
-            logger.Info("save a new post");
-
-            if (!flag)
+                responseJsonResult = this.SaveNewPost(postDto);
+            }
+            else
             {
-                responseJsonResult.Message = "There is an error happen";
+                responseJsonResult = this.SavePostChange(postDto);
             }
 
             return Json(responseJsonResult);
@@ -130,10 +122,71 @@ namespace UniqueBlog.Controllers
         }
 
         [HttpPost]
+        [GlobalAuthorize]
         public ActionResult SaveDraft(PostDto post)
         {
             return RedirectToAction("Index", "Home");
 		}
+
+        private ResponseJsonResult SaveNewPost(PostDto postDto)
+        {
+            var flag = false;
+
+            postDto.CreatedDate = postDto.LastUpdatedDate = DateTime.Now;
+
+            flag = this.postService.PublishPost(postDto);
+
+            logger.Info("save a new post");
+
+            ResponseJsonResult responseJsonResult = new ResponseResults.ResponseJsonResult(flag);
+
+            if (!flag)
+            {
+                responseJsonResult.Message = "There is an error while publishing the post, please try again after a while";
+            }
+
+            return responseJsonResult;
+        }
+
+        private ResponseJsonResult SavePostChange(PostDto postDto)
+        {
+            var flag = false;
+
+            postDto.LastUpdatedDate = DateTime.Now;
+
+            flag = this.postService.SavePost(postDto);
+
+            ResponseJsonResult responseJsonResult = new ResponseResults.ResponseJsonResult(flag);
+
+            logger.Info("save changes of a post");
+
+            if (!flag)
+            {
+                responseJsonResult.Message = "There is an error while saving the post, please try again after a while";
+            }
+
+            return responseJsonResult;
+        }
+
+        private PostDto GeneratePostDtoFromViewModel(PostViewModel postViewModel)
+        {
+            PostDto postDto = new PostDto();
+            postDto.Id = postViewModel.PostId;
+            postDto.BlogId = postViewModel.GlobalBlogData.BlogData.Id;
+            postDto.Categories = new List<CategoryDto>();
+            postViewModel.CategoryList.ForEach(x =>
+            {
+                var categoryItem = postViewModel.GlobalBlogData.CategoryList.First(c => c.Id == Convert.ToInt32(x.ItemId));
+                postDto.Categories.Add(categoryItem);
+            });
+
+            postDto.Title = postViewModel.PostTitle;
+            postDto.Tags = postViewModel.PostTags;
+            postDto.Content = postViewModel.PostContent;
+            postDto.PlainContent = postViewModel.PostPlainContent;
+
+            return postDto;
+        }
 
 		#region Set category list for the NewPostViewModel
 		private List<SelectedItem> GetCategoriesSelectedItem(int blogId)
@@ -142,7 +195,7 @@ namespace UniqueBlog.Controllers
 			var categoryList = this.categoryService.GetCategoriesByBlogId(blogId);
 			foreach (CategoryDto categoryItem in categoryList)
 			{
-				var selectedItem = new SelectedItem(categoryItem.CategoryId.ToString(), categoryItem.CategoryName);
+				var selectedItem = new SelectedItem(categoryItem.Id.ToString(), categoryItem.CategoryName);
 				selectedItemList.Add(selectedItem);
 			}
 
