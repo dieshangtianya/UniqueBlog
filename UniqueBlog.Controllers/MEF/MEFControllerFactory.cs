@@ -39,7 +39,7 @@ namespace UniqueBlog.Controllers.MEF
 
         public override void ReleaseController(IController controller)
         {
-            //((IDisposable)controller).Dispose();
+            ((IDisposable)controller).Dispose();
         }
     }
 }

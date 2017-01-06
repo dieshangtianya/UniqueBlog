@@ -51,7 +51,6 @@ namespace UniqueBlog.Web
 		{
             Exception exception = Server.GetLastError();
             logger.Fatal("There is an fatal error happen when the web application is running", exception);
-            Response.Clear();
 		}
 
 		protected void Session_End(object sender, EventArgs e)

@@ -17,8 +17,8 @@ namespace UniqueBlog.Controllers.MEF
             IControllerFactory mefControllerFactory = new MEFControllerFactory(MEFConfiguration.MEFContainer);
             ControllerBuilder.Current.SetControllerFactory(mefControllerFactory);
 
-            MefDependencySolver resolver = new MefDependencySolver(MEFConfiguration.MEFContainer);
-            DependencyResolver.SetResolver(resolver);
+            //MefDependencySolver resolver = new MefDependencySolver(MEFConfiguration.MEFContainer);
+            //DependencyResolver.SetResolver(resolver);
         }
     }
 }
