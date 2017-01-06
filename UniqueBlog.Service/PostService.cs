@@ -49,7 +49,7 @@ namespace UniqueBlog.Service
 
                 foreach (BlogPost post in postList)
                 {
-                    postDtoList.Add(post.ConvertTo());
+                    postDtoList.Add(post.ConvertTo(true));
                 }
             }
             catch (Exception exception)
@@ -67,7 +67,7 @@ namespace UniqueBlog.Service
 
             var post = _postRepository.FindBy(query).FirstOrDefault();
 
-            var postDto = post.ConvertTo();
+			var postDto = post.ConvertTo(false);
 
             return postDto;
         }

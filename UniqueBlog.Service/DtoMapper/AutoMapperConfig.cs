@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UniqueBlog.Domain.Entities;
+using UniqueBlog.Domain.EntityProxies;
 using UniqueBlog.DTO;
 using AutoMapper;
 
@@ -31,7 +32,7 @@ namespace UniqueBlog.Service.DtoMapper
 				cfg.CreateMap<CategoryDto, Category>();
 
                 //BlogPost ---- PostDto
-                cfg.CreateMap<BlogPost, PostDto>().ForMember(s => s.Categories, m => m.Ignore());
+				cfg.CreateMap<BlogPost, PostDto>();
 				cfg.CreateMap<PostDto, BlogPost>();
 			});
 
