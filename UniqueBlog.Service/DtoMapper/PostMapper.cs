@@ -15,9 +15,24 @@ namespace UniqueBlog.Service.DtoMapper
 			return DtoMapper.AutoMapperConfig.MapperInstance.Map<BlogPost, PostDto>(post);
 		}
 
-        public static BlogPost ConvertTo(this PostDto postDto)
-        {
-            return DtoMapper.AutoMapperConfig.MapperInstance.Map<PostDto, BlogPost>(postDto);
-        }
+		public static PostDto ConvertTo(this BlogPost post, bool ignoreNavigationProperties)
+		{
+			if (!ignoreNavigationProperties)
+			{
+				return post.ConvertTo();
+			}
+			else
+			{
+				return DtoMapper.AutoMapperConfig.MapperInstance.Map<BlogPost, PostDto>(post, opt =>
+				{
+					post.Categories = new List<Category>();
+				});
+			}
+		}
+
+		public static BlogPost ConvertTo(this PostDto postDto)
+		{
+			return DtoMapper.AutoMapperConfig.MapperInstance.Map<PostDto, BlogPost>(postDto);
+		}
 	}
 }

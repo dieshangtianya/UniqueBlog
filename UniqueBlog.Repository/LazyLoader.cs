@@ -11,11 +11,11 @@ namespace UniqueBlog.Repository
 {
     public class LazyLoader
     {
-        public static IEnumerable<Category> RequestCategory(BlogPost post)
+        public static IEnumerable<Category> RequestCategory(int postId)
         {
             CategoryRepsitory categoryRepository = new CategoryRepsitory();
             Query query = new Query("sp_get_blogpost_categories");
-            query.Add(new Criterion("PostId", post.Id, CriterionOperator.Equal));
+            query.Add(new Criterion("PostId", postId, CriterionOperator.Equal));
             return categoryRepository.FindBy(query);
         }
     }
