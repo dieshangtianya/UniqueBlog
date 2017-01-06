@@ -13,38 +13,40 @@
 
 .widget-container{
 	margin:10px;
-	height:auto;
+    background-color:#6A6A6A;
 }
 
-.widget-container-border{
-    background-color:#6A6A6A;
-    border-radius:5px
+.widget-container .widget-container-title{
+    background-color:#999797;
+    padding:10px 10px;
+    font-size:16px;
+    color:#F9F9F9;
+}
+
+.widget-container .widget-container-body{
+    height:auto;
+	padding:5px 10px;
+}
+
+.widget-container-body a{
+    color:#D8D8D8;
+	line-height:30px;
+	cursor:pointer;	
 }
 
 .widget-calendar{
 	height:auto;
 }
 
-.widget-post-category{
-	height:auto;
-	padding:5px 10px;
-}
 
-.widget-post-category .widget-post-category-title{
-	font-weight:bold;
-	line-height:30px;
-
-}
-
-.widget-post-category div a{
-    color:#D8D8D8;
-	line-height:30px;
-	cursor:pointer;	
-}
 
 /***overide css***/
 .ui-datepicker {
 	width:auto;
+}
+
+.ui-corner-all{
+    border-radius:0 !important;
 }
 
 .ui-widget-content 
