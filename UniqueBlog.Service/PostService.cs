@@ -65,7 +65,7 @@ namespace UniqueBlog.Service
             Query query = new Query();
             query.Add(new Criterion("BlogPostId", postId, CriterionOperator.Equal));
 
-            var post = _postRepository.FindBy(postId);
+            var post = _postRepository.FindBy(query).FirstOrDefault();
 
             var postDto = post.ConvertTo();
 

@@ -7,15 +7,14 @@ using UniqueBlog.Domain.Entities;
 
 namespace UniqueBlog.Domain.EntityProxies
 {
-    public class BlogPostProxy:BlogPost
+    public class BlogPostProxy : BlogPost
     {
-        private bool isCategoriesLoaded;
+        private Lazy<IEnumerable<Category>> lazyCustomers;
 
-        private Func<BlogPost, IEnumerable<Category>> _requestCategoryFunc;
-
-        public BlogPostProxy(Func<BlogPost, IEnumerable<Category>> requestCategoryFunc)
+        public BlogPostProxy(int id, Func<IEnumerable<Category>> requestCategoryFunc)
+            : base(id)
         {
-            _requestCategoryFunc = requestCategoryFunc;
+            lazyCustomers = new Lazy<IEnumerable<Entities.Category>>(requestCategoryFunc);
         }
 
         public override IEnumerable<Category> Categories
@@ -24,8 +23,7 @@ namespace UniqueBlog.Domain.EntityProxies
             {
                 if (base.Categories == null)
                 {
-                    base.Categories = this._requestCategoryFunc(this);
-                    this.isCategoriesLoaded = true;
+                    base.Categories = this.lazyCustomers.Value;
                 }
 
                 return base.Categories;

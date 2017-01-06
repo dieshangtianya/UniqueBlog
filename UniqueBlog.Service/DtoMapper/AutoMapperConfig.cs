@@ -30,8 +30,8 @@ namespace UniqueBlog.Service.DtoMapper
 				cfg.CreateMap<Category, CategoryDto>();
 				cfg.CreateMap<CategoryDto, Category>();
 
-				//BlogPost ---- PostDto
-				cfg.CreateMap<BlogPost, PostDto>();
+                //BlogPost ---- PostDto
+                cfg.CreateMap<BlogPost, PostDto>().ForMember(s => s.Categories, m => m.Ignore());
 				cfg.CreateMap<PostDto, BlogPost>();
 			});
 

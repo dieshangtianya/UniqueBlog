@@ -15,7 +15,6 @@ namespace UniqueBlog.Domain.Repository
         IEnumerable<TEntity> FindAll(int index, int count);
         IEnumerable<TEntity> FindBy(Query query);
         IEnumerable<TEntity> FindBy(Query query, int index, int count);
-        TEntity FindBy(int entityId);
         void Add(TEntity entity);
         void Save(TEntity entity);
         void Remove(TEntity entity);

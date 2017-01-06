@@ -73,32 +73,6 @@ namespace UniqueBlog.Repository
             throw new NotImplementedException();
         }
 
-        public BlogPost FindBy(int entityId)
-        {
-            BlogPost blogPost = null;
-
-            using (var dbConnection = _dbbase.CreateDbConnection())
-            {
-                dbConnection.Open();
-                DbCommand command= dbConnection.CreateCommand();
-                string whereClause = " WHERE BlogPostId=@BlogPostId";
-                command.CommandText = _baseSql + whereClause;
-                command.Parameters.Add(_dbbase.CreateDbParameter("BlogPostId",entityId));
-
-                using (DbDataReader dataReader = command.ExecuteReader())
-                {
-                    while(dataReader.Read())
-                    {
-                        blogPost = this.GetBlogPostFromReader(dataReader);
-                        blogPost.Categories = LazyLoader.RequestCategory(blogPost);
-                        break;
-                    }
-                }
-            }
-
-            return blogPost;
-        }
-
         public void Add(BlogPost entity)
         {
             this._unitOfWork.RegisterNew(entity, this);
@@ -208,7 +182,7 @@ namespace UniqueBlog.Repository
         {
             int postId = (int)dataReader["BlogPostId"];
 
-            BlogPost post = new BlogPost(postId);
+            BlogPost post = new BlogPostProxy(postId, () => LazyLoader.RequestCategory(postId));
             post.Title = dataReader["PostTitle"].ToString();
             post.BlogId = (int)dataReader["BlogId"];
             post.Content = dataReader["PostContent"].ToString();
