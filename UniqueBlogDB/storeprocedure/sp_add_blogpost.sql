@@ -13,10 +13,11 @@ CREATE PROCEDURE sp_add_blogpost
 @PostContent ntext,
 @PostPlainContent ntext,
 @CreatedDate datetime,
+@LastUpdatedDate datetime,
 @Tags nvarchar(100)
 )
 AS
 BEGIN
-	INSERT INTO t_blog_post(BlogId,PostTitle,PostContent,PostPlainContent,CreatedDate,Tags) Values (@BlogId,@PostTitle,@PostContent,@PostPlainContent,@CreatedDate,@Tags);
+	INSERT INTO t_blog_post(BlogId,PostTitle,PostContent,PostPlainContent,CreatedDate,LastUpdatedDate,Tags) Values (@BlogId,@PostTitle,@PostContent,@PostPlainContent,@CreatedDate,@LastUpdatedDate,@Tags);
 	SELECT Scope_Identity();
 END

@@ -9,17 +9,18 @@ using System.Transactions;
 namespace UniqueBlog.Infrastructure.UnitOfWork
 {
 	[Export(typeof(IUnitOfWork))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
 	public class UnitOfWork : IUnitOfWork
 	{
-		private Dictionary<IAggregate, IUnitOfWorkRepository> addedEntities;
-		private Dictionary<IAggregate, IUnitOfWorkRepository> changedEntities;
-		private Dictionary<IAggregate, IUnitOfWorkRepository> deletedEntities;
+		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> addedEntities;
+		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> changedEntities;
+		private Dictionary<IAggregateRoot, IUnitOfWorkRepository> deletedEntities;
 
 		public UnitOfWork()
 		{
-			addedEntities = new Dictionary<IAggregate, IUnitOfWorkRepository>();
-			changedEntities = new Dictionary<IAggregate, IUnitOfWorkRepository>();
-			deletedEntities = new Dictionary<IAggregate, IUnitOfWorkRepository>();
+			addedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
+			changedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
+			deletedEntities = new Dictionary<IAggregateRoot, IUnitOfWorkRepository>();
 		}
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
         /// </summary>
         /// <param name="entity">Entity will be added</param>
         /// <param name="unitOfWorkRepository">Repository used to execute the add operation</param>
-        public void RegisterNew(IAggregate entity, IUnitOfWorkRepository unitOfWorkRepository)
+        public void RegisterNew(IAggregateRoot entity, IUnitOfWorkRepository unitOfWorkRepository)
 		{
 			if(!addedEntities.ContainsKey(entity))
 			{
@@ -40,7 +41,7 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
         /// </summary>
         /// <param name="entity">Entity will be updated</param>
         /// <param name="unitOfWorkRepository">Repository used to execute the amendment operation</param>
-        public void RegisterAmended(IAggregate entity, IUnitOfWorkRepository unitOfWorkRepository)
+        public void RegisterAmended(IAggregateRoot entity, IUnitOfWorkRepository unitOfWorkRepository)
 		{
 			if (!changedEntities.ContainsKey(entity)) 
 			{
@@ -53,7 +54,7 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
         /// </summary>
         /// <param name="entity">>Entity will be deleted</param>
         /// <param name="unitWorkRepository">Repository used to execute the removement operation</param>
-        public void RegisterRemoved(IAggregate entity, IUnitOfWorkRepository unitWorkRepository)
+        public void RegisterRemoved(IAggregateRoot entity, IUnitOfWorkRepository unitWorkRepository)
 		{
 			if(!deletedEntities.ContainsKey(entity))
 			{

@@ -9,8 +9,8 @@ namespace UniqueBlog.Domain.Entities
 	/// <summary>
 	/// 图片信息
 	/// </summary>
-	public partial class Photo : IAggregate
-	{
+	public partial class Photo : IAggregateRoot
+    {
 
 	}
 }

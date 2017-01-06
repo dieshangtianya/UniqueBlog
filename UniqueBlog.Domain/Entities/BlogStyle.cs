@@ -6,7 +6,7 @@ using UniqueBlog.Infrastructure;
 
 namespace UniqueBlog.Domain.Entities
 {
-    public class BlogStyle:IAggregate
+    public class BlogStyle: IAggregateRoot
     {
     }
 }

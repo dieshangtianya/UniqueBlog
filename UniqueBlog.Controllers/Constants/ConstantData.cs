@@ -10,5 +10,6 @@ namespace UniqueBlog.Controllers.Constants
 	{
 		public const string ProductName = "UQBlog";
 		public const string TitleOfLogin = ProductName + "登录";
+		public const string CurrentUserSessionKey = "CurrentUser";
 	}
 }

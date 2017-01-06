@@ -9,6 +9,7 @@ using UniqueBlog.Domain.Entities;
 using UniqueBlog.Domain.Repository;
 using UniqueBlog.DTO;
 using UniqueBlog.Infrastructure.Log;
+using UniqueBlog.Infrastructure.MEF;
 using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.Infrastructure.UnitOfWork;
 using UniqueBlog.Service.DtoMapper;
@@ -27,11 +28,10 @@ namespace UniqueBlog.Service
         private IUnitOfWork _unitOfWork;
 
         [ImportingConstructor]
-        public PostService(IPostRepository pository, IUnitOfWork unitOfWork)
+        public PostService(IPostRepository postRepository, IUnitOfWork unitOfWork)
         {
-            this._postRepository = pository;
+            this._postRepository = postRepository;
             this._unitOfWork = unitOfWork;
-
             ((IUnitOfWorkRepository)this._postRepository).SetUnitOfWork(unitOfWork);
         }
 
@@ -72,11 +72,13 @@ namespace UniqueBlog.Service
             return postDto;
         }
 
-        public bool AddPost(PostDto postDto)
+        public bool PublishPost(PostDto postDto)
         {
             try
             {
                 BlogPost post = postDto.ConvertTo();
+                post.GenerateTimeStamps();
+
                 this._postRepository.Add(post);
                 this._unitOfWork.Commit();
                 return true;
@@ -84,6 +86,23 @@ namespace UniqueBlog.Service
             catch (Exception exception)
             {
                 logger.Error("There is an error happen", exception);
+                return false;
+            }
+        }
+
+        public bool SavePost(PostDto postDto)
+        {
+            try
+            {
+                BlogPost post = postDto.ConvertTo();
+                post.GenerateTimeStamps();
+                this._postRepository.Save(post);
+                this._unitOfWork.Commit();
+                return true;
+            }
+            catch(Exception exception)
+            {
+                logger.Error("There is an error happen while saving a post",exception);
                 return false;
             }
         }

@@ -16,21 +16,21 @@ namespace UniqueBlog.Infrastructure.UnitOfWork
 		/// </summary>
 		/// <param name="entity">Entity will be added</param>
 		/// <param name="unitOfWorkRepository">Repository used to execute the add operation</param>
-		void RegisterNew(IAggregate entity, IUnitOfWorkRepository unitOfWorkRepository);
+		void RegisterNew(IAggregateRoot entity, IUnitOfWorkRepository unitOfWorkRepository);
 
         /// <summary>
         /// Register the amendment in the unit of work
         /// </summary>
         /// <param name="entity">Entity will be updated</param>
         /// <param name="unitOfWorkRepository">Repository used to execute the amendment operation</param>
-        void RegisterAmended(IAggregate entity, IUnitOfWorkRepository unitOfWorkRepository);
+        void RegisterAmended(IAggregateRoot entity, IUnitOfWorkRepository unitOfWorkRepository);
 
         /// <summary>
         /// Register the removement in the unit of work
         /// </summary>
         /// <param name="entity">>Entity will be deleted</param>
         /// <param name="unitWorkRepository">Repository used to execute the removement operation</param>
-        void RegisterRemoved(IAggregate entity, IUnitOfWorkRepository unitWorkRepository);
+        void RegisterRemoved(IAggregateRoot entity, IUnitOfWorkRepository unitWorkRepository);
 
 		/// <summary>
 		/// Commit all the operations in a unit of work

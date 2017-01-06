@@ -9,7 +9,7 @@ namespace UniqueBlog.Controllers.Models.ViewModels
     /// <summary>
     /// Base viewmodel class of the blog page
     /// </summary>
-    public class PageViewModelBase
+    public class PageViewModelBase:ViewModelBase
     {
         public CommonBlogData GlobalBlogData { get; private set; }
 

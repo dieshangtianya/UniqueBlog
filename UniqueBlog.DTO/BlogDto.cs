@@ -8,7 +8,7 @@ namespace UniqueBlog.DTO
 {
 	public class BlogDto
 	{
-		public int BlogId { get; set; }
+		public int Id { get; set; }
 
 		public string BlogTitle { get; set; }
 

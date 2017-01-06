@@ -9,7 +9,7 @@ namespace UniqueBlog.DTO
 	public class PostDto
 	{
 
-		public int PostId { get; set; }
+		public int Id { get; set; }
 
 		public string Title { get; set; }
 
@@ -24,5 +24,7 @@ namespace UniqueBlog.DTO
 		public string[] Tags { get; set; }
 
 		public DateTime CreatedDate { get; set; }
+
+        public DateTime LastUpdatedDate { get; set; }
 	}
 }

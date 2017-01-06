@@ -9,8 +9,8 @@ namespace UniqueBlog.Domain.Entities
 	/// <summary>
 	/// 字典项类型
 	/// </summary>
-	public class DictionaryType : IAggregate
-	{
+	public class DictionaryType : IAggregateRoot
+    {
 
 	}
 }

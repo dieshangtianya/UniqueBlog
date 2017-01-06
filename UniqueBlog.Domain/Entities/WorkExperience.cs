@@ -9,8 +9,8 @@ namespace UniqueBlog.Domain.Entities
 	/// <summary>
 	/// 工作经验
 	/// </summary>
-	public class WorkExperience : IAggregate
-	{
+	public class WorkExperience : IAggregateRoot
+    {
 
 	}
 }

@@ -7,11 +7,15 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
 	/// <summary>
-	/// 用户基本信息
+	/// User basic information
 	/// </summary>
-	public class User : IAggregate
-	{
-		public int UserId { get; set; }
+	public class User : EntityBase,IAggregateRoot
+    {
+        public User (int id=default(int))
+            :base(id)
+        {
+
+        }
 		/// <summary>
 		/// 用户名称
 		/// </summary>

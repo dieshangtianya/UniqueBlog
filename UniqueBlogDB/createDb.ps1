@@ -54,6 +54,8 @@ ExecuteSqlFile -sqlFile ".\$tableTypeFolder\udt_post_category_relation.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogbyusername.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost_relation.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogpost_categories.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_update_blogpost.sql";
 
 <#----------------------------preset data-------------------------------------#>
 if($isPresetData){

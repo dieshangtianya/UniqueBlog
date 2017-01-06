@@ -112,21 +112,20 @@ namespace UniqueBlog.Repository
 
         #region IUnitOfWorkRepository
 
-        public void PersistCreationOf(Infrastructure.IAggregate entity)
+        public void PersistCreationOf(Infrastructure.IAggregateRoot entity)
         {
             throw new NotImplementedException();
         }
 
-        public void PersistUpdateOf(Infrastructure.IAggregate entity)
+        public void PersistUpdateOf(Infrastructure.IAggregateRoot entity)
         {
             throw new NotImplementedException();
         }
 
-        public void PersistDeleteOf(Infrastructure.IAggregate entity)
+        public void PersistDeleteOf(Infrastructure.IAggregateRoot entity)
         {
             throw new NotImplementedException();
         }
-
 
         public void SetUnitOfWork(IUnitOfWork unitOfWork)
         {
@@ -144,8 +143,8 @@ namespace UniqueBlog.Repository
         /// <returns>User信息</returns>
         private User GetUserFromReader(DbDataReader reader)
         {
-            User user = new User();
-            user.UserId = (int)reader["UserId"];
+            int userId=(int)reader["UserId"];
+            User user = new User(userId);
             user.UserName = reader["UserName"].ToString();
             user.NickName = reader["NickName"].ToString();
             user.Email = reader["Email"].ToString();

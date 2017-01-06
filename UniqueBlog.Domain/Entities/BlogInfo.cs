@@ -9,9 +9,19 @@ namespace UniqueBlog.Domain.Entities
     /// <summary>
     /// Blog信息
     /// </summary>
-    public class Blog:IAggregate
+    public class Blog:EntityBase,IAggregateRoot
     {
-		public int BlogId { get; set; }
+        public Blog ()
+            :base(0)
+        {
+
+        }
+
+        public Blog (int id)
+            :base(id)
+        {
+
+        }
 
 		public string BlogTitle { get; set; }
 

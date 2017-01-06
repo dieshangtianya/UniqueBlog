@@ -19,6 +19,18 @@
     color:#F9F9F9;
 }
 
+.post-title .edit-link{
+	display:inline-block;
+	float:right;
+	font-size:14px;
+	color:#F1E109;
+	text-align:right;
+}
+
+.post-title .edit-link:hover{
+	color:#AFD6F3;
+}
+
 .post-list-container .post-item .post-item-brief{
 	padding:10px;
     height:160px;

@@ -9,8 +9,8 @@ namespace UniqueBlog.Domain.Entities
 	/// <summary>
 	/// 留言信息
 	/// </summary>
-	public class Message : IAggregate
-	{
+	public class Message : IAggregateRoot
+    {
 
 	}
 }

@@ -42,7 +42,7 @@ namespace UniqueBlog.Controllers
 
 			if (currentUser != null)
 			{
-				HttpContext.Session["CurrentUser"] = user;
+				HttpContext.Session[Constants.ConstantData.CurrentUserSessionKey] = user;
 				return RedirectToAction("Index", "Home");
 			}
 			else

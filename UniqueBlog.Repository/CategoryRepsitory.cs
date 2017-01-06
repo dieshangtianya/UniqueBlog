@@ -94,8 +94,9 @@ namespace UniqueBlog.Repository
 
         private Category GetCategoryFromReader(DbDataReader reader)
         {
-            Category category = new Category();
-            category.CategoryId = (int)reader["CategoryId"];
+            int categoryId = (int)reader["CategoryId"];
+
+            Category category = new Category(categoryId);
             category.CategoryName = reader["CategoryName"].ToString();
             category.CategoryDescription = reader["Description"].ToString();
             category.CreatedDate = (DateTime)reader["CreatedDate"];

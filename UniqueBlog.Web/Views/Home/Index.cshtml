@@ -1,6 +1,6 @@
 ﻿@using UniqueBlog.Web.Extensions
 
-@{Html.RenderAction("PostList", "BlogPost", new { BlogId = Model.GlobalBlogData.BlogData.BlogId });}
+@{Html.RenderAction("PostList", "BlogPost", new { blogId = Model.GlobalBlogData.BlogData.Id });}
 
 @section scripts
 {

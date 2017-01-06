@@ -13,6 +13,8 @@ namespace UniqueBlog.Service.Interfaces
 
         PostDto GetPostById(int postId);
 
-        bool AddPost(PostDto post);
+        bool PublishPost(PostDto post);
+
+        bool SavePost(PostDto post);
 	}
 }

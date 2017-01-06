@@ -10,12 +10,14 @@ namespace UniqueBlog.Controllers
 {
     public class BlogControllerBase: Controller
     {
-        public CommonBlogData GlobalBlogData { get; private set; }
+		public BlogControllerBase()
+		{
+
+		}
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-            this.GlobalBlogData = CommonBlogData.CurrentInstance;
         }
 
         public ActionResult Login()
@@ -27,5 +29,13 @@ namespace UniqueBlog.Controllers
         {
             return View();
         }
+
+		public bool IsUserLogin()
+		{
+			if (HttpContext == null) {
+				throw new NullReferenceException("HttpContext is null");
+			}
+			return HttpContext.Session[Constants.ConstantData.CurrentUserSessionKey] != null;
+		}
     }
 }
