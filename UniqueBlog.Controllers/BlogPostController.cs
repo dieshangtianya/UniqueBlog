@@ -99,7 +99,7 @@ namespace UniqueBlog.Controllers
 
         [HttpPost]
         [GlobalAuthorize]
-        public JsonResult SavePost(PostViewModel postViewModel)
+        public ActionResult SavePost(PostViewModel postViewModel)
         {
             if (postViewModel.CategoryList == null)
                 return Json(null);
@@ -108,7 +108,7 @@ namespace UniqueBlog.Controllers
 
             ResponseJsonResult responseJsonResult;
 
-            if(postDto.Id==default(int))
+            if (postDto.Id == default(int))
             {
                 responseJsonResult = this.SaveNewPost(postDto);
             }
@@ -118,7 +118,6 @@ namespace UniqueBlog.Controllers
             }
 
             return Json(responseJsonResult);
-
         }
 
         [HttpPost]

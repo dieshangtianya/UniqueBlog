@@ -49,7 +49,7 @@
     <Compile Include="EntityEqualityCompare.cs" />
     <Compile Include="IAggregate.cs" />
     <Compile Include="Log\ILog.cs" />
-    <Compile Include="Log\Log4netLog.cs" />
+    <Compile Include="Log\Log4netLogger.cs" />
     <Compile Include="Log\LogConfiguration.cs" />
     <Compile Include="Log\LoggerFactory.cs" />
     <Compile Include="MEF\MEFConfiguration.cs" />
