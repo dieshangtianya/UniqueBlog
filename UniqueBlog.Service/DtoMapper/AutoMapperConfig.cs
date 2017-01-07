@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UniqueBlog.Domain.Entities;
+using UniqueBlog.Domain.EntityProxies;
 using UniqueBlog.DTO;
 using AutoMapper;
 
