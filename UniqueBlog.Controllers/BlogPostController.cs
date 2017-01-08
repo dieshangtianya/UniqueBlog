@@ -47,13 +47,13 @@ namespace UniqueBlog.Controllers
 			postViewModel.HasUserLogin = this.IsUserLogin();
 
             postViewModel.CategoryList = new List<SelectedItem>();
-            var categoryList = this.categoryService.GetCategoriesByBlogId(postViewModel.GlobalBlogData.BlogData.Id);
+            var categoryList = this.categoryService.GetCategoriesByBlogId(postViewModel.GlobalBlogData.BlogInformation.Id);
             foreach (CategoryDto categoryItem in categoryList)
             {
                 var selectedItem = new SelectedItem(categoryItem.Id.ToString(), categoryItem.CategoryName);
                 postViewModel.CategoryList.Add(selectedItem);
             }
-
+			var dd = HttpContext.Cache.Get("uu");
             return View(postViewModel);
         }
 
@@ -63,7 +63,7 @@ namespace UniqueBlog.Controllers
             var post = this.postService.GetPostById(id);
 
             PostViewModel newPostViewModel = new PostViewModel();
-            newPostViewModel.CategoryList = this.GetCategoriesSelectedItem(newPostViewModel.GlobalBlogData.BlogData.Id);
+            newPostViewModel.CategoryList = this.GetCategoriesSelectedItem(newPostViewModel.GlobalBlogData.BlogInformation.Id);
 
             foreach (CategoryDto category in post.Categories)
             {
@@ -116,6 +116,8 @@ namespace UniqueBlog.Controllers
             {
                 responseJsonResult = this.SavePostChange(postDto);
             }
+
+			CommonBlogData.CurrentInstance.RefreshCategoryList();
 
             return Json(responseJsonResult);
         }
@@ -171,7 +173,7 @@ namespace UniqueBlog.Controllers
         {
             PostDto postDto = new PostDto();
             postDto.Id = postViewModel.PostId;
-            postDto.BlogId = postViewModel.GlobalBlogData.BlogData.Id;
+            postDto.BlogId = postViewModel.GlobalBlogData.BlogInformation.Id;
             postDto.Categories = new List<CategoryDto>();
             postViewModel.CategoryList.ForEach(x =>
             {

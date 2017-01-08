@@ -1,6 +1,8 @@
 ﻿@{ 
     Layout = "_Base_Blog_Layout.cshtml";
 }
+@model UniqueBlog.Controllers.Models.ViewModels.PageViewModelBase
+
 <!--css-->
 <link href="~/css/blog-standard-layout.css" rel="stylesheet" />
 
@@ -11,11 +13,11 @@
         </div>
         <div class="row">
             <div class="widget-container">
-                <div class="widget-container-title">博客分类</div>
+                <div class="widget-container-title">博客分类&nbsp;(@Model.GlobalBlogData.CategoryList.Sum(category=>category.PostAmount))</div>
                 <div class="widget-container-body">
                     @foreach (var category in Model.GlobalBlogData.CategoryList)
                     {
-                        <div><a>@category.CategoryName</a></div>
+                        <div><a>@category.CategoryName</a>&nbsp;(@category.PostAmount)</div>
                     }
                 </div>
             </div>

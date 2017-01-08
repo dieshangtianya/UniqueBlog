@@ -7,7 +7,7 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
     /// <summary>
-    /// 博文类型
+    /// Post category
     /// </summary>
     public class Category:EntityBase,IAggregateRoot
     {
@@ -18,18 +18,23 @@ namespace UniqueBlog.Domain.Entities
         }
 
 		/// <summary>
-		/// 类别名称
+		/// Category Name
 		/// </summary>
 		public string CategoryName { get; set; }
 
 		/// <summary>
-		/// 类别描述
+		/// Category Description
 		/// </summary>
 		public string CategoryDescription { get; set; }
 
 		/// <summary>
-		/// 创建日期
+		/// Created date of the category
 		/// </summary>
 		public DateTime CreatedDate { get; set; }
+
+		/// <summary>
+		/// Post amount the category contains
+		/// </summary>
+		public int PostAmount { get; set; }
     }
 }

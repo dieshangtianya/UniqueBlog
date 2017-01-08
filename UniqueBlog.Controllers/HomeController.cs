@@ -26,6 +26,7 @@ namespace UniqueBlog.Controllers
 		public ActionResult Index()
 		{
             HomeViewModel homeViewModel = new HomeViewModel();
+			HttpContext.Cache.Insert("uu", "hh");
 			return View(homeViewModel);
 		}
 	}

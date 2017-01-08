@@ -51,6 +51,8 @@
     <Compile Include="ActionFilters\GlobalAuthorizeAttribute.cs" />
     <Compile Include="BlogControllerBase.cs" />
     <Compile Include="BlogPostController.cs" />
+    <Compile Include="Cache\ICache.cs" />
+    <Compile Include="Cache\WebCache.cs" />
     <Compile Include="CommonBlogData.cs" />
     <Compile Include="Constants\ConstantData.cs" />
     <Compile Include="DtoMapperManager\AutoMapperConfig.cs" />

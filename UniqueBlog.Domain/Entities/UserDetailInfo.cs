@@ -7,7 +7,7 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
 	/// <summary>
-	/// 用户详细信息
+	/// user detial information
 	/// </summary>
 	public class UserDetailInfo : IAggregateRoot
     {

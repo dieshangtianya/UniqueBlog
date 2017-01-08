@@ -21,6 +21,7 @@ $sqlserverPassword="sa";
 $sqlserverDB="master";
 
 $tableFolder="tables";
+$viewFolder="views";
 $spFolder="storeprocedure";
 $presetDataFolder="presetdata";
 $tableTypeFolder="types";
@@ -47,6 +48,9 @@ ExecuteSqlFile -sqlFile ".\$tableFolder\t_category.sql";
 ExecuteSqlFile -sqlFile ".\$tableFolder\t_blog_post.sql";
 ExecuteSqlFile -sqlFile ".\$tableFolder\t_post_category.sql";
 
+<#----------------------------create data viwes-------------------------------------#>
+ExecuteSqlFile -sqlFile ".\$viewFolder\v_category_info.sql";
+
 <#----------------------------create table types-------------------------------------#>
 ExecuteSqlFile -sqlFile ".\$tableTypeFolder\udt_post_category_relation.sql";
 
@@ -56,6 +60,7 @@ ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost_relation.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogpost_categories.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_update_blogpost.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_all_categories.sql";
 
 <#----------------------------preset data-------------------------------------#>
 if($isPresetData){

@@ -48,7 +48,7 @@ namespace UniqueBlog.Repository
             {
                 connection.Open();
                 DbCommand command = connection.CreateCommand();
-                query.TranslateIntoSql(command, _baseSql);
+				query.TranslateIntoSql(command);
 
                 using (DbDataReader reader = command.ExecuteReader())
                 {
@@ -100,6 +100,7 @@ namespace UniqueBlog.Repository
             category.CategoryName = reader["CategoryName"].ToString();
             category.CategoryDescription = reader["Description"].ToString();
             category.CreatedDate = (DateTime)reader["CreatedDate"];
+			category.PostAmount = (int)reader["PostAmount"];
             return category;
         }
 

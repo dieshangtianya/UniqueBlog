@@ -7,7 +7,7 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
     /// <summary>
-    /// Blog主题类型实体
+    /// Blog style type
     /// </summary>
     public class BlogStyleType : IAggregateRoot
     {

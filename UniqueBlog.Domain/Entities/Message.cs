@@ -7,7 +7,7 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
 	/// <summary>
-	/// 留言信息
+	/// Message for post
 	/// </summary>
 	public class Message : IAggregateRoot
     {

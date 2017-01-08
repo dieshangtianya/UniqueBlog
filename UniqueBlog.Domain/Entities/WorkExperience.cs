@@ -7,7 +7,7 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
 	/// <summary>
-	/// 工作经验
+	/// Work experience
 	/// </summary>
 	public class WorkExperience : IAggregateRoot
     {

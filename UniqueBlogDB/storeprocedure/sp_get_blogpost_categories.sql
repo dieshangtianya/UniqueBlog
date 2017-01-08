@@ -12,6 +12,6 @@ CREATE PROCEDURE sp_get_blogpost_categories
 )
 AS
 BEGIN
-	SELECT CategoryId,BlogId,CategoryName,[Description],CreatedDate FROM t_Category A
+	SELECT CategoryId,BlogId,CategoryName,[Description],CreatedDate,PostAmount FROM v_category_info A
 		WHERE EXISTS (SELECT CategoryId FROM t_post_category B WHERE B.PostId=@postId and B.CategoryId=A.CategoryId)
 END

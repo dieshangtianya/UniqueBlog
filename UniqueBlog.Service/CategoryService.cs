@@ -35,7 +35,7 @@ namespace UniqueBlog.Service
 
             try
             {
-                Query query = new Query();
+				Query query = new Query("sp_get_all_categories");
 
                 query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
 

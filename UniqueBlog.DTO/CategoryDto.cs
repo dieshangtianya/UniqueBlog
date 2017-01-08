@@ -9,23 +9,28 @@ namespace UniqueBlog.DTO
 	public class CategoryDto
 	{
 		/// <summary>
-		/// 类别编号
+		/// Category Id
 		/// </summary>
 		public int Id { get; set; }
 
 		/// <summary>
-		/// 类别名称
+		/// Category Name
 		/// </summary>
 		public string CategoryName { get; set; }
 
 		/// <summary>
-		/// 类别描述
+		/// Category Description
 		/// </summary>
 		public string CategoryDescription { get; set; }
 
 		/// <summary>
-		/// 创建日期
+		/// Created Date of the cateogry
 		/// </summary>
 		public DateTime CreatedDate { get; set; }
+
+		/// <summary>
+		/// Amount of post the category contains
+		/// </summary>
+		public int PostAmount { get; set; }
 	}
 }
