@@ -7,7 +7,7 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
 	/// <summary>
-	/// 图片信息
+	/// Photo of the author
 	/// </summary>
 	public partial class Photo : IAggregateRoot
     {

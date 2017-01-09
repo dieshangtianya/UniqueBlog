@@ -7,7 +7,7 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
 	/// <summary>
-	/// 字典项类型
+	/// Dictionary type
 	/// </summary>
 	public class DictionaryType : IAggregateRoot
     {

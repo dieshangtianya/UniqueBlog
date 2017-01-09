@@ -7,7 +7,7 @@ using UniqueBlog.Infrastructure;
 namespace UniqueBlog.Domain.Entities
 {
     /// <summary>
-    /// 访问统计信息
+    /// Access statistic information about the website
     /// </summary>
     public class AccessStatistics : IAggregateRoot
     {

@@ -25,6 +25,8 @@ namespace UniqueBlog.Repository
 
         private string _baseSql = "select * from t_blog_post";
 
+        private string _getCountBaseSql = "select count(*) from t_blog_post";
+
         #region constructor
 
         public PostRepository()
@@ -88,14 +90,29 @@ namespace UniqueBlog.Repository
             this._unitOfWork.RegisterRemoved(entity, this);
         }
 
-        public void SetUnitOfWork(IUnitOfWork unitOfWork)
+        public int GetPostAmount(Query query)
         {
-            this._unitOfWork = unitOfWork;
+            int count = 0;
+
+            using (var dbConnection = _dbbase.CreateDbConnection())
+            {
+                dbConnection.Open();
+                DbCommand command = dbConnection.CreateCommand();
+                query.TranslateIntoSql(command, _getCountBaseSql);
+
+                count = (int)command.ExecuteScalar();
+            }
+
+            return count;
         }
 
         #endregion
 
         #region IUnitOfWorkRepository Implementation
+        public void SetUnitOfWork(IUnitOfWork unitOfWork)
+        {
+            this._unitOfWork = unitOfWork;
+        }
 
         public void PersistCreationOf(IAggregateRoot entity)
         {

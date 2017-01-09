@@ -1,6 +1,8 @@
 ﻿@{ 
     Layout = "_Base_Blog_Layout.cshtml";
 }
+@model UniqueBlog.Controllers.Models.ViewModels.PageViewModelBase
+
 <!--css-->
 <link href="~/css/blog-standard-layout.css" rel="stylesheet" />
 
@@ -10,19 +12,18 @@
             <div class="widget-container widget-calendar" id="widget-calendar"></div>
         </div>
         <div class="row">
-            <div class="widget-container widget-post-category widget-container-border">
-                <div class="widget-post-category-title">博客分类</div>
-                @foreach (var category in Model.GlobalBlogData.CategoryList)
-                {
-                    <div><a>@category.CategoryName</a></div>
-                }
+            <div class="widget-container">
+                <div class="widget-container-title">博客分类&nbsp;(@Model.GlobalBlogData.PostAmount)</div>
+                <div class="widget-container-body">
+                    @foreach (var category in Model.GlobalBlogData.CategoryList)
+                    {
+                        <div><a>@category.CategoryName</a>&nbsp;(@category.PostAmount)</div>
+                    }
+                </div>
             </div>
-
         </div>
         <div class="row">
-            <div class="widget-container">
-               
-            </div>
+
         </div>
     </div>
     <div class="col-md-9">

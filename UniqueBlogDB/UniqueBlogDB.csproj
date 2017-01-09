@@ -49,6 +49,7 @@
   <ItemGroup>
     <Content Include="db.sql" />
     <Content Include="presetdata\prestoredata.sql" />
+    <Content Include="storeprocedure\sp_get_all_categories.sql" />
     <Content Include="storeprocedure\sp_update_blogpost.sql" />
     <Content Include="storeprocedure\sp_get_blogpost_categories.sql" />
     <Content Include="storeprocedure\sp_add_blogpost_relation.sql" />
@@ -60,6 +61,7 @@
     <Content Include="tables\t_post_category.sql" />
     <Content Include="tables\t_user.sql" />
     <Content Include="types\udt_post_category_relation.sql" />
+    <Content Include="views\v_category_info.sql" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

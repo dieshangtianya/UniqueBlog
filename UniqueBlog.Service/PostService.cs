@@ -72,7 +72,14 @@ namespace UniqueBlog.Service
 			return postDto;
 		}
 
-		public bool PublishPost(PostDto postDto)
+        public int GetPostAmount(int blogId)
+        {
+            Query query = new Query();
+            query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
+            return _postRepository.GetPostAmount(query);
+        }
+
+        public bool PublishPost(PostDto postDto)
 		{
 			try
 			{
@@ -106,5 +113,5 @@ namespace UniqueBlog.Service
 				return false;
 			}
 		}
-	}
+    }
 }

@@ -6,7 +6,7 @@ using System.Text;
 namespace UniqueBlog.Domain.Entities
 {
     /// <summary>
-    /// 教育经历
+    /// Education experience
     /// </summary>
     public class EducationExperience
     {
