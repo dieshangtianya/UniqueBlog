@@ -118,6 +118,7 @@ namespace UniqueBlog.Controllers
             }
 
 			CommonBlogData.CurrentInstance.RefreshCategoryList();
+            CommonBlogData.CurrentInstance.RefreshPostAmount();
 
             return Json(responseJsonResult);
         }

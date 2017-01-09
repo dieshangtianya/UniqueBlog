@@ -59,6 +59,8 @@ namespace UniqueBlog.Controllers
 
 		private ICategoryService categoryService;
 
+        private IPostService postService;
+
 		private WebCache webCache;
 
 		public CommonBlogData()
@@ -70,11 +72,13 @@ namespace UniqueBlog.Controllers
 			//Here we use the third way
 			blogService = (IBlogService)MEFConfiguration.MEFContainer.GetExport<IBlogService>().Value;
 			categoryService = (ICategoryService)MEFConfiguration.MEFContainer.GetExport<ICategoryService>().Value;
+            postService = (IPostService)MEFConfiguration.MEFContainer.GetExport<IPostService>().Value;
 
 			webCache = new WebCache();
 
 			this.BlogInformation = blogService.GetBlogByUserName();
 			this.CategoryList = categoryService.GetCategoriesByBlogId(this.BlogInformation.Id).ToList();
+            this.PostAmount = postService.GetPostAmount(this.BlogInformation.Id);
 		}
 
 		public void RefreshCategoryList()
@@ -82,9 +86,14 @@ namespace UniqueBlog.Controllers
 			this.CategoryList = this.categoryService.GetCategoriesByBlogId(this.BlogInformation.Id).ToList();
 		}
 
-		public void RefreshBlogData()
+		public void RefreshBlogInformation()
 		{
 			this.BlogInformation = this.blogService.GetBlogByUserName();
 		}
+
+        public void RefreshPostAmount()
+        {
+            this.PostAmount = postService.GetPostAmount(this.BlogInformation.Id);
+        }
 	}
 }

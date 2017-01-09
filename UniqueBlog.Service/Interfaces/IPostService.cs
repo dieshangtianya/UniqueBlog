@@ -13,6 +13,8 @@ namespace UniqueBlog.Service.Interfaces
 
         PostDto GetPostById(int postId);
 
+        int GetPostAmount(int blogId);
+
         bool PublishPost(PostDto post);
 
         bool SavePost(PostDto post);
