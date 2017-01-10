@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using UniqueBlog.DTO;
 
@@ -15,13 +16,23 @@ namespace UniqueBlog.Controllers
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
 	public class GlobalAuthorizeAttribute : AuthorizeAttribute
 	{
-		public override void OnAuthorization(AuthorizationContext filterContext)
-		{
-			UserDto user = filterContext.HttpContext.Session[Constants.ConstantData.CurrentUserSessionKey] as UserDto;
-			if (user == null)
-			{
-				filterContext.Result = new RedirectResult("~/Account/Login");
-			}
-		}
-	}
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
+        {
+            if(httpContext==null)
+            {
+                throw new ArgumentNullException("httpContext");
+            }
+
+            UserDto user = httpContext.Session[Constants.ConstantData.CurrentUserSessionKey] as UserDto;
+
+            if(user!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
 }

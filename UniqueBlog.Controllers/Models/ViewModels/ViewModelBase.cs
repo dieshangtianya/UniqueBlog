@@ -9,5 +9,10 @@ namespace UniqueBlog.Controllers.Models.ViewModels
 	public class ViewModelBase
 	{
 		public bool HasUserLogin { get; set; }
+
+        public ViewModelBase()
+        {
+            this.HasUserLogin = false;
+        }
 	}
 }

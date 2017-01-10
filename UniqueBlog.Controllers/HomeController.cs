@@ -26,7 +26,7 @@ namespace UniqueBlog.Controllers
 		public ActionResult Index()
 		{
             HomeViewModel homeViewModel = new HomeViewModel();
-			HttpContext.Cache.Insert("uu", "hh");
+            homeViewModel.HasUserLogin = this.IsUserLogin();
 			return View(homeViewModel);
 		}
 	}

@@ -107,6 +107,7 @@
     <Content Include="css\user_login.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\administrator.png" />
     <Content Include="images\black_bg.png" />
     <Content Include="images\comment.png" />
     <Content Include="images\eye.png" />

@@ -30,6 +30,26 @@
         margin-left: 100px;
     }
 
+.blog-management{
+}
+
+.blog-management a{
+    margin-left:5px;
+    margin-right:5px;
+    color:#D8D8D8;
+}
+
+    .blog-management .profile-icon {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border:solid 5px #D8D8D8;
+        border-radius:50PX;
+        padding:5px;
+        margin-top:30px;
+    }
+
+
 .navigation {
     background-color: #6A6A6A;
 }
