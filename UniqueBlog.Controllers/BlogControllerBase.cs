@@ -22,12 +22,13 @@ namespace UniqueBlog.Controllers
 
         public ActionResult Login()
         {
-            return View();
+            return RedirectToAction("Login", "Account");
         }
 
-        public ActionResult LogOut()
+        public ActionResult Logout()
         {
-            return View();
+            this.Session[Constants.ConstantData.CurrentUserSessionKey] = null;
+            return RedirectToAction("Index", "Home");
         }
 
 		public bool IsUserLogin()

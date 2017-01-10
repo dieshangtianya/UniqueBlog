@@ -1,9 +1,21 @@
-﻿<div class="blog-title-container">
+﻿@model UniqueBlog.Controllers.Models.ViewModels.PageViewModelBase
+<div class="blog-title-container">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 blog-title">
+            <div class="col-md-10 blog-title">
                 <p class="title-text">@Model.GlobalBlogData.BlogInformation.BlogTitle</p>
                 <span class="description-text">────&nbsp;@Model.GlobalBlogData.BlogInformation.Description</span>
+            </div>
+            <div class="col-md-2">
+                @if (Model.HasUserLogin)
+                {
+                    <div class="blog-management">
+                        <a class="profile-icon">
+                            <img src="~/images/administrator.png" />
+                        </a>
+                        @Html.ActionLink("安全退出", "Logout")
+                    </div>
+                }
             </div>
         </div>
     </div>

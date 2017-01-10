@@ -9,6 +9,7 @@ using UniqueBlog.Service;
 using UniqueBlog.Service.Interfaces;
 using UniqueBlog.DTO;
 using UniqueBlog.Controllers.Models.ViewModels;
+using System.Web.Security;
 
 namespace UniqueBlog.Controllers
 {
@@ -43,8 +44,9 @@ namespace UniqueBlog.Controllers
 			if (currentUser != null)
 			{
 				HttpContext.Session[Constants.ConstantData.CurrentUserSessionKey] = user;
-				return RedirectToAction("Index", "Home");
-			}
+                string url = FormsAuthentication.GetRedirectUrl(currentUser.UserName, false);
+                return Redirect(url);
+            }
 			else
 			{
 				loginViewModel.LoginError = "用户名或密码错误";

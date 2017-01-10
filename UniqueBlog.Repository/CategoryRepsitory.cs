@@ -20,8 +20,6 @@ namespace UniqueBlog.Repository
     {
         private IDatabase _dbbase;
 
-        private string _baseSql = "SELECT * FROM t_category";
-
         [ImportingConstructor]
         public CategoryRepsitory()
         {
