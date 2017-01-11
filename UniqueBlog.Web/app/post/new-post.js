@@ -12,6 +12,8 @@ define(
         , "highlight"
     ], function ($, domready, bootbox, sidebar) {
 
+        var addPredefinedClassTimeOut;
+
         domready(function () {
             sidebar.initialize();
             configCKEditor();
@@ -23,6 +25,21 @@ define(
         function configCKEditor() {
             if (!CKEDITOR.instances['postEditor']) {
                 CKEDITOR.replace('postEditor');
+            }
+
+            //add custom predefined css class to the iframe
+            addPredefinedClass = window.setTimeout(addPredefinedClass, 500);
+        }
+
+        function addPredefinedClass()
+        {
+            var iframe = $("iframe");
+            if (iframe[0] != null) {
+                var head = iframe.contents().find("head");
+                if (head != undefined) {
+                    head.append('<link rel="stylesheet" href="/css/predefined-post-extra-style.css" type="text/css" />');
+                    window.clearTimeout(addPredefinedClass);
+                }
             }
         }
 

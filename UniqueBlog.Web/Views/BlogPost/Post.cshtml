@@ -1,4 +1,7 @@
-﻿@using UniqueBlog.Web.Extensions
+﻿@{
+    Layout = "~/Views/Shared/_Base_Blog_Layout.cshtml";
+}
+@using UniqueBlog.Web.Extensions
 @model UniqueBlog.Controllers.Models.ViewModels.PostViewModel
 
 <link href="~/vendor/ckeditor/4.6.0/plugins/codesnippet/lib/highlight/styles/vs.css" rel="stylesheet"/>
@@ -9,7 +12,6 @@
 {
     @Html.RenderRequireJS("/app/post/post")
 }
-
 <div class="post-container">
     <div class="row">
         <div class="col-md-12">
