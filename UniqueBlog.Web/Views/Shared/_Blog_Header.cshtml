@@ -10,10 +10,12 @@
                 @if (Model.HasUserLogin)
                 {
                     <div class="blog-management">
-                        <a class="profile-icon">
-                            <img src="~/images/administrator.png" />
-                        </a>
-                        @Html.ActionLink("安全退出", "Logout")
+                        <a class="profile-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
+                        <div class="blog-management-panel">
+                            @Html.ActionLink("Profile信息", "Logout")
+                            @Html.ActionLink("管理面板", "")
+                            @Html.ActionLink("安全退出", "Logout")
+                        </div>
                     </div>
                 }
             </div>
