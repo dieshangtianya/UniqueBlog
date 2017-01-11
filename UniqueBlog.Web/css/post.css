@@ -17,10 +17,10 @@ code{
 
 .post-title{
     text-align:left;
-    font-size:20px;
-    padding:5px 0;
-    border-bottom:solid 10px #358A07;
-    margin-right:-15px;
+    font-size:18px;
+    border-bottom: dotted 1px #358A07;
+    padding:5px;
+    margin:10px 0;
 }
 
 .post-title a{
@@ -28,5 +28,9 @@ code{
 }
 
 .post-content{
-    margin:10px;
+    margin:10px 0px;
+}
+
+.post-content p{
+    margin:0;
 }

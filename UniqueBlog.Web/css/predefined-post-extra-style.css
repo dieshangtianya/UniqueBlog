@@ -1,6 +1,12 @@
 ﻿.predifined-title-container{
-    background-color:#FAC5A0;
-    padding:10px;
-    margin-left:-10px;
-    margin-right:-10px;
+   background-color:#6A6A6A;
+   padding: 10px 5px;
+   font-size: 16px;
+   margin: 10px 0;
+   color:#D8D8D8;
+   border-radius:1px;
+}
+
+.predifined-title-container p{
+    margin:0;
 }
