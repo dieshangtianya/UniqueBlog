@@ -151,6 +151,14 @@
     <Content Include="vendor\ckeditor\4.6.0\skins\moono-lisa\images\refresh.png" />
     <Content Include="vendor\ckeditor\4.6.0\skins\moono-lisa\images\spinner.gif" />
     <Content Include="vendor\ckeditor\4.6.0\styles.js" />
+    <Content Include="vendor\font-awesome\4.7.0\css\font-awesome.css" />
+    <Content Include="vendor\font-awesome\4.7.0\css\font-awesome.min.css" />
+    <Content Include="vendor\font-awesome\4.7.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="vendor\font-awesome\4.7.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="vendor\font-awesome\4.7.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="vendor\font-awesome\4.7.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="vendor\font-awesome\4.7.0\fonts\fontawesome-webfont.woff2" />
+    <Content Include="vendor\font-awesome\4.7.0\fonts\FontAwesome.otf" />
     <Content Include="vendor\jquery-dotdotdot\jquery.dotdotdot.min.js" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-bg_glass_65_ffffff_1x400.png" />
     <Content Include="vendor\jquery-ui\1.12.1\images\ui-bg_highlight-soft_100_f6f6f6_1x100.png" />
