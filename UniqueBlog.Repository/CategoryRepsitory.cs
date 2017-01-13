@@ -33,7 +33,7 @@ namespace UniqueBlog.Repository
             return new List<Category>();
         }
 
-        public IEnumerable<Category> FindAll(int index, int count)
+        public IEnumerable<Category> FindAll(int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -61,7 +61,7 @@ namespace UniqueBlog.Repository
             return categoryList;
         }
 
-        public IEnumerable<Category> FindBy(Query query, int index, int count)
+        public IEnumerable<Category> FindBy(Query query, int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }

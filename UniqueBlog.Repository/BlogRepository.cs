@@ -31,7 +31,7 @@ namespace UniqueBlog.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Blog> FindAll(int index, int count)
+        public IEnumerable<Blog> FindAll(int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -60,19 +60,7 @@ namespace UniqueBlog.Repository
             return blogList;
         }
 
-        public Blog FindByUserName(string userName)
-        {
-            string procedureName = "sp_getblogbyusername";
-
-            IList<Criterion> criteria = new List<Criterion>();
-            criteria.Add(new Criterion("UserName", userName, CriterionOperator.Equal));
-            Query query = new Query(procedureName, criteria);
-
-            IEnumerable<Blog> blogList = this.FindBy(query);
-            return blogList.FirstOrDefault();
-        }
-
-        public IEnumerable<Blog> FindBy(Query query, int index, int count)
+        public IEnumerable<Blog> FindBy(Query query, int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }

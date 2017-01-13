@@ -58,6 +58,7 @@
     <Compile Include="DtoMapperManager\AutoMapperConfig.cs" />
     <Compile Include="MEF\MVCMEFConfiguration.cs" />
     <Compile Include="MEF\MEFControllerFactory.cs" />
+    <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\SelectedItem.cs" />
     <Compile Include="Models\ViewModels\PostListViewModel.cs" />
     <Compile Include="Models\ViewModels\PostViewModel.cs" />

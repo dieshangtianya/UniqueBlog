@@ -40,10 +40,27 @@ namespace UniqueBlog.Repository
 
         public IEnumerable<BlogPost> FindAll()
         {
-            throw new NotImplementedException();
+            List<BlogPost> postList = new List<BlogPost>();
+
+            using (var dbConnection = _dbbase.CreateDbConnection())
+            {
+                dbConnection.Open();
+                DbCommand command = dbConnection.CreateCommand();
+                command.CommandText = _baseSql;
+                using (DbDataReader dataReader = command.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        BlogPost post = this.GetBlogPostFromReader(dataReader);
+                        postList.Add(post);
+                    }
+                }
+            }
+
+            return postList;
         }
 
-        public IEnumerable<BlogPost> FindAll(int index, int count)
+        public IEnumerable<BlogPost> FindAll(int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -70,7 +87,7 @@ namespace UniqueBlog.Repository
             return postList;
         }
 
-        public IEnumerable<BlogPost> FindBy(Query query, int index, int count)
+        public IEnumerable<BlogPost> FindBy(Query query, int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }

@@ -12,9 +12,9 @@ namespace UniqueBlog.Domain.Repository
             where TEntity : EntityBase, IAggregateRoot
     {
         IEnumerable<TEntity> FindAll();
-        IEnumerable<TEntity> FindAll(int index, int count);
+        IEnumerable<TEntity> FindAll(int pageIndex, int pageSize);
         IEnumerable<TEntity> FindBy(Query query);
-        IEnumerable<TEntity> FindBy(Query query, int index, int count);
+        IEnumerable<TEntity> FindBy(Query query, int pageIndex, int pageSize);
         void Add(TEntity entity);
         void Save(TEntity entity);
         void Remove(TEntity entity);

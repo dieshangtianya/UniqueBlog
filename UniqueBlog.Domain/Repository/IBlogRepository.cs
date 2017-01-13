@@ -12,11 +12,5 @@ namespace UniqueBlog.Domain.Repository
 	/// </summary>
 	public interface IBlogRepository:IRepository<Blog>
 	{
-		/// <summary>
-		/// 根据user name查询Blog信息
-		/// </summary>
-		/// <param name="userName"></param>
-		/// <returns></returns>
-		Blog FindByUserName(string userName);
 	}
 }

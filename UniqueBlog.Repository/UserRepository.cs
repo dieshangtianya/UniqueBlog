@@ -38,7 +38,7 @@ namespace UniqueBlog.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> FindAll(int index, int count)
+        public IEnumerable<User> FindAll(int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -66,7 +66,7 @@ namespace UniqueBlog.Repository
             return userList;
         }
 
-        public IEnumerable<User> FindBy(Query query, int index, int count)
+        public IEnumerable<User> FindBy(Query query, int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
