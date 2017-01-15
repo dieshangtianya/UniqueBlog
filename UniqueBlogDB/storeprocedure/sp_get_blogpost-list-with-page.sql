@@ -8,23 +8,30 @@ GO
 
 CREATE PROCEDURE sp_get_postlist_pagination
 (
+@CategoryId int,
+@DateStart Datetime,
+@DateEnd Datetime,
 @PageIndex int,
-@PageSize int
+@PageSize int,
+@TotalRecordAmount int OUTPUT
 )
 AS
-BEGIN 
+BEGIN
+	DECLARE @TableName varchar(50)
+	DECLARE @Fields varchar(1000)
+	DECLARE @SqlWhere varchar(1000)
+	DECLARE @OrderByFields varchar(50)
+
 	SET NOCOUNT ON
-	DECLARE @sql nvarchar(2000)
-	DECLARE @fields nvarchar(500)
-	DECLARE @where nvarchar(500)
+		IF(@CategoryId IS NOT NULL)
+			SET @SqlWhere +=' CategoryID= ' + @CategoryId + ' '
+		IF(@DateStart IS NOT NULL AND @DateEnd IS NOT NULL)
+			SET @SqlWhere += ' CreatedDate > '+@DateStart + ' AND CreatedDate < ' + @DateEnd + ' '
 
-	SET @fields='BlogPostId,BlogId,PostTitle,PostContent,PostPlainContent,CreatedDate,LastUpdatedDate,Tags '
-	SET @where= 'WHERE 1=1'
-	IF(@BlogId==null)
-	SET @sql='SELECT TOP '+str(@pageSize)+' '+@fields+' FROM t_blog_post WHERE BlogPostId NOT IN (SELECT TOP '+STR(@pageIndex*@pageSize)+' BlogPostId FROM t_blog_post ORDER BY BlogPostID DESC) ORDER BY BlogPostID DESC'
+		SET @Fields=' BlogPostID, BlogId, PostTitle, PostContent, PostPlainContent, CreatedDate, LastUpdatedDate, Tags'
+		SET @OrderByFields=' ORDER BY BlogId DESC '
+		SET @TableName='t_blog_post'
 
-	EXEC (@sql)
-
+		EXEC sp_get_items_super_pagination @TableName,@Fields,@SqlWhere,'', @OrderByFields,@PageIndex,@PageSize,@TotalRecordAmount OUTPUT
 	SET NOCOUNT OFF
 END
-

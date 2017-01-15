@@ -61,6 +61,8 @@ ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost_relation.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogpost_categories.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_update_blogpost.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_all_categories.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_items_super_pagination.sql";
+ExecuteSqlFile -sqlFile ".\@spFolder\sp_get_blogpost-list-with-page.sql";
 
 <#----------------------------preset data-------------------------------------#>
 if($isPresetData){

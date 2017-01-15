@@ -15,20 +15,18 @@ CREATE PROCEDURE sp_get_items_super_pagination
 @OrderByFields varchar(5000),--fields used to order
 @PageIndex int, --current page index
 @PageSize int, --items count every page can loaded
-@TotalRecordAmount int OUTPUT --output parameter, the total amount of the records 
+@TotalRecordAmount int OUTPUT --output parameter, the total amount of the records
 )
 AS
 BEGIN
-	IF(@SqlWhere IS NOT NULL AND LEN(@SqlWhere)>0 AND CHARINDEX('WHERE', UPPER(@SqlWhere),1)!=1)
+	IF(@SqlWhere IS NOT NULL AND LEN(@SqlWhere)>0 AND CHARINDEX('WHERE', UPPER(LTRIM(@SqlWhere)),1)!=1)
 		SET @SqlWhere=' WHERE '+@SqlWhere
 
-	IF(@GroupFields IS NOT NULL AND LEN(@GroupFields)>0 AND CHARINDEX('GROUP BY',UPPER(@GroupFields),1) != 1)
+	IF(@GroupFields IS NOT NULL AND LEN(@GroupFields)>0 AND CHARINDEX('GROUP BY',UPPER(LTRIM(@GroupFields)),1) != 1)
 		SET @GroupFields=' GROUP BY '+@GroupFields
 
-	IF(@OrderByFields IS NOT NULL AND LEN(@OrderByFields)>0 AND CHARINDEX('ORDER BY',UPPER(@GroupFields),1)!=1)
+	IF(@OrderByFields IS NOT NULL AND LEN(@OrderByFields)>0 AND CHARINDEX('ORDER BY',UPPER(LTRIM(@OrderByFields)),1)!=1)
 		SET @OrderByFields=' ORDER BY '+@OrderByFields
-	ELSE 
-		SET @OrderByFields=''
 
 	DECLARE @TotalPageAmount int
 	DECLARE @Sql nvarchar(MAX)
@@ -44,11 +42,10 @@ BEGIN
 		IF(@GroupFields IS NULL OR @GroupFields='')
 			SET @Sql='SELECT @TotalRecordAmount = COUNT(*) FROM '+ @TableName + ' ' + @SqlWhere
 		ELSE
-			SET @Sql='SELECT @TotalRecordAmount = COUNT(*) FROM (SELECT ' + @Fields + ' FROM ' + @TableName + ' ' + @SqlWhere + ' '+@GroupFields + ' AS tempTb)'
+			SET @Sql='SELECT @TotalRecordAmount = COUNT(*) FROM (SELECT ' + @Fields + ' FROM ' + @TableName + ' ' + @SqlWhere + ' '+@GroupFields + ') AS tempTb'
 		
 	--execute dynamic sql with input or output parameter
-	EXEC sp_executesql @Sql,N'@TotalRecordAmount int OUTPUT',@TotalRecordAmount OUTPUT
-
+	EXEC sp_executesql @Sql,N'@TotalRecordAmount int OUTPUT', @TotalRecordAmount OUTPUT
 
 	--get the total page
 	SELECT @TotalPageAmount=CEILING((@TotalRecordAmount+0.0)/@PageSize)
@@ -72,10 +69,12 @@ BEGIN
 
 	DECLARE @StartRecord int
     DECLARE @EndRecord int
-    set @StartRecord = (@PageIndex-1)*@PageSize + 1 
-    set @EndRecord = @StartRecord + @pageSize - 1
+    SET @StartRecord = (@PageIndex-1)*@PageSize + 1 
+    SET @EndRecord = @StartRecord + @pageSize - 1
 
-	set @Sql = @Sql + ') AS tempTb' + ' WHERE rowId BETWEEN ' + CONVERT(varchar(50),@StartRecord) + ' AND ' +   CONVERT(varchar(50),@EndRecord)  
-    set @sql = @Sql + ' ORDER BY rowid OPTION(maxrecursion 0)';  
-
+	SET @Sql = @Sql + ') AS tempTb' + ' WHERE rowId BETWEEN ' + CONVERT(varchar(50),@StartRecord) + ' AND ' +   CONVERT(varchar(50),@EndRecord)  
+    SET @sql = @Sql + ' ORDER BY rowId OPTION(maxrecursion 0)'
+	
+	--execute the sql to get the result
+	Exec(@Sql)  
 END

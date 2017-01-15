@@ -21,6 +21,10 @@ namespace UniqueBlog.DBManager
 			return new SqlConnection(this.ConnectionString);
 		}
 
+		public override DbParameter CreateDbParameter()
+		{
+			return new SqlParameter();
+		}
 
 		public override DbParameter CreateDbParameter(string parameterName, object value)
 		{

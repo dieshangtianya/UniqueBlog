@@ -41,11 +41,11 @@ namespace UniqueBlog.Service
 
 			try
 			{
-				Query query = new Query();
+				Query query = new Query("sp_get_postlist_pagination");
 
 				query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
 
-				var postList = _postRepository.FindBy(query);
+				var postList = _postRepository.FindBy(query, 1, 4);
 
 				foreach (BlogPost post in postList)
 				{
@@ -72,14 +72,14 @@ namespace UniqueBlog.Service
 			return postDto;
 		}
 
-        public int GetPostAmount(int blogId)
-        {
-            Query query = new Query();
-            query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
-            return _postRepository.GetPostAmount(query);
-        }
+		public int GetPostAmount(int blogId)
+		{
+			Query query = new Query();
+			query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
+			return _postRepository.GetPostAmount(query);
+		}
 
-        public bool PublishPost(PostDto postDto)
+		public bool PublishPost(PostDto postDto)
 		{
 			try
 			{
@@ -113,5 +113,5 @@ namespace UniqueBlog.Service
 				return false;
 			}
 		}
-    }
+	}
 }
