@@ -55,14 +55,22 @@ namespace UniqueBlog.Controllers.Models
             var currentPage = pageIndex == null ? 1 : (int)pageIndex;
             var startPage = currentPage - 5;
             var endPage = currentPage + 4;
+
+            //because the start page less than 0, so the start page will move to right about (|startpage|+1)
+            //so the end page also should also move right about (|startpage|+1)
+            //this logic comes from http://jasonwatmore.com/post/2015/10/30/aspnet-mvc-pagination-example-with-logic-like-google
             if (startPage <= 0)
             {
+                endPage -= (startPage - 1);
                 startPage = 1;
             }
-
-            if(endPage>totalPages)
+            if (endPage > totalPages)
             {
                 endPage = totalPages;
+                if (endPage > 10)
+                {
+                    startPage = endPage - 9;
+                }
             }
 
             this.TotalItems = totalItems;

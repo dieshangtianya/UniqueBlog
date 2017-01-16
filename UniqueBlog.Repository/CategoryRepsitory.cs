@@ -33,7 +33,7 @@ namespace UniqueBlog.Repository
             return new List<Category>();
         }
 
-        public IEnumerable<Category> FindAll(int pageIndex, int pageSize)
+        public PagedResult<Category> FindAll(int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -46,7 +46,7 @@ namespace UniqueBlog.Repository
             {
                 connection.Open();
                 DbCommand command = connection.CreateCommand();
-				query.TranslateIntoSql(command);
+                query.TranslateIntoSql(command);
 
                 using (DbDataReader reader = command.ExecuteReader())
                 {
@@ -61,7 +61,7 @@ namespace UniqueBlog.Repository
             return categoryList;
         }
 
-        public IEnumerable<Category> FindBy(Query query, int pageIndex, int pageSize)
+        public PagedResult<Category> FindBy(Query query, int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -98,7 +98,7 @@ namespace UniqueBlog.Repository
             category.CategoryName = reader["CategoryName"].ToString();
             category.CategoryDescription = reader["Description"].ToString();
             category.CreatedDate = (DateTime)reader["CreatedDate"];
-			category.PostAmount = (int)reader["PostAmount"];
+            category.PostAmount = (int)reader["PostAmount"];
             return category;
         }
 

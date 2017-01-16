@@ -11,6 +11,6 @@ namespace UniqueBlog.Controllers.Models.ViewModels
 	{
 		public IEnumerable<PostDto> PostList { get; set; }
 
-        public Pagination PageNavigation { get; private set; }
+        public Pagination PageNavigation { get;  set; }
 	}
 }

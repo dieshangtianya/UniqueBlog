@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure;
 
 namespace UniqueBlog.Service.Interfaces
 {
-	public interface IPostService
-	{
-		IEnumerable<PostDto> GetPostListByBlogId(int blogId);
+    public interface IPostService
+    {
+        PagedResult<PostDto> GetPostListByBlogId(int blogId, int pageIndex, int pageSize);
 
         PostDto GetPostById(int postId);
 
@@ -18,5 +19,5 @@ namespace UniqueBlog.Service.Interfaces
         bool PublishPost(PostDto post);
 
         bool SavePost(PostDto post);
-	}
+    }
 }

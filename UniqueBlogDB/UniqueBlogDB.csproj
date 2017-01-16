@@ -51,7 +51,6 @@
     <Content Include="presetdata\prestoredata.sql" />
     <Content Include="storeprocedure\sp_get_items_super_pagination.sql" />
     <Content Include="storeprocedure\sp_get_all_categories.sql" />
-    <Content Include="storeprocedure\sp_get_blogpost-list-with-page.sql" />
     <Content Include="storeprocedure\sp_update_blogpost.sql" />
     <Content Include="storeprocedure\sp_get_blogpost_categories.sql" />
     <Content Include="storeprocedure\sp_add_blogpost_relation.sql" />

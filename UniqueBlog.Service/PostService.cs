@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using UniqueBlog.Domain.Entities;
 using UniqueBlog.Domain.Repository;
 using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure;
 using UniqueBlog.Infrastructure.Log;
 using UniqueBlog.Infrastructure.MEF;
 using UniqueBlog.Infrastructure.Query;
@@ -17,101 +18,105 @@ using UniqueBlog.Service.Interfaces;
 
 namespace UniqueBlog.Service
 {
-	[Export(typeof(IPostService))]
-	[PartCreationPolicy(CreationPolicy.NonShared)]
-	public class PostService : IPostService
-	{
-		private static readonly ILog logger = LoggerFactory.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+    [Export(typeof(IPostService))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class PostService : IPostService
+    {
+        private static readonly ILog logger = LoggerFactory.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		private IPostRepository _postRepository;
+        private IPostRepository _postRepository;
 
-		private IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
-		[ImportingConstructor]
-		public PostService(IPostRepository postRepository, IUnitOfWork unitOfWork)
-		{
-			this._postRepository = postRepository;
-			this._unitOfWork = unitOfWork;
-			((IUnitOfWorkRepository)this._postRepository).SetUnitOfWork(unitOfWork);
-		}
+        [ImportingConstructor]
+        public PostService(IPostRepository postRepository, IUnitOfWork unitOfWork)
+        {
+            this._postRepository = postRepository;
+            this._unitOfWork = unitOfWork;
+            ((IUnitOfWorkRepository)this._postRepository).SetUnitOfWork(unitOfWork);
+        }
 
-		public IEnumerable<PostDto> GetPostListByBlogId(int blogId)
-		{
-			IList<PostDto> postDtoList = new List<PostDto>();
+        public PagedResult<PostDto> GetPostListByBlogId(int blogId, int pageIndex, int pageSize)
+        {
+            PagedResult<PostDto> pagedResult = null;
 
-			try
-			{
-				Query query = new Query("sp_get_postlist_pagination");
+            try
+            {
+                Query query = new Query();
 
-				query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
+                query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
 
-				var postList = _postRepository.FindBy(query, 1, 4);
+                var pageData = _postRepository.FindBy(query, pageIndex, pageSize);
 
-				foreach (BlogPost post in postList)
-				{
-					postDtoList.Add(post.ConvertTo(true));
-				}
-			}
-			catch (Exception exception)
-			{
-				logger.Error("There is an error happen", exception);
-			}
+                IList<PostDto> postDtoList = new List<PostDto>();
 
-			return postDtoList;
-		}
+                foreach (BlogPost post in pageData.Items)
+                {
+                    postDtoList.Add(post.ConvertTo(true));
+                }
 
-		public PostDto GetPostById(int postId)
-		{
-			Query query = new Query();
-			query.Add(new Criterion("BlogPostId", postId, CriterionOperator.Equal));
+                pagedResult = new PagedResult<PostDto>(pageData.TotalRecordsCount, postDtoList);
+            }
+            catch (Exception exception)
+            {
+                logger.Error("There is an error happen", exception);
+            }
 
-			var post = _postRepository.FindBy(query).FirstOrDefault();
+            return pagedResult;
+        }
 
-			var postDto = post.ConvertTo(false);
+        public PostDto GetPostById(int postId)
+        {
+            Query query = new Query();
+            query.Add(new Criterion("BlogPostId", postId, CriterionOperator.Equal));
 
-			return postDto;
-		}
+            var post = _postRepository.FindBy(query).FirstOrDefault();
 
-		public int GetPostAmount(int blogId)
-		{
-			Query query = new Query();
-			query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
-			return _postRepository.GetPostAmount(query);
-		}
+            var postDto = post.ConvertTo(false);
 
-		public bool PublishPost(PostDto postDto)
-		{
-			try
-			{
-				BlogPost post = postDto.ConvertTo();
-				post.GenerateTimeStamps();
+            return postDto;
+        }
 
-				this._postRepository.Add(post);
-				this._unitOfWork.Commit();
-				return true;
-			}
-			catch (Exception exception)
-			{
-				logger.Error("There is an error happen", exception);
-				return false;
-			}
-		}
+        public int GetPostAmount(int blogId)
+        {
+            Query query = new Query();
+            query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
+            return _postRepository.GetPostAmount(query);
+        }
 
-		public bool SavePost(PostDto postDto)
-		{
-			try
-			{
-				BlogPost post = postDto.ConvertTo();
-				post.GenerateTimeStamps();
-				this._postRepository.Save(post);
-				this._unitOfWork.Commit();
-				return true;
-			}
-			catch (Exception exception)
-			{
-				logger.Error("There is an error happen while saving a post", exception);
-				return false;
-			}
-		}
-	}
+        public bool PublishPost(PostDto postDto)
+        {
+            try
+            {
+                BlogPost post = postDto.ConvertTo();
+                post.GenerateTimeStamps();
+
+                this._postRepository.Add(post);
+                this._unitOfWork.Commit();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                logger.Error("There is an error happen", exception);
+                return false;
+            }
+        }
+
+        public bool SavePost(PostDto postDto)
+        {
+            try
+            {
+                BlogPost post = postDto.ConvertTo();
+                post.GenerateTimeStamps();
+                this._postRepository.Save(post);
+                this._unitOfWork.Commit();
+                return true;
+            }
+            catch (Exception exception)
+            {
+                logger.Error("There is an error happen while saving a post", exception);
+                return false;
+            }
+        }
+    }
 }
