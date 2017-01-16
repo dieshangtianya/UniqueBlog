@@ -18,6 +18,10 @@
     color:#F9F9F9;
 }
 
+.post-title a:hover{
+	color:#F9C766;
+}
+
 .post-title .edit-link{
 	display:inline-block;
 	float:right;
