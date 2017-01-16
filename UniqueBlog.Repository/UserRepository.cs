@@ -10,6 +10,7 @@ using UniqueBlog.Domain.Entities;
 using UniqueBlog.DBManager;
 using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.Infrastructure.UnitOfWork;
+using UniqueBlog.Infrastructure;
 
 namespace UniqueBlog.Repository
 {
@@ -38,7 +39,7 @@ namespace UniqueBlog.Repository
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> FindAll(int index, int count)
+        public PagedResult<User> FindAll(int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -66,7 +67,7 @@ namespace UniqueBlog.Repository
             return userList;
         }
 
-        public IEnumerable<User> FindBy(Query query, int index, int count)
+        public PagedResult<User> FindBy(Query query, int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -143,7 +144,7 @@ namespace UniqueBlog.Repository
         /// <returns>User信息</returns>
         private User GetUserFromReader(DbDataReader reader)
         {
-            int userId=(int)reader["UserId"];
+            int userId = (int)reader["UserId"];
             User user = new User(userId);
             user.UserName = reader["UserName"].ToString();
             user.NickName = reader["NickName"].ToString();

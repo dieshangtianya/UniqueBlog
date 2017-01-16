@@ -1,8 +1,10 @@
 ﻿@using UniqueBlog.Web.Extensions
 
-@{Html.RenderAction("PostList", "BlogPost", new { blogId = Model.GlobalBlogData.BlogInformation.Id });}
+@model UniqueBlog.Controllers.Models.ViewModels.HomeViewModel
+
+@{Html.RenderAction("PostList", "BlogPost", new { blogId = Model.GlobalBlogData.BlogInformation.Id, page = Model.Page });}
 
 @section scripts
 {
-    @Html.RenderRequireJS("/app/home/home")  
+    @Html.RenderRequireJS("/app/home/home")
 }

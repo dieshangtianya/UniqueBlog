@@ -10,6 +10,7 @@ using UniqueBlog.Controllers.Models;
 using UniqueBlog.Controllers.Models.ViewModels;
 using UniqueBlog.Controllers.ResponseResults;
 using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure;
 using UniqueBlog.Infrastructure.Log;
 using UniqueBlog.Service.Interfaces;
 
@@ -31,20 +32,24 @@ namespace UniqueBlog.Controllers
             this.categoryService = categoryService;
         }
 
-        public ActionResult PostList(int blogId)
+        public ActionResult PostList(int blogId, int page)
         {
-			PostListViewModel postListViewModel = new PostListViewModel();
-			postListViewModel.PostList = this.postService.GetPostListByBlogId(blogId);
-			postListViewModel.HasUserLogin = this.IsUserLogin();
+            PostListViewModel postListViewModel = new PostListViewModel();
+            var pageSize = 5;
+
+            var pagedResult = this.postService.GetPostListByBlogId(blogId, page, pageSize);
+            postListViewModel.PostList = pagedResult.Items;
+            postListViewModel.PageNavigation = new Pagination(pagedResult.TotalRecordsCount, page, pageSize);
+            postListViewModel.HasUserLogin = this.IsUserLogin();
 
             return View(postListViewModel);
         }
 
-		[GlobalAuthorize]
+        [GlobalAuthorize]
         public ActionResult NewPost()
         {
             PostViewModel postViewModel = new PostViewModel();
-			postViewModel.HasUserLogin = this.IsUserLogin();
+            postViewModel.HasUserLogin = this.IsUserLogin();
 
             postViewModel.CategoryList = new List<SelectedItem>();
             var categoryList = this.categoryService.GetCategoriesByBlogId(postViewModel.GlobalBlogData.BlogInformation.Id);
@@ -53,7 +58,7 @@ namespace UniqueBlog.Controllers
                 var selectedItem = new SelectedItem(categoryItem.Id.ToString(), categoryItem.CategoryName);
                 postViewModel.CategoryList.Add(selectedItem);
             }
-			var dd = HttpContext.Cache.Get("uu");
+            var dd = HttpContext.Cache.Get("uu");
             return View(postViewModel);
         }
 
@@ -117,7 +122,7 @@ namespace UniqueBlog.Controllers
                 responseJsonResult = this.SavePostChange(postDto);
             }
 
-			CommonBlogData.CurrentInstance.RefreshCategoryList();
+            CommonBlogData.CurrentInstance.RefreshCategoryList();
             CommonBlogData.CurrentInstance.RefreshPostAmount();
 
             return Json(responseJsonResult);
@@ -128,7 +133,7 @@ namespace UniqueBlog.Controllers
         public ActionResult SaveDraft(PostDto post)
         {
             return RedirectToAction("Index", "Home");
-		}
+        }
 
         private ResponseJsonResult SaveNewPost(PostDto postDto)
         {
@@ -190,20 +195,20 @@ namespace UniqueBlog.Controllers
             return postDto;
         }
 
-		#region Set category list for the NewPostViewModel
-		private List<SelectedItem> GetCategoriesSelectedItem(int blogId)
-		{
-			var selectedItemList = new List<SelectedItem>();
-			var categoryList = this.categoryService.GetCategoriesByBlogId(blogId);
-			foreach (CategoryDto categoryItem in categoryList)
-			{
-				var selectedItem = new SelectedItem(categoryItem.Id.ToString(), categoryItem.CategoryName);
-				selectedItemList.Add(selectedItem);
-			}
+        #region Set category list for the NewPostViewModel
+        private List<SelectedItem> GetCategoriesSelectedItem(int blogId)
+        {
+            var selectedItemList = new List<SelectedItem>();
+            var categoryList = this.categoryService.GetCategoriesByBlogId(blogId);
+            foreach (CategoryDto categoryItem in categoryList)
+            {
+                var selectedItem = new SelectedItem(categoryItem.Id.ToString(), categoryItem.CategoryName);
+                selectedItemList.Add(selectedItem);
+            }
 
-			return selectedItemList;
-		}
+            return selectedItemList;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

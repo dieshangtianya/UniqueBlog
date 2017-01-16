@@ -11,23 +11,24 @@ using UniqueBlog.Service.Interfaces;
 
 namespace UniqueBlog.Controllers
 {
-	[Export]
-	[PartCreationPolicy(CreationPolicy.NonShared)]
-	public class HomeController : BlogControllerBase
-	{
-		public IBlogService BlogService { get; private set; }
+    [Export]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
+    public class HomeController : BlogControllerBase
+    {
+        public IBlogService BlogService { get; private set; }
 
-		[ImportingConstructor]
-		public HomeController(IBlogService service)
-		{
-			this.BlogService = service;
-		}
+        [ImportingConstructor]
+        public HomeController(IBlogService service)
+        {
+            this.BlogService = service;
+        }
 
-		public ActionResult Index()
-		{
+        public ActionResult Index(int? page = 1)
+        {
             HomeViewModel homeViewModel = new HomeViewModel();
+            homeViewModel.Page = page ?? 1;
             homeViewModel.HasUserLogin = this.IsUserLogin();
-			return View(homeViewModel);
-		}
-	}
+            return View(homeViewModel);
+        }
+    }
 }

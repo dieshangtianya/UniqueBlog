@@ -65,3 +65,37 @@ input[type="checkbox"].input-validation-error {
 .bootbox-body{
 	color:#2e2c2c;
 }
+
+.pagination{
+
+}
+
+.pagination li:first-child a{
+    border-radius:0;
+}
+
+.pagination li:last-child a{
+    border-radius:0;
+}
+
+.pagination li a{
+    border-radius:0px;
+    border:solid 1px #BEBFBD;
+    background-color:#999797;
+    color:#EFEDED;
+}
+
+.pagination li a:hover{
+    background-color:#656564;
+    color:#EFEDED;
+}
+
+.pagination .active a{
+    border:solid 1px #BEBFBD;
+    background-color:#656564;
+}
+
+.pagination .active a:hover{
+    border:solid 1px #9A9A98;
+    background-color:#5B5C5A;
+}

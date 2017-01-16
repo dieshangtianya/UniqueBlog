@@ -33,6 +33,11 @@ namespace UniqueBlog.DBManager
 			return null;
 		}
 
+		public virtual DbParameter CreateDbParameter()
+		{
+			return null;
+		}
+
 		public virtual DbParameter CreateDbParameter(string parameterName, object value)
 		{
 			return null;

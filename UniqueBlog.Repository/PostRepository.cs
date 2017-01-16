@@ -40,10 +40,27 @@ namespace UniqueBlog.Repository
 
         public IEnumerable<BlogPost> FindAll()
         {
-            throw new NotImplementedException();
+            List<BlogPost> postList = new List<BlogPost>();
+
+            using (var dbConnection = _dbbase.CreateDbConnection())
+            {
+                dbConnection.Open();
+                DbCommand command = dbConnection.CreateCommand();
+                command.CommandText = _baseSql;
+                using (DbDataReader dataReader = command.ExecuteReader())
+                {
+                    while (dataReader.Read())
+                    {
+                        BlogPost post = this.GetBlogPostFromReader(dataReader);
+                        postList.Add(post);
+                    }
+                }
+            }
+
+            return postList;
         }
 
-        public IEnumerable<BlogPost> FindAll(int index, int count)
+        public PagedResult<BlogPost> FindAll(int pageIndex, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -70,9 +87,47 @@ namespace UniqueBlog.Repository
             return postList;
         }
 
-        public IEnumerable<BlogPost> FindBy(Query query, int index, int count)
+        public PagedResult<BlogPost> FindBy(Query query, int pageIndex, int pageSize)
         {
-            throw new NotImplementedException();
+            string sqlWhere = query.TranslateIntoWhereSql();
+
+            PaginationQueryObject pageObject = this.CreatePainationObject(sqlWhere, pageIndex, pageSize);
+
+            Query pageQuery = QueryFactory.CreatePaginationQuery(pageObject);
+
+            PagedResult<BlogPost> pagedResult = null;
+
+            var postList = new List<BlogPost>();
+
+            using (DbConnection conn = this._dbbase.CreateDbConnection())
+            {
+                conn.Open();
+                DbCommand command = conn.CreateCommand();
+                pageQuery.TranslateIntoSql(command);
+
+                DbParameter parameterTotalRecords = this._dbbase.CreateDbParameter();
+                parameterTotalRecords.ParameterName = "@TotalRecordAmount";
+                parameterTotalRecords.Direction = ParameterDirection.Output;
+                parameterTotalRecords.DbType = DbType.Int32;
+
+                command.Parameters.Add(parameterTotalRecords);
+
+                using (DbDataReader dataReader = command.ExecuteReader())
+                {
+
+                    while (dataReader.Read())
+                    {
+                        BlogPost post = this.GetBlogPostFromReader(dataReader);
+                        postList.Add(post);
+                    }
+                }
+
+                var totalCount = (int)parameterTotalRecords.Value;
+
+                pagedResult = new PagedResult<BlogPost>(totalCount, postList);
+            }
+
+            return pagedResult;
         }
 
         public void Add(BlogPost entity)
@@ -229,6 +284,19 @@ namespace UniqueBlog.Repository
             }
 
             return relationDt;
+        }
+
+        private PaginationQueryObject CreatePainationObject(string sqlWhere, int pageIndex, int pageSize)
+        {
+            PaginationQueryObject pageObject = new PaginationQueryObject("t_blog_post");
+            pageObject.Fields = " BlogPostID, BlogId, PostTitle, PostContent, PostPlainContent, CreatedDate, LastUpdatedDate, Tags ";
+            pageObject.SqlWhere = sqlWhere;
+            pageObject.GroupFileds = "";
+            pageObject.OrderByFields = "ORDER BY BlogPostId DESC";
+            pageObject.PageIndex = pageIndex;
+            pageObject.PageSize = pageSize;
+
+            return pageObject;
         }
 
         #endregion

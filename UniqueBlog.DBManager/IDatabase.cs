@@ -14,7 +14,10 @@ namespace UniqueBlog.DBManager
 	{
 		DbConnection CreateDbConnection();
 
+		DbParameter CreateDbParameter();
+
 		DbParameter CreateDbParameter(string propertyName, object value);
+
 
 		string ParameterPlaceholder { get; }
 	}

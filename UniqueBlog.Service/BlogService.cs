@@ -29,9 +29,16 @@ namespace UniqueBlog.Service
         {
             var userName = "frwang";
             BlogDto blogDto = null;
+
             try
             {
-                Blog blog = blogRepository.FindByUserName(userName);
+                string procedureName = "sp_getblogbyusername";
+
+                IList<Criterion> criteria = new List<Criterion>();
+                criteria.Add(new Criterion("UserName", userName, CriterionOperator.Equal));
+                Query query = new Query(procedureName, criteria);
+
+                Blog blog = blogRepository.FindBy(query).FirstOrDefault();
 
                 if (blog != null)
                 {
