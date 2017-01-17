@@ -11,16 +11,30 @@
                    Page: page
                },
                function (data, status) {
-                   $container.html(data);
-                   pageNavigation.registerPageEvent(loadPostList, $container);
+                   var postList = $(data);
+                   $container.empty().append(postList);
+                   pageNavigation.registerPageEvent(function (page) {
+                       loadPostList($container, page);
+                   });
                    setTimeout(function () {
-                       $(".post-item-brief").dotdotdot({ watch: "window" });
-                       $(".post-item-brief").addClass("post-item-visible");
+                       processPostItems();
                    }, 200)
                });
     }
 
+    function processPostItems() {
+        $(".post-item-brief").dotdotdot({ watch: "window" });
+        $(".post-item-brief").addClass("post-item-visible");
+
+        pageNavigation.registerPageEvent(gotoPage);
+    }
+
+    function gotoPage(page) {
+        window.location.href = "/?page=" + page;
+    }
+
     return {
-        loadPostList: loadPostList
+        loadPostList: loadPostList,
+        processPostItems:processPostItems
     }
 })

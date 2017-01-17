@@ -1,10 +1,10 @@
 ﻿define(["jquery"
 ], function ($, domready, dotdotdot) {
-    function registerPageEvent(callback, $container) {
+    function registerPageEvent(callback) {
         $(".pagination").find("a").each(function () {
             $(this).click(function () {
                 var pageNumber = $(this).data("page");
-                callback($container, pageNumber);
+                callback(pageNumber);
             });
         });
     }

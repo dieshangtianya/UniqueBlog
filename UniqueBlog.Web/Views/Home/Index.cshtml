@@ -3,7 +3,7 @@
 @model UniqueBlog.Controllers.Models.ViewModels.HomeViewModel
 
 <div id="blogPostList">
-    @*@{Html.RenderAction("PostList", "BlogPost", new { page = 1 });}*@
+    @{Html.RenderAction("PostList", "BlogPost", new { page = Model.Page });}
 </div>
 
 @section scripts
