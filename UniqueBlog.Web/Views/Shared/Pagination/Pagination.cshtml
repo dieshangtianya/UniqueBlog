@@ -1,0 +1,35 @@
+﻿@model UniqueBlog.Controllers.Models.Pagination
+
+@if (Model.EndPage > 1)
+{
+    <div>
+        <ul class="pagination">
+            @if (Model.CurrentPage > 1)
+            {
+                <li>
+                    <a data-page="1">首页</a>
+                </li>
+                <li>
+                    <a data-page="@(Model.CurrentPage-1)">上一页</a>
+                </li>
+            }
+            @for (var page = Model.StartPage; page <= Model.EndPage; page++)
+            {
+                <li class="@(page == Model.CurrentPage ? "active" : "")">
+                    <a data-page="@page">@page.ToString()</a>
+                </li>
+            }
+
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <li>
+
+                    <a data-page="@(Model.CurrentPage+1)">下一页</a>
+                </li>
+                <li>
+                    <a data-page="@Model.TotalPages">最后一页</a>
+                </li>
+            }
+        </ul>
+    </div>
+}

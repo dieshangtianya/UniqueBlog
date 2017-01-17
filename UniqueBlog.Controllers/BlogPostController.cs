@@ -32,17 +32,17 @@ namespace UniqueBlog.Controllers
             this.categoryService = categoryService;
         }
 
-        public ActionResult PostList(int blogId, int page)
+        public ActionResult PostList(int page)
         {
-            PostListViewModel postListViewModel = new PostListViewModel();
+           PostListViewModel postListViewModel = new PostListViewModel();
             var pageSize = 5;
 
-            var pagedResult = this.postService.GetPostListByBlogId(blogId, page, pageSize);
+            var pagedResult = this.postService.GetPostListByBlogId(CommonBlogData.CurrentInstance.BlogInformation.Id, page, pageSize);
             postListViewModel.PostList = pagedResult.Items;
             postListViewModel.PageNavigation = new Pagination(pagedResult.TotalRecordsCount, page, pageSize);
             postListViewModel.HasUserLogin = this.IsUserLogin();
 
-            return View(postListViewModel);
+            return PartialView(postListViewModel);
         }
 
         [GlobalAuthorize]

@@ -23,10 +23,9 @@ namespace UniqueBlog.Controllers
             this.BlogService = service;
         }
 
-        public ActionResult Index(int? page = 1)
+        public ActionResult Index()
         {
             HomeViewModel homeViewModel = new HomeViewModel();
-            homeViewModel.Page = page ?? 1;
             homeViewModel.HasUserLogin = this.IsUserLogin();
             return View(homeViewModel);
         }

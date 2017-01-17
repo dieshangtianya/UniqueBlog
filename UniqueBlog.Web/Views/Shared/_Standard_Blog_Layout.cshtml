@@ -17,7 +17,7 @@
                 <div class="widget-container-body">
                     @foreach (var category in Model.GlobalBlogData.CategoryList)
                     {
-                        <div><a>@category.CategoryName</a>&nbsp;(@category.PostAmount)</div>
+                        <div>@Html.ActionLink(category.CategoryName, "Index", "Home", new { category = category.Id })&nbsp;(@category.PostAmount)</div>
                     }
                 </div>
             </div>
