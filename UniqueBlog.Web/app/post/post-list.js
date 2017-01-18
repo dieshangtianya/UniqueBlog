@@ -26,7 +26,7 @@
         $(".post-item-brief").dotdotdot({ watch: "window" });
         $(".post-item-brief").addClass("post-item-visible");
         //uncomment this sentence if change to synchronously load post list
-        //pageNavigation.registerPageEvent(gotoPage);
+        pageNavigation.registerPageEvent(gotoPage);
     }
 
     function gotoPage(page) {

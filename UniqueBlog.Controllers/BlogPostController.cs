@@ -34,7 +34,7 @@ namespace UniqueBlog.Controllers
 
         public ActionResult PostList(int page)
         {
-           PostListViewModel postListViewModel = new PostListViewModel();
+            PostListViewModel postListViewModel = new PostListViewModel();
             var pageSize = 5;
 
             var pagedResult = this.postService.GetPostListByBlogId(CommonBlogData.CurrentInstance.BlogInformation.Id, page, pageSize);

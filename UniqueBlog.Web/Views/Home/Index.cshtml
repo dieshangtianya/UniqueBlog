@@ -3,7 +3,7 @@
 @model UniqueBlog.Controllers.Models.ViewModels.HomeViewModel
 
 <div id="blogPostList">
-    @*@{Html.RenderAction("PostList", "BlogPost", new { page = Model.Page });}*@
+    @{Html.RenderAction("PostList", "BlogPost", new RouteValueDictionary(Model.RouteValues));}
 </div>
 
 @section scripts
