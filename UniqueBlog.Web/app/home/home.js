@@ -7,9 +7,11 @@ define(
         , "domready"
         , "sidebar/sidebar"
         ,"post/post-list"
-    ], function ($, domready, sidebar) {
+    ], function ($, domready, sidebar,postList) {
 
         domready(function () {
             sidebar.initialize();
+            postList.loadPostList($("#blogPostList"), 1);
+            //postList.processPostItems();
         });
     });

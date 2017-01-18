@@ -90,6 +90,7 @@
   <ItemGroup>
     <Content Include="app\config.js" />
     <Content Include="app\home\home.js" />
+    <Content Include="app\pagination\paging-navigation.js" />
     <Content Include="app\post\new-post.js" />
     <Content Include="app\post\post-list.js" />
     <Content Include="app\post\post.js" />
@@ -219,6 +220,7 @@
     <Content Include="Views\Shared\_Blog_Footer.cshtml" />
     <Content Include="Views\Shared\_Standard_Blog_Layout.cshtml" />
     <Content Include="Views\BlogPost\Post.cshtml" />
+    <Content Include="Views\Shared\Pagination\Pagination.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
