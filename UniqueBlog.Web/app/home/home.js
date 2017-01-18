@@ -11,7 +11,7 @@ define(
 
         domready(function () {
             sidebar.initialize();
-            //postList.loadPostList($("#blogPostList"), 1);
-            postList.processPostItems();
+            postList.loadPostList($("#blogPostList"), 1);
+            //postList.processPostItems();
         });
     });
