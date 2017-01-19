@@ -3,7 +3,10 @@
 @model UniqueBlog.Controllers.Models.ViewModels.HomeViewModel
 
 <div id="blogPostList">
+    @*load post list synchronously*@
     @{Html.RenderAction("PostList", "BlogPost", new RouteValueDictionary(Model.RouteValues));}
+
+    @*load post list asynchronously*@
 </div>
 
 @section scripts

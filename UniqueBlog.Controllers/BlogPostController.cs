@@ -34,13 +34,18 @@ namespace UniqueBlog.Controllers
 
         public ActionResult PostList(int page)
         {
-            PostListViewModel postListViewModel = new PostListViewModel();
             var pageSize = 5;
 
             var pagedResult = this.postService.GetPostListByBlogId(CommonBlogData.CurrentInstance.BlogInformation.Id, page, pageSize);
+
+            PostListViewModel postListViewModel = new PostListViewModel();
             postListViewModel.PostList = pagedResult.Items;
-            postListViewModel.PageNavigation = new Pagination(pagedResult.TotalRecordsCount, page, pageSize);
             postListViewModel.HasUserLogin = this.IsUserLogin();
+
+            var pagination = new Pagination(pagedResult.TotalRecordsCount, page, pageSize);
+            pagination.SourceUrl = Request.Url.AbsolutePath;
+
+            postListViewModel.PageNavigation = pagination;
 
             return PartialView(postListViewModel);
         }

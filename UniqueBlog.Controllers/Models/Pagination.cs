@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 
 namespace UniqueBlog.Controllers.Models
 {
@@ -41,6 +42,9 @@ namespace UniqueBlog.Controllers.Models
         /// </summary>
         public int EndPage { get; private set; }
 
+        public string SourceUrl { get; set; }
+
+        public Dictionary<string, string> RouteValues { get; }
 
         #region construction
         /// <summary>
@@ -49,8 +53,10 @@ namespace UniqueBlog.Controllers.Models
         /// <param name="totalItems"></param>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
-        public Pagination(int totalItems,int? pageIndex,int pageSize=10)
+        public Pagination(int totalItems, int? pageIndex, int pageSize = 10)
         {
+            this.RouteValues = new Dictionary<string, string>();
+
             var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
             var currentPage = pageIndex == null ? 1 : (int)pageIndex;
             var startPage = currentPage - 5;
@@ -81,6 +87,32 @@ namespace UniqueBlog.Controllers.Models
             this.EndPage = endPage;
         }
 
+        #endregion
+
+        #region private methods
+        public string GetRequestUrl(int page)
+        {
+            string url = this.SourceUrl + "?";
+            foreach (string key in this.RouteValues.Keys)
+            {
+                url += key + "=" + this.RouteValues[key];
+                url += "&&";
+            }
+
+            url += "page=" + page;
+            return url;
+        }
+
+        public string GetJsonString()
+        {
+            string paramJson = "{}";
+            if (this.RouteValues.Keys.Count > 0)
+            {
+                paramJson = new JavaScriptSerializer().Serialize(RouteValues);
+            }
+
+            return paramJson;
+        }
         #endregion
     }
 }

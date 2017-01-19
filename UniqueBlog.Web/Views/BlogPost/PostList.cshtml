@@ -35,5 +35,9 @@
         </div>
     }
 
+    @*load post list synchronously*@
     @Html.Partial("~/Views/Shared/Pagination/Pagination.cshtml", Model.PageNavigation)
+
+    @*load post list asynchronously*@
+    @*@Html.Partial("~/Views/Shared/Pagination/AsyncPagination.cshtml", Model.PageNavigation)*@
 </div>
