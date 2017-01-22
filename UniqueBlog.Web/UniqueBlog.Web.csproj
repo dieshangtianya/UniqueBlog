@@ -221,6 +221,7 @@
     <Content Include="Views\Shared\_Standard_Blog_Layout.cshtml" />
     <Content Include="Views\BlogPost\Post.cshtml" />
     <Content Include="Views\Shared\Pagination\Pagination.cshtml" />
+    <Content Include="Views\Shared\Pagination\AsyncPagination.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

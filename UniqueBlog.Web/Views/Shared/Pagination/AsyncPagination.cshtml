@@ -1,22 +1,23 @@
-﻿@model UniqueBlog.Controllers.Models.Pagination
+﻿
+@model UniqueBlog.Controllers.Models.Pagination
 
 @if (Model.EndPage > 1)
 {
     <div>
-        <ul class="pagination">
+        <ul class="pagination" data-param="@Model.GetJsonString()">
             @if (Model.CurrentPage > 1)
             {
                 <li>
-                    <a href="@Model.GetRequestUrl(1)">首页</a>
+                    <a data-page="1">首页</a>
                 </li>
                 <li>
-                    <a href="@Model.GetRequestUrl(Model.CurrentPage-1)">上一页</a>
+                    <a data-page="@(Model.CurrentPage-1)">上一页</a>
                 </li>
             }
             @for (var page = Model.StartPage; page <= Model.EndPage; page++)
             {
                 <li class="@(page == Model.CurrentPage ? "active" : "")">
-                    <a href="@Model.GetRequestUrl(page)">@page.ToString()</a>
+                    <a data-page="@page">@page.ToString()</a>
                 </li>
             }
 
@@ -24,10 +25,10 @@
             {
                 <li>
 
-                    <a data-page="@Model.GetRequestUrl(Model.CurrentPage+1)">下一页</a>
+                    <a data-page="@(Model.CurrentPage+1)">下一页</a>
                 </li>
                 <li>
-                    <a data-page="@Model.GetRequestUrl(Model.TotalPages)">最后一页</a>
+                    <a data-page="@Model.TotalPages">最后一页</a>
                 </li>
             }
         </ul>

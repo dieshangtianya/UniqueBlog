@@ -6,14 +6,17 @@
 
     var timeoutRef;
 
-    function loadPostList($container, page) {
-        $container.load("../BlogPost/PostList", { Page: page }, function () {
-            pageNavigation.registerPageEvent(function (page) {
-                loadPostList($container, page);
+    function loadPostList($container, queryParam) {
+        if (!queryParam.page) {
+            queryParam.page = 1;
+        }
+
+        $container.load("../BlogPost/PostList", queryParam, function () {
+            pageNavigation.registerPageEvent(function (param) {
+                loadPostList($container, param);
             });
 
             $container.hide();
-
             timeoutRef = setTimeout(function () {
                 $container.show();
                 processPostItems();
@@ -25,12 +28,6 @@
     function processPostItems() {
         $(".post-item-brief").dotdotdot({ watch: "window" });
         $(".post-item-brief").addClass("post-item-visible");
-        //uncomment this sentence if change to synchronously load post list
-        //pageNavigation.registerPageEvent(gotoPage);
-    }
-
-    function gotoPage(page) {
-        window.location.href = "../?page=" + page;
     }
 
     return {

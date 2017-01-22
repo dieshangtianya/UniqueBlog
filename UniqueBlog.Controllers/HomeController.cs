@@ -26,7 +26,12 @@ namespace UniqueBlog.Controllers
         public ActionResult Index(int? page)
         {
             HomeViewModel homeViewModel = new HomeViewModel();
-            homeViewModel.Page = page ?? 1;
+
+            homeViewModel.RouteValues["page"] = page ?? 1;
+            homeViewModel.RouteValues["pageUrl"] = Request.RawUrl;
+
+            object obj = homeViewModel.RouteValues;
+
             homeViewModel.HasUserLogin = this.IsUserLogin();
             return View(homeViewModel);
         }

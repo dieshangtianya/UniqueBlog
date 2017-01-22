@@ -9,9 +9,17 @@ define(
         ,"post/post-list"
     ], function ($, domready, sidebar,postList) {
 
+        //change this to load postlist synchronouly
+        var loadPostListAsynchronously = false;
+
         domready(function () {
             sidebar.initialize();
-            postList.loadPostList($("#blogPostList"), 1);
-            //postList.processPostItems();
+
+            if (loadPostListAsynchronously) {
+                var queryParam = {};
+                postList.loadPostList($("#blogPostList"), queryParam);
+            } else {
+                postList.processPostItems();
+            }
         });
     });
