@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace UniqueBlog.Infrastructure.Query
 {
 	/// <summary>
-	/// 查询类
+	/// Query object
 	/// </summary>
-	public class Query
+	public class Query:ICloneable
 	{
 		private IList<Criterion> criteria;
 
@@ -44,7 +44,7 @@ namespace UniqueBlog.Infrastructure.Query
 		#region Public Properties
 
 		/// <summary>
-		/// 查询名称
+		/// Query type
 		/// </summary>
 		public QueryType QueryType
 		{
@@ -53,7 +53,7 @@ namespace UniqueBlog.Infrastructure.Query
 		}
 
 		/// <summary>
-		/// 查询名称
+		/// Query Name which means the stored procedure name
 		/// </summary>
 		public string QueryName
 		{
@@ -62,7 +62,7 @@ namespace UniqueBlog.Infrastructure.Query
 		}
 
 		/// <summary>
-		/// 查询条件列表
+		/// Query criteria
 		/// </summary>
 		public IEnumerable<Criterion> Criteria
 		{
@@ -70,12 +70,12 @@ namespace UniqueBlog.Infrastructure.Query
 		}
 
 		/// <summary>
-		/// 查询操作符
+		/// Query operator
 		/// </summary>
 		public QueryOperator QueryOperator { get; set; }
 
 		/// <summary>
-		/// 排序方式
+		/// Order by clause
 		/// </summary>
 		public OrderByClause OrderByClause { get; set; }
 
@@ -84,7 +84,7 @@ namespace UniqueBlog.Infrastructure.Query
 		#region Public Methods
 
 		/// <summary>
-		/// 判断当前Query是否为已命名的查询
+        /// Determine whether current query is a named query
 		/// </summary>
 		/// <returns></returns>
 		public bool IsNamedQuery()
@@ -93,7 +93,7 @@ namespace UniqueBlog.Infrastructure.Query
 		}
 
 		/// <summary>
-		/// 添加查询条件
+		/// Add criterion
 		/// </summary>
 		/// <param name="criterion"></param>
 		public void Add(Criterion criterion)
@@ -101,6 +101,16 @@ namespace UniqueBlog.Infrastructure.Query
             this.criteria.Add(criterion);
         }
 
-		#endregion
-	}
+        public void Remove(Criterion criterion)
+        {
+            this.criteria.Remove(criterion);
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
+    }
 }

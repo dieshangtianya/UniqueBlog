@@ -2,7 +2,7 @@
 
 @model UniqueBlog.Controllers.Models.ViewModels.HomeViewModel
 
-@{Html.RenderAction("PostList", "BlogPost", new { blogId = Model.GlobalBlogData.BlogInformation.Id, page = Model.Page });}
+@{Html.RenderAction("PostList", "BlogPost", new { blogId = Model.GlobalBlogData.BlogInformation.Id, page = Model.Page,category=Model.Category });}
 
 @section scripts
 {

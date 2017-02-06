@@ -89,11 +89,9 @@ namespace UniqueBlog.Repository
 
         public PagedResult<BlogPost> FindBy(Query query, int pageIndex, int pageSize)
         {
-            string sqlWhere = query.TranslateIntoWhereSql();
+            PaginationQueryObject pageObject = PaginationQueryObjectFactory.CreateBlogPostPaginationQueryObject(query, pageIndex, pageSize);
 
-            PaginationQueryObject pageObject = this.CreatePainationObject(sqlWhere, pageIndex, pageSize);
-
-            Query pageQuery = QueryFactory.CreatePaginationQuery(pageObject);
+            Query paginationQuery = QueryFactory.CreatePaginationQuery(pageObject);
 
             PagedResult<BlogPost> pagedResult = null;
 
@@ -103,7 +101,7 @@ namespace UniqueBlog.Repository
             {
                 conn.Open();
                 DbCommand command = conn.CreateCommand();
-                pageQuery.TranslateIntoSql(command);
+                paginationQuery.TranslateIntoSql(command);
 
                 DbParameter parameterTotalRecords = this._dbbase.CreateDbParameter();
                 parameterTotalRecords.ParameterName = "@TotalRecordAmount";
@@ -284,19 +282,6 @@ namespace UniqueBlog.Repository
             }
 
             return relationDt;
-        }
-
-        private PaginationQueryObject CreatePainationObject(string sqlWhere, int pageIndex, int pageSize)
-        {
-            PaginationQueryObject pageObject = new PaginationQueryObject("t_blog_post");
-            pageObject.Fields = " BlogPostID, BlogId, PostTitle, PostContent, PostPlainContent, CreatedDate, LastUpdatedDate, Tags ";
-            pageObject.SqlWhere = sqlWhere;
-            pageObject.GroupFileds = "";
-            pageObject.OrderByFields = "ORDER BY BlogPostId DESC";
-            pageObject.PageIndex = pageIndex;
-            pageObject.PageSize = pageSize;
-
-            return pageObject;
         }
 
         #endregion

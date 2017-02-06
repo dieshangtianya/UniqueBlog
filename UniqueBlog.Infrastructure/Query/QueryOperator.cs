@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace UniqueBlog.Infrastructure.Query
 {
 	/// <summary>
-	/// 查询操作符
+	/// Query operator
 	/// </summary>
 	public enum QueryOperator
 	{
