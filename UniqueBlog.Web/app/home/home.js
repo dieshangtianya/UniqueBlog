@@ -14,12 +14,26 @@ define(
 
         domready(function () {
             sidebar.initialize();
+            loadPostList();
+        });
 
+        function loadPostList() {
+            var queryParam = {};
+            var searchStr = window.location.search;
+            if (searchStr !== "") {
+                var tempSearchStr = searchStr.substr(1, window.location.search.length);
+                var parameters = tempSearchStr.split("&");
+                for (var i = 0; i < parameters.length; i++) {
+                    if (parameters[i].toLowerCase().startsWith("category=")) {
+                        queryParam.category = parameters[i].split("=")[1];
+                        break;
+                    }
+                }
+            }
             if (loadPostListAsynchronously) {
-                var queryParam = {};
                 postList.loadPostList($("#blogPostList"), queryParam);
             } else {
                 postList.processPostItems();
             }
-        });
+        }
     });

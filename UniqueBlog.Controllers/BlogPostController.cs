@@ -44,6 +44,10 @@ namespace UniqueBlog.Controllers
 
             var pagination = new Pagination(pagedResult.TotalRecordsCount, page, pageSize);
             pagination.SourceUrl = Request.Url.AbsolutePath;
+            if(category!=null)
+            {
+                pagination.RouteValues.Add("category", category.ToString());
+            }
 
             postListViewModel.PageNavigation = pagination;
 
