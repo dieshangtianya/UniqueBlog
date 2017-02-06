@@ -10,7 +10,7 @@ define(
     ], function ($, domready, sidebar,postList) {
 
         //change this to load postlist synchronouly
-        var loadPostListAsynchronously = true;
+        var loadPostListAsynchronously = false;
 
         domready(function () {
             sidebar.initialize();
