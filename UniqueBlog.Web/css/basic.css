@@ -83,6 +83,7 @@ input[type="checkbox"].input-validation-error {
     border:solid 1px #BEBFBD;
     background-color:#999797;
     color:#EFEDED;
+    cursor:pointer;
 }
 
 .pagination li a:hover{

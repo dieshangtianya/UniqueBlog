@@ -2,7 +2,12 @@
 
 @model UniqueBlog.Controllers.Models.ViewModels.HomeViewModel
 
-@{Html.RenderAction("PostList", "BlogPost", new { blogId = Model.GlobalBlogData.BlogInformation.Id, page = Model.Page,category=Model.Category });}
+<div id="blogPostList">
+    @*load post list synchronously*@
+    @{Html.RenderAction("PostList", "BlogPost", new RouteValueDictionary(Model.RouteValues));}
+
+    @*load post list asynchronously*@
+</div>
 
 @section scripts
 {
