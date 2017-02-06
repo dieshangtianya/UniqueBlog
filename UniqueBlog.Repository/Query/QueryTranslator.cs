@@ -25,8 +25,6 @@ namespace UniqueBlog.Repository
 
         public static void TranslateIntoSql(this Query query, DbCommand command, string baseQuery = null)
         {
-
-
             if (query.IsNamedQuery())
             {
                 command.CommandText = query.QueryName;

@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace UniqueBlog.Infrastructure.Query
 {
 	/// <summary>
-	/// 查询名称
+	/// Query Type
 	/// </summary>
 	public enum QueryType
 	{
 		/// <summary>
-		/// 动态生成SQL
+		/// Dynamic sql
 		/// </summary>
 		Dynamic = 0,
 		/// <summary>
-		/// 使用命名查询
+		/// using named query
 		/// </summary>
 		NamedQuery = 1
 	}

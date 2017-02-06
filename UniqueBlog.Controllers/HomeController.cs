@@ -23,14 +23,13 @@ namespace UniqueBlog.Controllers
             this.BlogService = service;
         }
 
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? category, int? page = 1)
         {
             HomeViewModel homeViewModel = new HomeViewModel();
 
             homeViewModel.RouteValues["page"] = page ?? 1;
             homeViewModel.RouteValues["pageUrl"] = Request.RawUrl;
-
-            object obj = homeViewModel.RouteValues;
+            homeViewModel.RouteValues["category"] = category ?? 0;
 
             homeViewModel.HasUserLogin = this.IsUserLogin();
             return View(homeViewModel);

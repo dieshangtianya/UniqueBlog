@@ -32,11 +32,11 @@ namespace UniqueBlog.Controllers
             this.categoryService = categoryService;
         }
 
-        public ActionResult PostList(int page)
+        public ActionResult PostList(int? category, int page)
         {
             var pageSize = 5;
 
-            var pagedResult = this.postService.GetPostListByBlogId(CommonBlogData.CurrentInstance.BlogInformation.Id, page, pageSize);
+            var pagedResult = this.postService.GetPostList(CommonBlogData.CurrentInstance.BlogInformation.Id,category, page, pageSize);
 
             PostListViewModel postListViewModel = new PostListViewModel();
             postListViewModel.PostList = pagedResult.Items;
