@@ -57,6 +57,7 @@
     <Compile Include="CommonBlogData.cs" />
     <Compile Include="Constants\ConstantData.cs" />
     <Compile Include="DtoMapperManager\AutoMapperConfig.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="MEF\MVCMEFConfiguration.cs" />
     <Compile Include="MEF\MEFControllerFactory.cs" />
     <Compile Include="Models\Pagination.cs" />
