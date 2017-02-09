@@ -101,14 +101,10 @@ namespace UniqueBlog.Controllers
         {
             PostDto postDto = this.postService.GetPostById(id);
 
-            PostViewModel postViewModel = new PostViewModel();
-            postViewModel.PostId = postDto.Id;
-            postViewModel.PostTitle = postDto.Title;
-            postViewModel.PostContent = postDto.Content;
-            postViewModel.CreatedDate = postDto.CreatedDate;
-            postViewModel.PostTags = postDto.Tags;
+            PostShowViewModel postShowViewModel = new Models.ViewModels.PostShowViewModel();
+            postShowViewModel.Post = postDto;
 
-            return View(postViewModel);
+            return View(postShowViewModel);
         }
 
         [HttpPost]

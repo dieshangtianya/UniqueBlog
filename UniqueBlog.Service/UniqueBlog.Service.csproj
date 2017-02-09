@@ -51,6 +51,7 @@
     <Compile Include="DtoMapper\AutoMapperConfig.cs" />
     <Compile Include="DtoMapper\BlogMapper.cs" />
     <Compile Include="DtoMapper\CategoryMapper.cs" />
+    <Compile Include="DtoMapper\CommentMapper.cs" />
     <Compile Include="DtoMapper\PostMapper.cs" />
     <Compile Include="DtoMapper\UserMapper.cs" />
     <Compile Include="Interfaces\IAccountService.cs" />

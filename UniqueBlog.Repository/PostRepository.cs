@@ -252,7 +252,7 @@ namespace UniqueBlog.Repository
         {
             int postId = (int)dataReader["BlogPostId"];
 
-            BlogPost post = new BlogPostProxy(postId, () => LazyLoader.RequestCategory(postId), () => LazyLoader.RequestPostComments(postId));
+            BlogPost post = new BlogPostProxy(postId, () => LazyLoader.RequestCategory(postId), LazyLoader.RequestPostComments);
             post.Title = dataReader["PostTitle"].ToString();
             post.BlogId = (int)dataReader["BlogId"];
             post.Content = dataReader["PostContent"].ToString();

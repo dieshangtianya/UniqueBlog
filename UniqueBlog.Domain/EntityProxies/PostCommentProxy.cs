@@ -7,13 +7,16 @@ using UniqueBlog.Domain.Entities;
 
 namespace UniqueBlog.Domain.EntityProxies
 {
-    public class PostCommentProxy:PostComment
+    public class PostCommentProxy : PostComment
     {
         private Lazy<BlogPost> lazyBlogPost;
         private Lazy<PostComment> lazyLinkComment;
 
-        public PostCommentProxy(int commentId, Func<BlogPost> blogPostFunc,Func<PostComment> commentFunc)
-            :base(commentId)
+        private bool hasLazyLoadingBlogPost = false;
+        private bool hasLazyLoadingLinkComment = false;
+
+        public PostCommentProxy(int commentId, Func<BlogPost> blogPostFunc, Func<PostComment> commentFunc)
+            : base(commentId)
         {
             this.lazyBlogPost = new Lazy<Entities.BlogPost>(blogPostFunc);
             this.lazyLinkComment = new Lazy<PostComment>(commentFunc);
@@ -23,9 +26,10 @@ namespace UniqueBlog.Domain.EntityProxies
         {
             get
             {
-                if(base.Post==null)
+                if (base.Post == null && !hasLazyLoadingBlogPost)
                 {
                     base.Post = this.lazyBlogPost.Value;
+                    hasLazyLoadingBlogPost = true;
                 }
                 return base.Post;
             }
@@ -40,9 +44,10 @@ namespace UniqueBlog.Domain.EntityProxies
         {
             get
             {
-                if (base.LinkComment == null)
+                if (base.LinkComment == null && !hasLazyLoadingLinkComment)
                 {
                     base.LinkComment = this.lazyLinkComment.Value;
+                    hasLazyLoadingLinkComment = true;
                 }
 
                 return base.LinkComment;

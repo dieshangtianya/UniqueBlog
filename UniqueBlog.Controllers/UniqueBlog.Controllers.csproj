@@ -63,6 +63,7 @@
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\SelectedItem.cs" />
     <Compile Include="Models\ViewModels\PostListViewModel.cs" />
+    <Compile Include="Models\ViewModels\PostShowViewModel.cs" />
     <Compile Include="Models\ViewModels\PostViewModel.cs" />
     <Compile Include="Models\ViewModels\ViewModelBase.cs" />
     <Compile Include="Models\ViewModels\ViewType.cs" />

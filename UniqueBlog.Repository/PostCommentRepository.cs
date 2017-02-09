@@ -103,7 +103,7 @@ namespace UniqueBlog.Repository
             int commentId = (int)dataReader["CommentId"];
             int postId = (int)dataReader["PostId"];
 
-            int linkCommentId = dataReader["LinkCommentId"] == null ? 0 : (int)dataReader["LinkCommentId"];
+            int linkCommentId = dataReader["LinkCommentId"].ToString() == "" ? 0 : (int)dataReader["LinkCommentId"];
 
             PostComment comment = new PostCommentProxy(commentId, () => LazyLoader.RequestBlogPost(postId), () => LazyLoader.RequestLinkComment(linkCommentId));
 

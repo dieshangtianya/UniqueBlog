@@ -113,6 +113,7 @@
     <Content Include="images\black_bg.png" />
     <Content Include="images\comment.png" />
     <Content Include="images\eye.png" />
+    <Content Include="images\left_footprint.png" />
     <Content Include="images\uqblog-login.png" />
     <Content Include="vendor\bootbox\4.4.0\bootbox.min.js" />
     <Content Include="vendor\bootstrap-tag-input\0.8.0\bootstrap-tagsinput.css" />

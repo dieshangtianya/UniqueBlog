@@ -27,7 +27,7 @@ CKEDITOR.editorConfig = function (config) {
         { name: 'tools', items: ['Maximize', 'ShowBlocks', '-', 'About'] }
     ];
     config.toolbar_Simple = [
-        { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+        { name: 'basicstyles', items: ['Bold', 'Italic'] },
         { name: 'insert', items: ['Image', 'CodeSnippet'] }
     ]
 };

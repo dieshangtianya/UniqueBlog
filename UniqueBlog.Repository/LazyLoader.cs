@@ -19,13 +19,19 @@ namespace UniqueBlog.Repository
             return categoryRepository.FindBy(query);
         }
 
-        public static IEnumerable<PostComment> RequestPostComments(int postId)
+        public static IEnumerable<PostComment> RequestPostComments(BlogPost post)
         {
             PostCommentRepository commentRepository = new PostCommentRepository();
             Query query = new Query();
-            query.Add(new Criterion("PostId", postId, CriterionOperator.Equal));
+            query.Add(new Criterion("PostId", post.Id, CriterionOperator.Equal));
 
-            return commentRepository.FindBy(query); 
+            var postComments = commentRepository.FindBy(query);
+            foreach (var comment in postComments)
+            {
+                comment.Post = post;
+            }
+
+            return postComments;
         }
 
         public static PostComment RequestLinkComment(int postCommentId)

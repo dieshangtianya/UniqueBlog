@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="BlogDto.cs" />
     <Compile Include="CategoryDto.cs" />
+    <Compile Include="PostCommentDto.cs" />
     <Compile Include="PostDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDto.cs" />
