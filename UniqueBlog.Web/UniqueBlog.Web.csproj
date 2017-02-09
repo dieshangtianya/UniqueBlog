@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\comment\comment.js" />
     <Content Include="app\config.js" />
     <Content Include="app\home\home.js" />
     <Content Include="app\pagination\paging-navigation.js" />
@@ -244,6 +245,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="userimages\" />
     <Folder Include="Views\Admin\" />
   </ItemGroup>
   <PropertyGroup>

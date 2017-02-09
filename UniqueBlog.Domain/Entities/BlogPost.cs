@@ -54,10 +54,12 @@ namespace UniqueBlog.Domain.Entities
 			}
 		}
 
-		/// <summary>
-		/// Get or set the blog id the post belong to
-		/// </summary>
-		public int BlogId { get; set; }
+        public virtual IEnumerable<PostComment> Comments { get; protected set; }
+
+        /// <summary>
+        /// Get or set the blog id the post belong to
+        /// </summary>
+        public int BlogId { get; set; }
 
 		/// <summary>
 		/// Get or set the post tags

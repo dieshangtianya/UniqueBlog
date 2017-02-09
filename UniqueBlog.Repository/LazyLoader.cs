@@ -18,5 +18,35 @@ namespace UniqueBlog.Repository
             query.Add(new Criterion("PostId", postId, CriterionOperator.Equal));
             return categoryRepository.FindBy(query);
         }
+
+        public static IEnumerable<PostComment> RequestPostComments(int postId)
+        {
+            PostCommentRepository commentRepository = new PostCommentRepository();
+            Query query = new Query();
+            query.Add(new Criterion("PostId", postId, CriterionOperator.Equal));
+
+            return commentRepository.FindBy(query); 
+        }
+
+        public static PostComment RequestLinkComment(int postCommentId)
+        {
+            if (postCommentId == 0)
+                return null;
+
+            PostCommentRepository commentRepository = new PostCommentRepository();
+            Query query = new Query();
+            query.Add(new Criterion("CommentId", postCommentId, CriterionOperator.Equal));
+
+            return commentRepository.FindBy(query).FirstOrDefault();
+        }
+
+        public static BlogPost RequestBlogPost(int postId)
+        {
+            PostRepository postRepository = new PostRepository();
+            Query query = new Query();
+            query.Add(new Criterion("BlogPostId", postId, CriterionOperator.Equal));
+
+            return postRepository.FindBy(query).FirstOrDefault();
+        }
     }
 }

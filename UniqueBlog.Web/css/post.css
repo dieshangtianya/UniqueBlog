@@ -27,10 +27,35 @@ code{
     color:#D8D8D8;
 }
 
+
+.content-block{
+    background-color:#CECACA;
+    margin:10px 0;
+    padding:10px;
+}
+
 .post-content{
     margin:10px 0px;
+    min-height:200px;
 }
 
 .post-content p{
     margin:0;
+}
+
+.post-comment{
+   color:#000000;
+}
+
+.post-comment-title{
+    margin:10px 0;
+    font-size:16px;
+}
+
+.publish-comment{
+    color:#000000;
+}
+
+.publish-comment label{
+    font-weight:normal;
 }

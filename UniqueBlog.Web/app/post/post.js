@@ -6,8 +6,9 @@ define(
 		"jquery"
         , "domready"
         , "sidebar/sidebar"
+        , "comment/comment"
         , "highlight"
-    ], function ($, domready, sidebar) {
+    ], function ($, domready, sidebar,comment) {
        
         domready(function () {
             sidebar.initialize();

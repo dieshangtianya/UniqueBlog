@@ -9,12 +9,14 @@ namespace UniqueBlog.Domain.EntityProxies
 {
 	public class BlogPostProxy : BlogPost
 	{
-		private Lazy<IEnumerable<Category>> lazyCustomers;
+		private Lazy<IEnumerable<Category>> lazyCategory;
+        private Lazy<IEnumerable<PostComment>> lazyComment;
 
-		public BlogPostProxy(int id, Func<IEnumerable<Category>> requestCategoryFunc)
+		public BlogPostProxy(int id, Func<IEnumerable<Category>> requestCategoryFunc,Func<IEnumerable<PostComment>> requestCommentFunc)
 			: base(id)
 		{
-			lazyCustomers = new Lazy<IEnumerable<Entities.Category>>(requestCategoryFunc);
+			lazyCategory = new Lazy<IEnumerable<Entities.Category>>(requestCategoryFunc);
+            lazyComment = new Lazy<IEnumerable<PostComment>>(requestCommentFunc);
 		}
 
 		public override IEnumerable<Category> Categories
@@ -23,7 +25,7 @@ namespace UniqueBlog.Domain.EntityProxies
 			{
 				if (base.Categories == null)
 				{
-					base.Categories = this.lazyCustomers.Value;
+					base.Categories = this.lazyCategory.Value;
 				}
 
 				return base.Categories;
@@ -33,5 +35,18 @@ namespace UniqueBlog.Domain.EntityProxies
 				base.Categories = value;
 			}
 		}
-	}
+
+        public override IEnumerable<PostComment> Comments
+        {
+            get
+            {
+                if (base.Comments == null)
+                {
+                    base.Comments = this.lazyComment.Value;
+                }
+
+                return base.Comments;
+            }
+        }
+    }
 }

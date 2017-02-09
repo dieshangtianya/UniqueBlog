@@ -25,4 +25,8 @@ CKEDITOR.editorConfig = function (config) {
         { name: 'colors', items: ['TextColor', 'BGColor'] },
         { name: 'tools', items: ['Maximize', 'ShowBlocks', '-', 'About'] }
     ];
+    config.toolbar_Simple = [
+        { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+        { name: 'insert', items: ['Image', 'CodeSnippet'] }
+    ]
 };
