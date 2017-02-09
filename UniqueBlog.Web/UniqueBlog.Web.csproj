@@ -223,6 +223,7 @@
     <Content Include="Views\BlogPost\Post.cshtml" />
     <Content Include="Views\Shared\Pagination\Pagination.cshtml" />
     <Content Include="Views\Shared\Pagination\AsyncPagination.cshtml" />
+    <Content Include="Views\FileManager\FileUpload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -245,8 +246,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="userimages\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="webImages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

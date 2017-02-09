@@ -10,6 +10,7 @@ CKEDITOR.editorConfig = function (config) {
     config.extraPlugins = 'codesnippet';
     //for more themes please visit the link https://highlightjs.org/static/demo/
     config.codeSnippet_theme = 'vs';
+    
     config.toolbar = 'Full';
     config.toolbar_Full = [
         { name: 'document', items: ['Source', '-', 'NewPage', 'Preview', 'Print', '-', 'Templates'] },
