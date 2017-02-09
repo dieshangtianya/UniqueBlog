@@ -24,7 +24,9 @@ define(
 
         function configCKEditor() {
             if (!CKEDITOR.instances['postEditor']) {
-                CKEDITOR.replace('postEditor');
+                CKEDITOR.replace('postEditor', {
+                    filebrowserUploadUrl: "/FileManager/PostFileUpload"
+                });
             }
 
             //add custom predefined css class to the iframe
