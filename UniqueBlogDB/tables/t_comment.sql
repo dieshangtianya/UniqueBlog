@@ -16,7 +16,6 @@ CREATE TABLE t_comment
 	BlogId INT NOT NULL FOREIGN KEY REFERENCES t_blog(BlogId),
 	PostId INT NOT NULL FOREIGN KEY REFERENCES t_blog_post(BlogPostId),
 	UserName NVARCHAR(20) NOT NULL,
-	LinkCommentId INT NULL,
-	CommentContent NVARCHAR(MAX) NULL DEFAULT(''),
+	CommentContent NTEXT NULL DEFAULT(''),
 	CreatedDate DATETIME NOT NULL DEFAULT(GETDATE())
 )

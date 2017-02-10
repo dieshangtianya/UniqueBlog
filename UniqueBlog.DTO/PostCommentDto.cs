@@ -10,11 +10,11 @@ namespace UniqueBlog.DTO
     {
         public int Id { get; set; }
 
+        public int BlogId { get; set; }
+
         public string UserName { get; set; }
 
         public PostDto Post { get; set; }
-
-        public PostCommentDto LinkComment { get; set; }
 
         public string CommentContent { get; set; }
 

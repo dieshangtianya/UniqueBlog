@@ -62,11 +62,13 @@
     <Compile Include="MEF\MEFControllerFactory.cs" />
     <Compile Include="Models\Pagination.cs" />
     <Compile Include="Models\SelectedItem.cs" />
+    <Compile Include="Models\ViewModels\PostCommentListViewModel.cs" />
     <Compile Include="Models\ViewModels\PostListViewModel.cs" />
     <Compile Include="Models\ViewModels\PostShowViewModel.cs" />
     <Compile Include="Models\ViewModels\PostViewModel.cs" />
     <Compile Include="Models\ViewModels\ViewModelBase.cs" />
     <Compile Include="Models\ViewModels\ViewType.cs" />
+    <Compile Include="PostCommentController.cs" />
     <Compile Include="ResponseResults\ResponseResult.cs" />
     <Compile Include="RouteConfig\GlobalRoutesConfig.cs" />
     <Compile Include="HomeController.cs" />

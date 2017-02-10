@@ -37,7 +37,6 @@ namespace UniqueBlog.Service.DtoMapper
 
                 //PostComment ---- PostCommentDto
                 cfg.CreateMap<PostComment, PostCommentDto>().MaxDepth(1).PreserveReferences();
-
                 cfg.CreateMap<PostCommentDto, PostComment>();
             });
 

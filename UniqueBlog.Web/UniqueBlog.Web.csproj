@@ -225,6 +225,7 @@
     <Content Include="Views\Shared\Pagination\Pagination.cshtml" />
     <Content Include="Views\Shared\Pagination\AsyncPagination.cshtml" />
     <Content Include="Views\FileManager\FileUpload.cshtml" />
+    <Content Include="Views\PostComment\PostCommentList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

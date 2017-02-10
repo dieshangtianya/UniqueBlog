@@ -17,49 +17,32 @@
         <div class="col-md-12">
             <div>
                 <div class="post-title">
+                    <input id="postId" type="hidden" value="@Model.Post.Id" />
                     <a href="@Request.Url.PathAndQuery">@Model.Post.Title</a>
                 </div>
                 <div class="post-content">
                     @(new HtmlString(Model.Post.Content))
                 </div>
             </div>
-            <div class="content-block">
-                <div class="post-comment-title">评论列表：</div>
-                @if (Model.Post.Comments.Count == 0)
+            <div id="postListContainer">
+                @{Html.RenderPartial("~/Views/PostComment/PostCommentList.cshtml",Model.PostCommentListVM);}
+            </div>
+            <div class="content-block publish-comment">
+                @using (Html.BeginForm("PublishComment", "PostComment", FormMethod.Post, new { id = "formPublishComment" }))
                 {
-                    <div class="no-footprint"><img style="width:32px;height:32px;" src="~/images/left_footprint.png">还没有留下任何足迹！</div>
-                }
-                @{ var index = 1;}
-                @foreach (var comment in Model.Post.Comments)
-                {
-                    <div class="post-comment-item">
-                        <div class="comment-info">
-                            <a class="comment-floor">@string.Format("#{0}楼", index)</a>&nbsp;
-                            <span>@comment.CreatedDate.ToString("yyyy-MM-dd HH:mm")</span>&nbsp;
-                            <span>@comment.UserName</span>
-                            <a class="pull-right operation">回复</a>
-                            <a class="pull-right operation">引用</a>
-                        </div>
-                        <div class="comment-content">
-                            @(new HtmlString(comment.CommentContent))
-                        </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="txtNickName" placeholder="昵称">
                     </div>
-                    index++;
+                        <div class="form-group">
+                            <textarea id="commentEditor" name="commentEditor" class="ckeditor"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input id="btnPublishComment" type="button" class="button-default button-publis-comment" value="发表评论" />
+                            <input id="btnClearComment" type="button" class="button-default button-publis-comment" value="清空内容" />
+                        </div>
                 }
             </div>
 
-            <div class="content-block publish-comment">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="txtNickName" placeholder="昵称">
-                </div>
-                <div class="form-group">
-                    <textarea id="commentEditor" name="commentEditor" class="ckeditor"></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="button" class="button-default button-publis-comment" value="发表评论" />
-                    <input type="button" class="button-default button-publis-comment" value="清空内容" />
-                </div>
-            </div>
         </div>
     </div>
 </div>

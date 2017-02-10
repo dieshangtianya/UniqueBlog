@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.Composition;
 using UniqueBlog.DBManager;
 using UniqueBlog.Domain.Entities;
 using UniqueBlog.Domain.EntityProxies;
@@ -14,11 +16,15 @@ using UniqueBlog.Infrastructure.UnitOfWork;
 
 namespace UniqueBlog.Repository
 {
+    [Export(typeof(IPostCommentRepsoitory))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PostCommentRepository : IPostCommentRepsoitory
     {
         private IDatabase _dbbase;
 
         private string _baseSql = "select * from t_comment";
+
+        private string _baseDeleteSql = "delete from t_comment";
 
         public PostCommentRepository()
         {
@@ -29,7 +35,27 @@ namespace UniqueBlog.Repository
 
         public void Add(PostComment entity)
         {
-            throw new NotImplementedException();
+            using (DbConnection dbConnection = _dbbase.CreateDbConnection())
+            {
+                dbConnection.Open();
+                using (var transaction = dbConnection.BeginTransaction())
+                {
+                    DbCommand dbCommand = dbConnection.CreateCommand();
+                    dbCommand.CommandText = "sp_add_comment";
+                    dbCommand.CommandType = CommandType.StoredProcedure;
+                    dbCommand.Transaction = transaction;
+
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", entity.BlogId));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostId", entity.Post.Id));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("UserName", entity.UserName));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CommentContent", entity.CommentContent));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", entity.CreatedDate));
+
+                    dbCommand.ExecuteScalar();
+
+                    transaction.Commit();
+                }
+            }
         }
 
         public IEnumerable<PostComment> FindAll()
@@ -87,7 +113,16 @@ namespace UniqueBlog.Repository
 
         public void Remove(PostComment entity)
         {
-            throw new NotImplementedException();
+            Query query = new Query();
+            query.Add(new Criterion("CommentId", entity.Id, CriterionOperator.Equal));
+            using (var dbConnection = _dbbase.CreateDbConnection())
+            {
+                dbConnection.Open();
+                DbCommand command = dbConnection.CreateCommand();
+                query.TranslateIntoSql(command, _baseDeleteSql);
+
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Save(PostComment entity)
@@ -103,9 +138,7 @@ namespace UniqueBlog.Repository
             int commentId = (int)dataReader["CommentId"];
             int postId = (int)dataReader["PostId"];
 
-            int linkCommentId = dataReader["LinkCommentId"].ToString() == "" ? 0 : (int)dataReader["LinkCommentId"];
-
-            PostComment comment = new PostCommentProxy(commentId, () => LazyLoader.RequestBlogPost(postId), () => LazyLoader.RequestLinkComment(linkCommentId));
+            PostComment comment = new PostCommentProxy(commentId, () => LazyLoader.RequestBlogPost(postId));
 
             comment.UserName = dataReader["UserName"].ToString();
             comment.CreatedDate = (DateTime)dataReader["CreatedDate"];

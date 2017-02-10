@@ -59,6 +59,7 @@
     <Compile Include="Interfaces\ICategoryService.cs" />
     <Compile Include="Interfaces\IPostCommentService.cs" />
     <Compile Include="Interfaces\IPostService.cs" />
+    <Compile Include="PostCommentService.cs" />
     <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

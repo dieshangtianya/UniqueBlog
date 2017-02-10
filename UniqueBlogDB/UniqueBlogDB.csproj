@@ -49,6 +49,7 @@
   <ItemGroup>
     <Content Include="db.sql" />
     <Content Include="presetdata\prestoredata.sql" />
+    <Content Include="storeprocedure\sp_add_comment.sql" />
     <Content Include="storeprocedure\sp_get_items_super_pagination.sql" />
     <Content Include="storeprocedure\sp_get_all_categories.sql" />
     <Content Include="storeprocedure\sp_update_blogpost.sql" />

@@ -103,6 +103,8 @@ namespace UniqueBlog.Controllers
 
             PostShowViewModel postShowViewModel = new Models.ViewModels.PostShowViewModel();
             postShowViewModel.Post = postDto;
+            postShowViewModel.PostCommentListVM = new Models.ViewModels.PostCommentListViewModel(postDto.Comments);
+            postShowViewModel.PostCommentListVM.HasUserLogin = this.IsUserLogin();
 
             return View(postShowViewModel);
         }

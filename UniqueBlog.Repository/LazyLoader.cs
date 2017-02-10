@@ -34,18 +34,6 @@ namespace UniqueBlog.Repository
             return postComments;
         }
 
-        public static PostComment RequestLinkComment(int postCommentId)
-        {
-            if (postCommentId == 0)
-                return null;
-
-            PostCommentRepository commentRepository = new PostCommentRepository();
-            Query query = new Query();
-            query.Add(new Criterion("CommentId", postCommentId, CriterionOperator.Equal));
-
-            return commentRepository.FindBy(query).FirstOrDefault();
-        }
-
         public static BlogPost RequestBlogPost(int postId)
         {
             PostRepository postRepository = new PostRepository();

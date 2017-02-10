@@ -11,9 +11,9 @@ namespace UniqueBlog.Domain.Entities
     {
         public string UserName { get; set; }
 
-        public virtual BlogPost Post { get;  set; }
+        public int BlogId { get; set; }
 
-        public virtual PostComment LinkComment { get; set; }
+        public virtual BlogPost Post { get;  set; }
 
         public string CommentContent { get; set; }
 

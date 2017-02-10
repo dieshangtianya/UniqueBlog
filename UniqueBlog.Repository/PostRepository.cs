@@ -181,6 +181,7 @@ namespace UniqueBlog.Repository
                     DbCommand dbCommand = dbConnection.CreateCommand();
                     dbCommand.CommandText = "sp_add_blogpost";
                     dbCommand.CommandType = CommandType.StoredProcedure;
+                    dbCommand.Transaction = transaction;
 
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", blogPost.BlogId));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
@@ -197,13 +198,13 @@ namespace UniqueBlog.Repository
                     DbCommand relationCommand = dbConnection.CreateCommand();
                     relationCommand.CommandText = "sp_add_blogpost_relation";
                     relationCommand.CommandType = CommandType.StoredProcedure;
+                    relationCommand.Transaction = transaction;
 
                     relationCommand.Parameters.Add(this._dbbase.CreateDbParameter("postCategoryTable", dt));
 
                     relationCommand.ExecuteNonQuery();
 
                     transaction.Commit();
-
                 }
             }
         }
