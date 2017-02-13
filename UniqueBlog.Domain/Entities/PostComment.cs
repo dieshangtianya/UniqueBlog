@@ -9,6 +9,8 @@ namespace UniqueBlog.Domain.Entities
 {
     public class PostComment:EntityBase, IAggregateRoot
     {
+        public int UserId { get; set; }
+
         public string UserName { get; set; }
 
         public int BlogId { get; set; }

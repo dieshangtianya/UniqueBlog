@@ -12,5 +12,6 @@ namespace UniqueBlog.Controllers.Models.ViewModels
         public PostDto Post { get; set; }
 
         public PostCommentListViewModel PostCommentListVM { get; set; }
+
     }
 }

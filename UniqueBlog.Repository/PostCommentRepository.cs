@@ -48,6 +48,7 @@ namespace UniqueBlog.Repository
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", entity.BlogId));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostId", entity.Post.Id));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("UserName", entity.UserName));
+                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("UserId", entity.UserId == 0 ? DBNull.Value : (object)entity.UserId));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CommentContent", entity.CommentContent));
                     dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", entity.CreatedDate));
 
@@ -143,6 +144,7 @@ namespace UniqueBlog.Repository
             comment.UserName = dataReader["UserName"].ToString();
             comment.CreatedDate = (DateTime)dataReader["CreatedDate"];
             comment.CommentContent = dataReader["CommentContent"].ToString();
+            comment.UserId = dataReader["UserId"].ToString() == "" ? 0 : (int)dataReader["UserId"];
 
             return comment;
         }

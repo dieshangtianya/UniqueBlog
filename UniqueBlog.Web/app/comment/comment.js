@@ -11,7 +11,9 @@ define("comment.publish", [
     domready(function () {
         configCommentCKEditor();
         registerCommentEvent();
-    })
+        registerCommentItemEvent();
+        highlightCode();
+    });
 
     function configCommentCKEditor(){
         if (!CKEDITOR.instances['commentEditor']) {
@@ -22,9 +24,18 @@ define("comment.publish", [
         }
     }
 
+    function highlightCode() {
+        $('pre code').each(function (i, block) {
+            window.hljs.highlightBlock(block);
+        });
+    }
+
     function reloadCommentList() {
         var postId = $("#postId").val();
-        $("#postListContainer").load("/PostComment/PostCommentList?postId=" + postId);
+        $("#postListContainer").load("/PostComment/PostCommentList?postId=" + postId, function () {
+            registerCommentItemEvent();
+            highlightCode();
+        });
     }
 
     function clearEditor() {
@@ -40,9 +51,12 @@ define("comment.publish", [
         $("#btnClearComment").on("click", function () {
             clearEditor();
         });
+    }
 
+    function registerCommentItemEvent() {
         $(".post-comment-item a.commentDelete").each(function () {
             var anchor = $(this);
+            anchor.off()
             anchor.on("click", function () {
                 var commentId = anchor.data("commentid");
                 deleteComment(commentId);

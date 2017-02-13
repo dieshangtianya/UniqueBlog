@@ -29,6 +29,10 @@ namespace UniqueBlog.Controllers
         {
             PostCommentDto commentDto = new PostCommentDto();
             commentDto.UserName = nickName;
+            if (this.IsUserLogin())
+            {
+                commentDto.UserId = ((UserDto)HttpContext.Session[Constants.ConstantData.CurrentUserSessionKey]).Id;
+            }
             commentDto.CommentContent = comment;
             commentDto.CreatedDate = DateTime.Now;
             commentDto.Post = new PostDto();
@@ -52,7 +56,6 @@ namespace UniqueBlog.Controllers
             var postCommentList = this._postCommentService.GetPostCommentListByPostId(postId);
 
             var postCommentListVM = new PostCommentListViewModel(postCommentList);
-            postCommentListVM.HasUserLogin = this.IsUserLogin();
 
             return PartialView(postCommentListVM);
         }

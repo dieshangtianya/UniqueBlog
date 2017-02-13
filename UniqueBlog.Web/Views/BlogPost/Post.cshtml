@@ -26,22 +26,25 @@
                 </div>
             </div>
             <div id="postListContainer">
-                @{Html.RenderPartial("~/Views/PostComment/PostCommentList.cshtml",Model.PostCommentListVM);}
+                @{Html.RenderPartial("~/Views/PostComment/PostCommentList.cshtml", Model.PostCommentListVM);}
             </div>
             <div class="content-block publish-comment">
                 @using (Html.BeginForm("PublishComment", "PostComment", FormMethod.Post, new { id = "formPublishComment" }))
                 {
                     <div class="form-group">
-                        <input type="text" class="form-control" id="txtNickName" placeholder="昵称">
+                        @{ 
+                            var username= Model.HasUserLogin == true ? Model.CurrentUser.UserName : string.Empty;
+                        }
+                        <input type="text" class="form-control" id="txtNickName" placeholder="昵称" value="@username" />
                     </div>
-                        <div class="form-group">
-                            <textarea id="commentEditor" name="commentEditor" class="ckeditor"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input id="btnPublishComment" type="button" class="button-default button-publis-comment" value="发表评论" />
-                            <input id="btnClearComment" type="button" class="button-default button-publis-comment" value="清空内容" />
-                        </div>
-                }
+                    <div class="form-group">
+                        <textarea id="commentEditor" name="commentEditor" class="ckeditor"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input id="btnPublishComment" type="button" class="button-default button-publis-comment" value="发表评论" />
+                        <input id="btnClearComment" type="button" class="button-default button-publis-comment" value="清空内容" />
+                    </div>
+    }
             </div>
 
         </div>

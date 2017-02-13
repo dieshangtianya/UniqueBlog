@@ -14,7 +14,14 @@
             <div class="comment-info">
                 <a class="comment-floor">@string.Format("#{0}楼", index)</a>&nbsp;
                 <span>@comment.CreatedDate.ToString("yyyy-MM-dd HH:mm")</span>&nbsp;
-                <span class="comment-user">@comment.UserName</span>
+                @if (comment.UserId != 0)
+                {
+                    <span class="comment-user high-light">[博主]</span>
+                }
+                else
+                {
+                    <span class="comment-user">@comment.UserName</span>
+                }
                 @if (Model.HasUserLogin)
                 {
                     <a data-commentId="@comment.Id" class="pull-right operation commentDelete">删除</a>

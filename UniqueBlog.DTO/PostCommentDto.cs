@@ -12,6 +12,8 @@ namespace UniqueBlog.DTO
 
         public int BlogId { get; set; }
 
+        public int UserId { get; set; }
+
         public string UserName { get; set; }
 
         public PostDto Post { get; set; }
