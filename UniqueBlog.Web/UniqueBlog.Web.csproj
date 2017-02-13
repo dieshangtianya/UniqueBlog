@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\comment\comment.js" />
     <Content Include="app\config.js" />
     <Content Include="app\home\home.js" />
     <Content Include="app\pagination\paging-navigation.js" />
@@ -100,6 +101,7 @@
     <Content Include="css\blog-layout.css" />
     <Content Include="css\browser-override.css" />
     <Content Include="css\blog-standard-layout.css" />
+    <Content Include="css\ckeditor-cotent.css" />
     <Content Include="css\post-list.css" />
     <Content Include="css\post-new.css" />
     <Content Include="css\post.css" />
@@ -112,6 +114,7 @@
     <Content Include="images\black_bg.png" />
     <Content Include="images\comment.png" />
     <Content Include="images\eye.png" />
+    <Content Include="images\left_footprint.png" />
     <Content Include="images\uqblog-login.png" />
     <Content Include="vendor\bootbox\4.4.0\bootbox.min.js" />
     <Content Include="vendor\bootstrap-tag-input\0.8.0\bootstrap-tagsinput.css" />
@@ -223,6 +226,7 @@
     <Content Include="Views\Shared\Pagination\Pagination.cshtml" />
     <Content Include="Views\Shared\Pagination\AsyncPagination.cshtml" />
     <Content Include="Views\FileManager\FileUpload.cshtml" />
+    <Content Include="Views\PostComment\PostCommentList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -245,7 +249,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="comment\" />
     <Folder Include="Views\Admin\" />
     <Folder Include="webImages\" />
   </ItemGroup>

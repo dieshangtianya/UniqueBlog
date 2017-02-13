@@ -10,6 +10,7 @@ CKEDITOR.editorConfig = function (config) {
     config.extraPlugins = 'codesnippet';
     //for more themes please visit the link https://highlightjs.org/static/demo/
     config.codeSnippet_theme = 'vs';
+    config.allowedContent = true;
     
     config.toolbar = 'Full';
     config.toolbar_Full = [
@@ -26,4 +27,8 @@ CKEDITOR.editorConfig = function (config) {
         { name: 'colors', items: ['TextColor', 'BGColor'] },
         { name: 'tools', items: ['Maximize', 'ShowBlocks', '-', 'About'] }
     ];
+    config.toolbar_Simple = [
+        { name: 'basicstyles', items: ['Bold', 'Italic'] },
+        { name: 'insert', items: ['Image', 'CodeSnippet'] }
+    ]
 };

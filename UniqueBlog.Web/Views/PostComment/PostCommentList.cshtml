@@ -1,0 +1,39 @@
+﻿@using UniqueBlog.Controllers.Models.ViewModels
+@model PostCommentListViewModel
+
+<div class="content-block">
+    <div class="post-comment-title">评论列表：</div>
+    @if (Model.CommentList.Count == 0)
+    {
+        <div class="no-footprint"><img style="width:32px;height:32px;" src="~/images/left_footprint.png">还没有留下任何足迹！</div>
+    }
+    @{ var index = 1;}
+    @foreach (var comment in Model.CommentList)
+    {
+        <div class="post-comment-item">
+            <div class="comment-info">
+                <a class="comment-floor">@string.Format("#{0}楼", index)</a>&nbsp;
+                <span>@comment.CreatedDate.ToString("yyyy-MM-dd HH:mm")</span>&nbsp;
+                @if (comment.UserId != 0)
+                {
+                    <span class="comment-user high-light">[博主]</span>
+                }
+                else
+                {
+                    <span class="comment-user">@comment.UserName</span>
+                }
+                @if (Model.HasUserLogin)
+                {
+                    <a data-commentId="@comment.Id" class="pull-right operation commentDelete">删除</a>
+                }
+                <a class="pull-right operation commentReply">回复</a>
+                <a class="pull-right operation commentReference">引用</a>
+            </div>
+            <div class="cke_editable cke_editable_themed cke_contents_ltr cke_show_borders comment-content">
+                @(new HtmlString(comment.CommentContent))
+            </div>
+        </div>
+        index++;
+    }
+</div>
+

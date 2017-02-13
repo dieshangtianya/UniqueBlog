@@ -31,7 +31,6 @@ namespace UniqueBlog.Controllers
             homeViewModel.RouteValues["pageUrl"] = Request.RawUrl;
             homeViewModel.RouteValues["category"] = category ?? 0;
 
-            homeViewModel.HasUserLogin = this.IsUserLogin();
             return View(homeViewModel);
         }
     }

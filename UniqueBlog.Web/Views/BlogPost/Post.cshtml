@@ -2,9 +2,10 @@
     Layout = "~/Views/Shared/_Base_Blog_Layout.cshtml";
 }
 @using UniqueBlog.Web.Extensions
-@model UniqueBlog.Controllers.Models.ViewModels.PostViewModel
+@model UniqueBlog.Controllers.Models.ViewModels.PostShowViewModel
 
-<link href="~/vendor/ckeditor/4.6.0/plugins/codesnippet/lib/highlight/styles/vs.css" rel="stylesheet"/>
+<link href="~/vendor/ckeditor/4.6.0/plugins/codesnippet/lib/highlight/styles/vs.css" rel="stylesheet" />
+<link href="~/css/ckeditor-cotent.css" rel="stylesheet" />
 <link href="~/css/post.css" rel="stylesheet" />
 <link href="~/css/predefined-post-extra-style.css" rel="stylesheet" />
 
@@ -15,17 +16,37 @@
 <div class="post-container">
     <div class="row">
         <div class="col-md-12">
-            <div class="post-title"><a href="@Request.Url.PathAndQuery">@Model.PostTitle</a></div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="post-content">
-                @(new HtmlString(Model.PostContent))
+            <div>
+                <div class="post-title">
+                    <input id="postId" type="hidden" value="@Model.Post.Id" />
+                    <a href="@Request.Url.PathAndQuery">@Model.Post.Title</a>
+                </div>
+                <div class="cke_editable cke_editable_themed cke_contents_ltr cke_show_borders post-content">
+                    @(new HtmlString(Model.Post.Content))
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
+            <div id="postListContainer">
+                @{Html.RenderPartial("~/Views/PostComment/PostCommentList.cshtml", Model.PostCommentListVM);}
+            </div>
+            <div class="content-block publish-comment">
+                @using (Html.BeginForm("PublishComment", "PostComment", FormMethod.Post, new { id = "formPublishComment" }))
+                {
+                    <div class="form-group">
+                        @{ 
+                            var username= Model.HasUserLogin == true ? Model.CurrentUser.UserName : string.Empty;
+                        }
+                        <input type="text" class="form-control" id="txtNickName" placeholder="昵称" value="@username" />
+                    </div>
+                    <div class="form-group">
+                        <textarea id="commentEditor" name="commentEditor" class="ckeditor"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input id="btnPublishComment" type="button" class="button-default button-publis-comment" value="发表评论" />
+                        <input id="btnClearComment" type="button" class="button-default button-publis-comment" value="清空内容" />
+                    </div>
+    }
+            </div>
 
+        </div>
     </div>
 </div>

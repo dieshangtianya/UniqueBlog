@@ -6,25 +6,27 @@ using System.Threading.Tasks;
 
 namespace UniqueBlog.DTO
 {
-	public class PostDto
-	{
+    public class PostDto
+    {
 
-		public int Id { get; set; }
+        public int Id { get; set; }
 
-		public string Title { get; set; }
+        public string Title { get; set; }
 
-		public string Content { get; set; }
+        public string Content { get; set; }
 
         public string PlainContent { get; set; }
 
-		public IList<CategoryDto> Categories { get; set; }
+        public IList<CategoryDto> Categories { get; set; }
 
-		public int BlogId { get; set; }
+        public IList<PostCommentDto> Comments { get; set; }
 
-		public string[] Tags { get; set; }
+        public int BlogId { get; set; }
 
-		public DateTime CreatedDate { get; set; }
+        public string[] Tags { get; set; }
+
+        public DateTime CreatedDate { get; set; }
 
         public DateTime LastUpdatedDate { get; set; }
-	}
+    }
 }

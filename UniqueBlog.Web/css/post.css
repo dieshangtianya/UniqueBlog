@@ -1,36 +1,96 @@
-﻿pre{
+﻿pre {
     /*border:none;*/
-    background-color:#F4F4F4 !important;
+    background-color: #EAE9E8 !important;
 }
 
-p{
-    line-height:24px;
+code {
+    background-color: transparent !important;
 }
 
-code{
-    background-color:transparent !important;
+blockquote{
+    margin-left:30px;
 }
 
-.post-container{
-    margin:10px 0;
+.post-container {
+    margin: 10px 0;
 }
 
-.post-title{
-    text-align:left;
-    font-size:18px;
+.post-title {
+    text-align: left;
+    font-size: 18px;
     border-bottom: dotted 1px #358A07;
-    padding:5px;
-    margin:10px 0;
+    padding: 5px;
+    margin: 10px 0;
 }
 
-.post-title a{
-    color:#D8D8D8;
+    .post-title a {
+        color: #D8D8D8;
+    }
+
+
+.content-block {
+    margin: 10px 0;
+    padding: 5px 0;
 }
 
-.post-content{
-    margin:10px 0px;
+.post-content {
+    margin: 10px 0px;
+    min-height: 200px;
 }
 
-.post-content p{
-    margin:0;
+.post-comment-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.no-footprint{
+    padding:10px 0;
+}
+
+.post-comment-item {
+    border: solid 1px #6C6C6D;
+    margin: 10px 0;
+}
+
+    .post-comment-item .comment-info {
+        padding: 5px;
+        border-bottom: dotted 1px #6C6C6D;
+        font-size: 12px;
+    }
+
+        .post-comment-item .comment-info a {
+            cursor: pointer;
+        }
+
+        .post-comment-item .comment-info .comment-floor {
+            color: #F19825;
+        }
+
+        .post-comment-item .comment-info .operation {
+            margin: 2px 10px;
+            color: #F19825;
+        }
+        .post-comment-item .comment-info .high-light{
+            color: #F19825;
+        }
+
+    .post-comment-item .comment-content {
+        padding: 10px 10px;
+        font-size: 12px;
+    }
+
+        .post-comment-item .comment-content pre {
+            border-radius: 0;
+        }
+
+.publish-comment {
+    color: #000000;
+}
+
+    .publish-comment label {
+        font-weight: normal;
+    }
+
+.button-publis-comment {
+    background-color: #4D8EB6;
 }

@@ -43,7 +43,7 @@ namespace UniqueBlog.Controllers
 
 			if (currentUser != null)
 			{
-				HttpContext.Session[Constants.ConstantData.CurrentUserSessionKey] = user;
+				HttpContext.Session[Constants.ConstantData.CurrentUserSessionKey] = currentUser;
                 string url = FormsAuthentication.GetRedirectUrl(currentUser.UserName, false);
                 return Redirect(url);
             }

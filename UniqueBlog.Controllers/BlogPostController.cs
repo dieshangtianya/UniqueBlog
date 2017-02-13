@@ -40,7 +40,6 @@ namespace UniqueBlog.Controllers
 
             PostListViewModel postListViewModel = new PostListViewModel();
             postListViewModel.PostList = pagedResult.Items;
-            postListViewModel.HasUserLogin = this.IsUserLogin();
 
             var pagination = new Pagination(pagedResult.TotalRecordsCount, page, pageSize);
             pagination.SourceUrl = Request.Url.AbsolutePath;
@@ -58,7 +57,6 @@ namespace UniqueBlog.Controllers
         public ActionResult NewPost()
         {
             PostViewModel postViewModel = new PostViewModel();
-            postViewModel.HasUserLogin = this.IsUserLogin();
 
             postViewModel.CategoryList = new List<SelectedItem>();
             var categoryList = this.categoryService.GetCategoriesByBlogId(postViewModel.GlobalBlogData.BlogInformation.Id);
@@ -88,7 +86,6 @@ namespace UniqueBlog.Controllers
                 }
             }
             newPostViewModel.PostId = post.Id;
-            newPostViewModel.HasUserLogin = this.IsUserLogin();
             newPostViewModel.PostContent = post.Content;
             newPostViewModel.PostTags = post.Tags;
             newPostViewModel.PostTitle = post.Title;
@@ -101,14 +98,11 @@ namespace UniqueBlog.Controllers
         {
             PostDto postDto = this.postService.GetPostById(id);
 
-            PostViewModel postViewModel = new PostViewModel();
-            postViewModel.PostId = postDto.Id;
-            postViewModel.PostTitle = postDto.Title;
-            postViewModel.PostContent = postDto.Content;
-            postViewModel.CreatedDate = postDto.CreatedDate;
-            postViewModel.PostTags = postDto.Tags;
+            PostShowViewModel postShowViewModel = new Models.ViewModels.PostShowViewModel();
+            postShowViewModel.Post = postDto;
+            postShowViewModel.PostCommentListVM = new Models.ViewModels.PostCommentListViewModel(postDto.Comments);
 
-            return View(postViewModel);
+            return View(postShowViewModel);
         }
 
         [HttpPost]

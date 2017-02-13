@@ -49,6 +49,7 @@
   <ItemGroup>
     <Content Include="db.sql" />
     <Content Include="presetdata\prestoredata.sql" />
+    <Content Include="storeprocedure\sp_add_comment.sql" />
     <Content Include="storeprocedure\sp_get_items_super_pagination.sql" />
     <Content Include="storeprocedure\sp_get_all_categories.sql" />
     <Content Include="storeprocedure\sp_update_blogpost.sql" />
@@ -56,6 +57,7 @@
     <Content Include="storeprocedure\sp_add_blogpost_relation.sql" />
     <Content Include="storeprocedure\sp_add_blogpost.sql" />
     <Content Include="storeprocedure\sp_get_blogbyusername.sql" />
+    <Content Include="tables\t_comment.sql" />
     <Content Include="tables\t_blog.sql" />
     <Content Include="tables\t_blog_post.sql" />
     <Content Include="tables\t_category.sql" />

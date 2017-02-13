@@ -51,12 +51,15 @@
     <Compile Include="DtoMapper\AutoMapperConfig.cs" />
     <Compile Include="DtoMapper\BlogMapper.cs" />
     <Compile Include="DtoMapper\CategoryMapper.cs" />
+    <Compile Include="DtoMapper\CommentMapper.cs" />
     <Compile Include="DtoMapper\PostMapper.cs" />
     <Compile Include="DtoMapper\UserMapper.cs" />
     <Compile Include="Interfaces\IAccountService.cs" />
     <Compile Include="Interfaces\IBlogService.cs" />
     <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\IPostCommentService.cs" />
     <Compile Include="Interfaces\IPostService.cs" />
+    <Compile Include="PostCommentService.cs" />
     <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

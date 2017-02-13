@@ -45,6 +45,7 @@
     <Compile Include="CategoryRepsitory.cs" />
     <Compile Include="LazyLoader.cs" />
     <Compile Include="PaginationQueryObject.cs" />
+    <Compile Include="PostCommentRepository.cs" />
     <Compile Include="PostRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\PaginationQueryObjectFactory.cs" />
