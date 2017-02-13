@@ -101,6 +101,7 @@
     <Content Include="css\blog-layout.css" />
     <Content Include="css\browser-override.css" />
     <Content Include="css\blog-standard-layout.css" />
+    <Content Include="css\ckeditor-cotent.css" />
     <Content Include="css\post-list.css" />
     <Content Include="css\post-new.css" />
     <Content Include="css\post.css" />

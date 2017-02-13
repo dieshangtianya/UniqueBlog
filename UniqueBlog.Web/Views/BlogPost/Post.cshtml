@@ -5,6 +5,7 @@
 @model UniqueBlog.Controllers.Models.ViewModels.PostShowViewModel
 
 <link href="~/vendor/ckeditor/4.6.0/plugins/codesnippet/lib/highlight/styles/vs.css" rel="stylesheet" />
+<link href="~/css/ckeditor-cotent.css" rel="stylesheet" />
 <link href="~/css/post.css" rel="stylesheet" />
 <link href="~/css/predefined-post-extra-style.css" rel="stylesheet" />
 
@@ -20,7 +21,7 @@
                     <input id="postId" type="hidden" value="@Model.Post.Id" />
                     <a href="@Request.Url.PathAndQuery">@Model.Post.Title</a>
                 </div>
-                <div class="post-content">
+                <div class="cke_editable cke_editable_themed cke_contents_ltr cke_show_borders post-content">
                     @(new HtmlString(Model.Post.Content))
                 </div>
             </div>

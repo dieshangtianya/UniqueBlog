@@ -3,12 +3,12 @@
     background-color: #EAE9E8 !important;
 }
 
-p {
-    line-height: 24px;
-}
-
 code {
     background-color: transparent !important;
+}
+
+blockquote{
+    margin-left:30px;
 }
 
 .post-container {
@@ -37,10 +37,6 @@ code {
     margin: 10px 0px;
     min-height: 200px;
 }
-
-    .post-content p {
-        margin: 0;
-    }
 
 .post-comment-title {
     font-size: 14px;

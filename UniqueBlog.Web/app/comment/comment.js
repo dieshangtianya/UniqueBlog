@@ -51,10 +51,19 @@ define("comment.publish", [
 
         $(".post-comment-item a.commentReply").each(function () {
             var anchor = $(this);
+            anchor.on("click", function () {
+                var referenceUser = anchor.siblings(".comment-user").text();
+                replyComment(referenceUser);
+            });
         });
 
         $(".post-comment-item a.commentReference").each(function () {
             var anchor = $(this);
+            anchor.on("click", function () {
+                var referenceCommentContent = anchor.parents(".post-comment-item").find(".comment-content").html();
+                var referenceUser = anchor.siblings(".comment-user").text();
+                referenceComment(referenceCommentContent, referenceUser)
+            });
         });
     }
 
@@ -86,6 +95,7 @@ define("comment.publish", [
             contentType: "application/json;charset=utf-8",
             success: function (jsonResult) {
                 if (jsonResult.Result == true) {
+                    bootbox.alert("发布评论成功");
                     reloadCommentList();
                     clearEditor();
                 } else {
@@ -108,6 +118,7 @@ define("comment.publish", [
                     contentType: "application/json;charset=utf-8",
                     success: function (jsonResult) {
                         if (jsonResult.Result == true) {
+                            bootbox.alert("删除评论成功");
                             reloadCommentList();
                         } else {
                             bootbox.alert(jsonResult.Message);
@@ -119,5 +130,20 @@ define("comment.publish", [
                 });
             }
         });
+    }
+
+    function referenceComment(commentHtml,referenceUser) {
+        var editor = CKEDITOR.instances['commentEditor'];
+        var currentContent = editor.getData();
+        currentContent += "<p style=\"color:#F19825\">@" + referenceUser + "</p>";
+        currentContent += "<blockquote>" + commentHtml + "</blockquote><p></p>";
+        editor.setData(currentContent);
+    }
+
+    function replyComment(referenceUser) {
+        var editor = CKEDITOR.instances['commentEditor'];
+        var currentContent = editor.getData();
+        currentContent += "<p style=\"color:#F19825\">@" + referenceUser + "</p><p></p>";
+        editor.setData(currentContent);
     }
 });

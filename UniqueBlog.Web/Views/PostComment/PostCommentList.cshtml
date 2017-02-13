@@ -14,7 +14,7 @@
             <div class="comment-info">
                 <a class="comment-floor">@string.Format("#{0}楼", index)</a>&nbsp;
                 <span>@comment.CreatedDate.ToString("yyyy-MM-dd HH:mm")</span>&nbsp;
-                <span>@comment.UserName</span>
+                <span class="comment-user">@comment.UserName</span>
                 @if (Model.HasUserLogin)
                 {
                     <a data-commentId="@comment.Id" class="pull-right operation commentDelete">删除</a>
@@ -22,7 +22,7 @@
                 <a class="pull-right operation commentReply">回复</a>
                 <a class="pull-right operation commentReference">引用</a>
             </div>
-            <div class="comment-content">
+            <div class="cke_editable cke_editable_themed cke_contents_ltr cke_show_borders comment-content">
                 @(new HtmlString(comment.CommentContent))
             </div>
         </div>
