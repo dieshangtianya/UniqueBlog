@@ -53,13 +53,21 @@ namespace UniqueBlog.Controllers
 			private set;
 		}
 
-		#endregion
+        public IList<PostCommentDto> LatestComments
+        {
+            get;
+            private set;
+        }
 
-		private IBlogService blogService;
+        #endregion
+
+        private IBlogService blogService;
 
 		private ICategoryService categoryService;
 
         private IPostService postService;
+
+        private IPostCommentService commentService;
 
 		private WebCache webCache;
 
@@ -73,12 +81,12 @@ namespace UniqueBlog.Controllers
 			blogService = (IBlogService)MEFConfiguration.MEFContainer.GetExport<IBlogService>().Value;
 			categoryService = (ICategoryService)MEFConfiguration.MEFContainer.GetExport<ICategoryService>().Value;
             postService = (IPostService)MEFConfiguration.MEFContainer.GetExport<IPostService>().Value;
-
-			webCache = new WebCache();
+            commentService = (IPostCommentService)MEFConfiguration.MEFContainer.GetExport<IPostCommentService>().Value;
 
 			this.BlogInformation = blogService.GetBlogByUserName();
 			this.CategoryList = categoryService.GetCategoriesByBlogId(this.BlogInformation.Id).ToList();
             this.PostAmount = postService.GetPostAmount(this.BlogInformation.Id);
+            this.LatestComments = commentService.GetCommentList(this.BlogInformation.Id, 1, 6).Items.ToList();
 		}
 
 		public void RefreshCategoryList()

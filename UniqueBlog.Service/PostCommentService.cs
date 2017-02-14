@@ -12,6 +12,7 @@ using UniqueBlog.Service.Interfaces;
 using UniqueBlog.Service.DtoMapper;
 using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.Domain.Entities;
+using UniqueBlog.Infrastructure;
 
 namespace UniqueBlog.Service
 {
@@ -49,6 +50,34 @@ namespace UniqueBlog.Service
             }
 
             return flag;
+        }
+
+        public PagedResult<PostCommentDto> GetCommentList(int blogId, int pageIndex,int pageSize)
+        {
+            Query query = new Query();
+            query.Add(new Criterion("BlogId", blogId, CriterionOperator.Equal));
+
+            PagedResult<PostCommentDto> pageResult = null;
+
+            try
+            {
+                var pageData = this._postCommentRepository.FindBy(query, pageIndex, pageSize);
+
+                IList<PostCommentDto> commentList = new List<PostCommentDto>();
+
+                foreach (PostComment comment in pageData.Items)
+                {
+                    commentList.Add(comment.ConvertTo(true));
+                }
+
+                pageResult = new PagedResult<PostCommentDto>(pageData.TotalRecordsCount, commentList);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("There is an error while query the comment list", ex);
+            }
+
+            return pageResult;
         }
 
         public IEnumerable<PostCommentDto> GetPostCommentListByPostId(int postId)

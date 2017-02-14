@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     Layout = "~/Views/Shared/_Base_Blog_Layout.cshtml";
 }
 @model UniqueBlog.Controllers.Models.ViewModels.PageViewModelBase
@@ -17,18 +17,32 @@
                 <div class="widget-container-body">
                     @foreach (var category in Model.GlobalBlogData.CategoryList)
                     {
-                        <div>@Html.ActionLink(category.CategoryName,"Index","Home",new { category = category.Id },null)&nbsp;(@category.PostAmount)</div>
+                        <div>@Html.ActionLink(category.CategoryName, "Index", "Home", new { category = category.Id }, null)&nbsp;(@category.PostAmount)</div>
                     }
                 </div>
             </div>
         </div>
         <div class="row">
-
+            <div class="widget-container">
+                <div class="widget-container-title">最新评论</div>
+                <div class="widget-container-body">
+                    @{ var index = 1;}
+                    @foreach (var comment in Model.GlobalBlogData.LatestComments)
+                    {
+                        <div class="latest-comment-item">
+                            <div class="comment-title"><a href="@Url.Action("Post","BlogPost",new {id=comment.Post.Id})#@(2000+comment.Id)">@(index.ToString() + "." + " Re: " + comment.Post.Title)</a></div>
+                            <div class="comment-content">@(new HtmlString(comment.CommentContent))</div>
+                            <div class="comment-user">--@comment.UserName</div>
+                        </div>
+                        index++;
+                    }
+                </div>
+            </div>
         </div>
     </div>
     <div class="col-md-9">
-       @RenderBody()
+        @RenderBody()
     </div>
 </div>
 
-@RenderSection("scripts",false)
+@RenderSection("scripts", false)

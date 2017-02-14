@@ -13,6 +13,7 @@ define("comment.publish", [
         registerCommentEvent();
         registerCommentItemEvent();
         highlightCode();
+        scrollToComment();
     });
 
     function configCommentCKEditor(){
@@ -152,6 +153,7 @@ define("comment.publish", [
         currentContent += "<p style=\"color:#F19825\">@" + referenceUser + "</p>";
         currentContent += "<blockquote>" + commentHtml + "</blockquote><p></p>";
         editor.setData(currentContent);
+        scrollToElement("#formPublishComment");
     }
 
     function replyComment(referenceUser) {
@@ -159,5 +161,23 @@ define("comment.publish", [
         var currentContent = editor.getData();
         currentContent += "<p style=\"color:#F19825\">@" + referenceUser + "</p><p></p>";
         editor.setData(currentContent);
+        scrollToElement("#formPublishComment");
+    }
+
+    function scrollToComment() {
+        var hashId = window.location.hash;
+        if (hashId && hashId !== "") {
+            var id = hashId.substr(1, hashId.length - 1);
+            scrollToElement("#postItem" + id);
+        }
+    }
+
+    function scrollToElement(elementId) {
+        var element = $(elementId);
+        if (element.length === 1) {
+            $("html, body").animate({
+                scrollTop: element.offset().top
+            }, 1000);
+        }
     }
 });

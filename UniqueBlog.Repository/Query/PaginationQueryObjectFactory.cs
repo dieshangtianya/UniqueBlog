@@ -37,5 +37,19 @@ namespace UniqueBlog.Repository
             return pageObject;
         }
 
+        public static PaginationQueryObject CreateCommentPaginationQueryObject(Query parameterQuery,int pageIndex,int pageSize)
+        {
+            var sqlWhere = parameterQuery.TranslateIntoWhereSql();
+
+            PaginationQueryObject pageObject = new PaginationQueryObject("t_comment");
+            pageObject.Fields = " CommentId,BlogId,PostId,UserId,UserName,CommentContent,CreatedDate ";
+            pageObject.SqlWhere = sqlWhere;
+            pageObject.GroupFileds = "";
+            pageObject.OrderByFields = "ORDER BY CreatedDate DESC";
+            pageObject.PageIndex = pageIndex;
+            pageObject.PageSize = pageSize;
+
+            return pageObject;
+        }
     }
 }

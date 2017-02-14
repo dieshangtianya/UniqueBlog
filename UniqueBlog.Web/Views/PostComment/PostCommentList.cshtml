@@ -10,7 +10,7 @@
     @{ var index = 1;}
     @foreach (var comment in Model.CommentList)
     {
-        <div class="post-comment-item">
+        <div class="post-comment-item" id="postItem@(2000+comment.Id)">
             <div class="comment-info">
                 <a class="comment-floor">@string.Format("#{0}楼", index)</a>&nbsp;
                 <span>@comment.CreatedDate.ToString("yyyy-MM-dd HH:mm")</span>&nbsp;
