@@ -13,6 +13,7 @@ define("comment.publish", [
         registerCommentEvent();
         registerCommentItemEvent();
         highlightCode();
+        scrollToComment();
     });
 
     function configCommentCKEditor(){
@@ -77,6 +78,12 @@ define("comment.publish", [
                 var referenceCommentContent = anchor.parents(".post-comment-item").find(".comment-content").html();
                 var referenceUser = anchor.siblings(".comment-user").text();
                 referenceComment(referenceCommentContent, referenceUser)
+            });
+        });
+
+        $(".comment-floor").each(function () {
+            $(this).on("click", function () {
+                scrollToElement($(this).parents(".post-comment-item"));
             });
         });
     }
@@ -152,6 +159,7 @@ define("comment.publish", [
         currentContent += "<p style=\"color:#F19825\">@" + referenceUser + "</p>";
         currentContent += "<blockquote>" + commentHtml + "</blockquote><p></p>";
         editor.setData(currentContent);
+        scrollToElement($("#formPublishComment"));
     }
 
     function replyComment(referenceUser) {
@@ -159,5 +167,22 @@ define("comment.publish", [
         var currentContent = editor.getData();
         currentContent += "<p style=\"color:#F19825\">@" + referenceUser + "</p><p></p>";
         editor.setData(currentContent);
+        scrollToElement($("#formPublishComment"));
+    }
+
+    function scrollToComment() {
+        var hashId = window.location.hash;
+        if (hashId && hashId !== "") {
+            var id = hashId.substr(1, hashId.length - 1);
+            scrollToElement($("#postItem" + id));
+        }
+    }
+
+    function scrollToElement($element) {
+        if ($element.length === 1) {
+            $("html, body").animate({
+                scrollTop: $element.offset().top-1
+            }, 1000);
+        }
     }
 });

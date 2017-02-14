@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UniqueBlog.DTO;
+using UniqueBlog.Infrastructure;
 
 namespace UniqueBlog.Service.Interfaces
 {
@@ -16,5 +17,7 @@ namespace UniqueBlog.Service.Interfaces
         bool ChangeCommentData(PostCommentDto comment);
 
         IEnumerable<PostCommentDto> GetPostCommentListByPostId(int postId);
+
+        PagedResult<PostCommentDto> GetCommentList(int blogId, int pageIndex, int pageSize);
     }
 }

@@ -53,3 +53,32 @@
 {
     background:#6A6A6A !important;
 }
+
+/**latest comment list**/
+.latest-comment-item{
+    border-bottom:solid 1px #999797;
+    padding:5px 10px;
+    margin:0 -10px;
+}
+
+.latest-comment-item p{
+   margin:0;
+   line-height:24px;
+}
+
+.latest-comment-item:last-child{
+    border-bottom:0;
+}
+
+.latest-comment-item .comment-title{
+    margin-bottom:2px;
+}
+
+.latest-comment-item .comment-content{
+    max-height:24px;
+    overflow:hidden;
+}
+
+.latest-comment-item .comment-user{
+    text-align:right;
+}

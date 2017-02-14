@@ -109,7 +109,42 @@ namespace UniqueBlog.Repository
 
         public PagedResult<PostComment> FindBy(Query query, int pageIndex, int pageSize)
         {
-            throw new NotImplementedException();
+            PaginationQueryObject paginationQueryObject = PaginationQueryObjectFactory.CreateCommentPaginationQueryObject(query, pageIndex, pageSize);
+            Query paginationQuery = QueryFactory.CreatePaginationQuery(paginationQueryObject);
+
+            PagedResult<PostComment> pagedResult = null;
+
+            var commentList = new List<PostComment>();
+
+            using (DbConnection conn = this._dbbase.CreateDbConnection())
+            {
+                conn.Open();
+                DbCommand command = conn.CreateCommand();
+                paginationQuery.TranslateIntoSql(command);
+
+                DbParameter parameterTotalRecords = this._dbbase.CreateDbParameter();
+                parameterTotalRecords.ParameterName = "@TotalRecordAmount";
+                parameterTotalRecords.Direction = ParameterDirection.Output;
+                parameterTotalRecords.DbType = DbType.Int32;
+
+                command.Parameters.Add(parameterTotalRecords);
+
+                using (DbDataReader dataReader = command.ExecuteReader())
+                {
+
+                    while (dataReader.Read())
+                    {
+                        PostComment comment = this.GetPostCommentFromReader(dataReader);
+                        commentList.Add(comment);
+                    }
+                }
+
+                var totalCount = (int)parameterTotalRecords.Value;
+
+                pagedResult = new PagedResult<PostComment>(totalCount, commentList);
+            }
+
+            return pagedResult;
         }
 
         public void Remove(PostComment entity)
