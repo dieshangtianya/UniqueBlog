@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using UniqueBlog.Controllers.Models.ViewModels;
 
@@ -18,6 +19,11 @@ namespace UniqueBlog.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
+        }
+
+        protected override void HandleUnknownAction(string actionName)
+        {
+            throw new HttpException(404, "Action is not found");
         }
 
         public ActionResult Login()

@@ -5,6 +5,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace UniqueBlog.Controllers.MEF
@@ -29,7 +30,10 @@ namespace UniqueBlog.Controllers.MEF
                     return null == export ? base.GetControllerInstance(requestContext, controllerType) : (IController)export.Value;
                 }
 
-                return null;
+                else
+                {
+                   throw new HttpException(404, "Action is not found");
+                }
             }
             catch (Exception ex)
             {

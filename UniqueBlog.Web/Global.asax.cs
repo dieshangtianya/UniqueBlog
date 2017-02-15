@@ -62,7 +62,6 @@ namespace UniqueBlog.Web
                 {
                     statusCode = (int)HttpStatusCode.Forbidden;
                 }
-
                 if (statusCode != 404)
                 {
                     logger.Fatal("There is an fatal error happen when the web application is running", exception);
