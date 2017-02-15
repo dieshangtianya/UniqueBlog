@@ -11,6 +11,7 @@ using UniqueBlog.Controllers.MEF;
 using UniqueBlog.Controllers.RouteConfig;
 using UniqueBlog.Infrastructure.Log;
 using System.Reflection;
+using System.Net;
 
 namespace UniqueBlog.Web
 {
@@ -50,7 +51,25 @@ namespace UniqueBlog.Web
 		protected void Application_Error(object sender, EventArgs e)
 		{
             Exception exception = Server.GetLastError();
-            logger.Fatal("There is an fatal error happen when the web application is running", exception);
+            if (exception != null)
+            {
+                var statusCode = (int)HttpStatusCode.InternalServerError;
+                if(exception is HttpException)
+                {
+                    statusCode = new HttpException(null, exception).GetHashCode();
+                }
+                else if(exception is UnauthorizedAccessException)
+                {
+                    statusCode = (int)HttpStatusCode.Forbidden;
+                }
+
+                if (statusCode != 404)
+                {
+                    logger.Fatal("There is an fatal error happen when the web application is running", exception);
+                }
+
+                //Server.ClearError();
+            }
 		}
 
 		protected void Session_End(object sender, EventArgs e)

@@ -108,6 +108,9 @@
     <Content Include="css\predefined-post-extra-style.css" />
     <Content Include="css\tag-input.css" />
     <Content Include="css\user_login.css" />
+    <Content Include="images\disappoint.png" />
+    <Content Include="static\404.html" />
+    <Content Include="static\500.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\administrator.png" />
