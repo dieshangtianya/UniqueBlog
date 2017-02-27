@@ -18,7 +18,7 @@ blockquote{
 .post-title {
     text-align: left;
     font-size: 18px;
-    border-bottom: dotted 1px #358A07;
+    border-bottom: solid 1px #358A07;
     padding: 5px;
     margin: 10px 0;
 }
@@ -39,8 +39,10 @@ blockquote{
 }
 
 .post-comment-title {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
+    padding:5px 0;
+    border-bottom:solid 1px #358A07;
 }
 
 .no-footprint{

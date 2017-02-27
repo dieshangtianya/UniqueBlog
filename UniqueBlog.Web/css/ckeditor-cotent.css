@@ -185,3 +185,7 @@ a > img {
 	max-height: 1080px;
 	margin:0 auto;
 }
+
+p{
+    line-height:30px;
+}

@@ -259,6 +259,7 @@ namespace UniqueBlog.Repository
             post.Content = dataReader["PostContent"].ToString();
             post.PlainContent = dataReader["PostPlainContent"].ToString();
             post.CreatedDate = DateTime.Parse(dataReader["CreatedDate"].ToString());
+            post.VisitAmount = (int)dataReader["VisitAmount"];
             string tagStr = dataReader["Tags"].ToString();
             if (tagStr.Length > 0)
             {

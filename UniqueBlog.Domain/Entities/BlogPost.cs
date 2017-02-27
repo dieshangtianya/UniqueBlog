@@ -76,6 +76,11 @@ namespace UniqueBlog.Domain.Entities
         /// </summary>
         public DateTime LastUpdatedDate { get; set; }
 
+        /// <summary>
+        /// Get or set the visit amount of the post
+        /// </summary>
+        public int VisitAmount { get; set; }
+
         #endregion
 
         #region Business Logical Properties

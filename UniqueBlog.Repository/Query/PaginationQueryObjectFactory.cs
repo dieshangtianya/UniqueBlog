@@ -27,7 +27,7 @@ namespace UniqueBlog.Repository
             }
 
             PaginationQueryObject pageObject = new PaginationQueryObject("t_blog_post");
-            pageObject.Fields = " BlogPostID, BlogId, PostTitle, PostContent, PostPlainContent, CreatedDate, LastUpdatedDate, Tags ";
+            pageObject.Fields = " BlogPostID, BlogId, PostTitle, PostContent, PostPlainContent, CreatedDate, LastUpdatedDate, Tags,VisitAmount ";
             pageObject.SqlWhere = sqlWhere;
             pageObject.GroupFileds = "";
             pageObject.OrderByFields = "ORDER BY BlogPostId DESC";
