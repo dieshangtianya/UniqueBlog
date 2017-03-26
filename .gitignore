@@ -19,3 +19,5 @@
 /.vs
 /UniqueBlog.Infrastructure/UniqueBlog.Infrastructure.csproj.user
 /UniqueBlog.Web/webImages
+/UniqueBlogMySqlDB/bin/Debug
+/UniqueBlogMySqlDB/obj/Debug
