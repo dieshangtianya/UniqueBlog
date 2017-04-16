@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +11,6 @@ using UniqueBlog.Infrastructure.UnitOfWork;
 using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.DBManager;
 using UniqueBlog.Infrastructure;
-using System.Data;
 using UniqueBlog.Domain.EntityProxies;
 
 namespace UniqueBlog.Repository
@@ -45,9 +44,9 @@ namespace UniqueBlog.Repository
             using (var dbConnection = _dbbase.CreateDbConnection())
             {
                 dbConnection.Open();
-                DbCommand command = dbConnection.CreateCommand();
+                IDbCommand command = dbConnection.CreateCommand();
                 command.CommandText = _baseSql;
-                using (DbDataReader dataReader = command.ExecuteReader())
+                using (IDataReader dataReader = command.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {
@@ -72,9 +71,9 @@ namespace UniqueBlog.Repository
             using (var dbConnection = _dbbase.CreateDbConnection())
             {
                 dbConnection.Open();
-                DbCommand command = dbConnection.CreateCommand();
+                IDbCommand command = dbConnection.CreateCommand();
                 query.TranslateIntoSql(command, _baseSql);
-                using (DbDataReader dataReader = command.ExecuteReader())
+                using (IDataReader dataReader = command.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {
@@ -97,20 +96,20 @@ namespace UniqueBlog.Repository
 
             var postList = new List<BlogPost>();
 
-            using (DbConnection conn = this._dbbase.CreateDbConnection())
+            using (IDbConnection conn = this._dbbase.CreateDbConnection())
             {
                 conn.Open();
-                DbCommand command = conn.CreateCommand();
+                IDbCommand command = conn.CreateCommand();
                 paginationQuery.TranslateIntoSql(command);
 
-                DbParameter parameterTotalRecords = this._dbbase.CreateDbParameter();
+                IDataParameter parameterTotalRecords = this._dbbase.CreateDbParameter();
                 parameterTotalRecords.ParameterName = "@TotalRecordAmount";
                 parameterTotalRecords.Direction = ParameterDirection.Output;
                 parameterTotalRecords.DbType = DbType.Int32;
 
                 command.Parameters.Add(parameterTotalRecords);
 
-                using (DbDataReader dataReader = command.ExecuteReader())
+                using (IDataReader dataReader = command.ExecuteReader())
                 {
 
                     while (dataReader.Read())
@@ -150,10 +149,10 @@ namespace UniqueBlog.Repository
             using (var dbConnection = _dbbase.CreateDbConnection())
             {
                 dbConnection.Open();
-                DbCommand command = dbConnection.CreateCommand();
+                IDbCommand command = dbConnection.CreateCommand();
                 query.TranslateIntoSql(command, _getCountBaseSql);
 
-                count = (int)command.ExecuteScalar();
+                count = Convert.ToInt32(command.ExecuteScalar());
             }
 
             return count;
@@ -178,7 +177,7 @@ namespace UniqueBlog.Repository
                 using (var transaction = dbConnection.BeginTransaction())
                 {
 
-                    DbCommand dbCommand = dbConnection.CreateCommand();
+                    IDbCommand dbCommand = dbConnection.CreateCommand();
                     dbCommand.CommandText = "sp_add_blogpost";
                     dbCommand.CommandType = CommandType.StoredProcedure;
                     dbCommand.Transaction = transaction;
@@ -195,7 +194,7 @@ namespace UniqueBlog.Repository
                     BlogPost.SetId(blogPost, postId);
 
                     DataTable dt = this.GetPostCategoryRelationship(blogPost);
-                    DbCommand relationCommand = dbConnection.CreateCommand();
+                    IDbCommand relationCommand = dbConnection.CreateCommand();
                     relationCommand.CommandText = "sp_add_blogpost_relation";
                     relationCommand.CommandType = CommandType.StoredProcedure;
                     relationCommand.Transaction = transaction;
@@ -219,7 +218,7 @@ namespace UniqueBlog.Repository
 
                 using (var transaction = dbConnection.BeginTransaction())
                 {
-                    DbCommand dbCommand = dbConnection.CreateCommand();
+                    IDbCommand dbCommand = dbConnection.CreateCommand();
                     dbCommand.CommandText = "sp_update_blogpost";
                     dbCommand.CommandType = CommandType.StoredProcedure;
 
@@ -249,7 +248,7 @@ namespace UniqueBlog.Repository
         #endregion
 
         #region private methods
-        private BlogPost GetBlogPostFromReader(DbDataReader dataReader)
+        private BlogPost GetBlogPostFromReader(IDataReader dataReader)
         {
             int postId = (int)dataReader["BlogPostId"];
 

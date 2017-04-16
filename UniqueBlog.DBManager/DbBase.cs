@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.Common;
+using System.Data;
 
 namespace UniqueBlog.DBManager
 {
@@ -28,17 +28,17 @@ namespace UniqueBlog.DBManager
 			this.connectionString = connectionString;
 		}
 
-		public virtual DbConnection CreateDbConnection()
+		public virtual IDbConnection CreateDbConnection()
 		{
 			return null;
 		}
 
-		public virtual DbParameter CreateDbParameter()
+		public virtual IDbDataParameter CreateDbParameter()
 		{
 			return null;
 		}
 
-		public virtual DbParameter CreateDbParameter(string parameterName, object value)
+		public virtual IDbDataParameter CreateDbParameter(string parameterName, object value)
 		{
 			return null;
 		}

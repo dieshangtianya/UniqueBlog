@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ using UniqueBlog.Domain.Entities;
 using UniqueBlog.Infrastructure;
 using UniqueBlog.Infrastructure.Query;
 using UniqueBlog.Infrastructure.UnitOfWork;
-using System.Data.Common;
+
 
 namespace UniqueBlog.Repository
 {
@@ -45,10 +46,10 @@ namespace UniqueBlog.Repository
             using (var connection = _dbbase.CreateDbConnection())
             {
                 connection.Open();
-                DbCommand command = connection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 query.TranslateIntoSql(command);
 
-                using (DbDataReader reader = command.ExecuteReader())
+                using (IDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -90,7 +91,7 @@ namespace UniqueBlog.Repository
 
         #region private methods
 
-        private Category GetCategoryFromReader(DbDataReader reader)
+        private Category GetCategoryFromReader(IDataReader reader)
         {
             int categoryId = (int)reader["CategoryId"];
 

@@ -21,7 +21,7 @@ $isPresetData=$true;
 #=====================related functions======================#
 function ExecuteSqlFile($sqlFile)
 {
-	$sql = (Get-Content $sqlFile) -join "`r`n";
+	$sql = (Get-Content $sqlFile);
 	$mySqlCommand.CommandText=$sql;
 	Write-Output $sql;
 	$mySqlCommand.ExecuteNonQuery();
@@ -41,30 +41,31 @@ $mySqlCommand.Connection=$mySqlConnection;
 
 <#----------------------------create database----------------------------------------#>
 Write-Output "Begin to create database";
-ExecuteSqlFile -sqlFile ".\db.sql";
+#ExecuteSqlFile -sqlFile ".\db.sql";
 
 <#----------------------------create data tables-------------------------------------#>
-ExecuteSqlFile -sqlFile ".\$tableFolder\t_user.sql";
-ExecuteSqlFile -sqlFile ".\$tableFolder\t_blog.sql";
-ExecuteSqlFile -sqlFile ".\$tableFolder\t_category.sql";
-ExecuteSqlFile -sqlFile ".\$tableFolder\t_blog_post.sql";
-ExecuteSqlFile -sqlFile ".\$tableFolder\t_post_category.sql";
+#ExecuteSqlFile -sqlFile ".\$tableFolder\t_user.sql";
+#ExecuteSqlFile -sqlFile ".\$tableFolder\t_blog.sql";
+#ExecuteSqlFile -sqlFile ".\$tableFolder\t_category.sql";
+#ExecuteSqlFile -sqlFile ".\$tableFolder\t_blog_post.sql";
+#ExecuteSqlFile -sqlFile ".\$tableFolder\t_post_category.sql";
+#ExecuteSqlFile -sqlFile ".\$tableFolder\t_comment.sql";
 
 <#----------------------------create data viwes-------------------------------------#>
-ExecuteSqlFile -sqlFile ".\$viewFolder\v_category_info.sql";
+#ExecuteSqlFile -sqlFile ".\$viewFolder\v_category_info.sql";
 
 <#----------------------------create procedure-------------------------------------#>
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogbyusername.sql";
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost.sql";
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogpost_categories.sql";
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_update_blogpost.sql";
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_all_categories.sql";
+#ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogbyusername.sql";
+#ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost.sql";
+#ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogpost_categories.sql";
+#ExecuteSqlFile -sqlFile ".\$spFolder\sp_update_blogpost.sql";
+#ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_all_categories.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_items_super_pagination.sql";
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_comment.sql"
+#ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_comment.sql"
 
 <#----------------------------preset data-------------------------------------#>
 if($isPresetData){
-	ExecuteSqlFile -sqlFile ".\$presetDataFolder\prestoredata.sql";
+	#ExecuteSqlFile -sqlFile ".\$presetDataFolder\prestoredata.sql";
 }
 
 

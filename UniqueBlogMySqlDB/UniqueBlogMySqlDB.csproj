@@ -56,6 +56,7 @@
     <Content Include="tables\t_blog.sql" />
     <Content Include="tables\t_blog_post.sql" />
     <Content Include="tables\t_category.sql" />
+    <Content Include="tables\t_comment.sql" />
     <Content Include="tables\t_post_category.sql" />
     <Content Include="tables\t_user.sql" />
     <Content Include="views\v_category_info.sql" />
