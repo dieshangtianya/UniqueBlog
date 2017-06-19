@@ -60,5 +60,37 @@ SELECT TotalRecordAmount;
 SET TotalPageAmount=CEILING((TotalRecordAmount+0.0)/PageSize);
 SELECT TotalPageAmount;
 
+IF SqlWhere IS NULL OR SqlWhere='' THEN
+	IF GroupFields IS NULL OR GroupFields='' THEN
+		SET @SqlCommand= CONCAT('SET @row_number=0;SELECT * FROM (SELECT @row_number:=@row_number+1 AS rowId,',`Fields`,' FROM ',TableName);
+	ELSE
+		SET @SqlCommand=CONCAT('SET @row_number=0;SELECT * FROM (SELECT @row_number:=@row_number+1 AS rowId,',`Fields`,' FROM ',TableName,' ',GroupFields);
+	END IF;
+ELSE
+	IF GroupFields IS NULL OR GroupFields='' THEN
+		SET @SqlCommand=CONCAT('SET @row_number=0;SELECT * FROM (SELECT @row_number:=@row_number+1 AS rowId,',`Fields`,' FROM ',TableName,' ',SqlWhere);
+	ELSE
+		SET @SqlCommand=CONCAT('SET @row_number=0;SELECT * FROM (SELECT @row_number:=@row_number+1 AS rowId,',`Fields`,' FROM ',TableName,' ',SqlWhere , ' ',GroupFields);
+	END IF;
+END IF;
 
-END
+IF PageIndex<=0 THEN
+	SET PageIndex=1;
+END IF;
+IF PageIndex>TotalPageAmount  THEN
+  SET PageIndex = TotalPageAmount;
+END IF;
+
+SET StartRecord = (PageIndex-1)*PageSize + 1;
+SET EndRecord = StartRecord + PageSize - 1;
+
+SET @SqlCommand=CONCAT(@SqlCommand,') AS tempTb WHERE rowId BETWEEN ', CAST(StartRecord AS CHAR),' AND ',CAST(EndRecord AS CHAR));
+SET @SqlCommand=CONCAT(@SqlCommand,' ORDER BY rowId');
+
+SELECT @SqlCommand;
+
+PREPARE stmt FROM @SqlCommand;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
+
+END;
