@@ -64,8 +64,8 @@ BEGIN
 
 	IF @PageIndex<=0   
        SET @PageIndex = 1  
-    IF @pageIndex>@TotalPageAmount  
-       SET @pageIndex = @TotalPageAmount  
+    IF @PageIndex>@TotalPageAmount  
+       SET @PageIndex = @TotalPageAmount  
 
 	DECLARE @StartRecord int
     DECLARE @EndRecord int

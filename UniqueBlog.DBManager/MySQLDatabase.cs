@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,12 +17,17 @@ namespace UniqueBlog.DBManager
 
 		}
 
-		public override DbConnection CreateDbConnection()
+		public override IDbConnection CreateDbConnection()
 		{
 			return new MySqlConnection(this.ConnectionString);
 		}
 
-		public override DbParameter CreateDbParameter(string parameterName, object value)
+        public override IDbDataParameter CreateDbParameter()
+        {
+            return new MySqlParameter();
+        }
+
+        public override IDbDataParameter CreateDbParameter(string parameterName, object value)
 		{
 			return new MySqlParameter(this.ParameterPlaceholder + parameterName, value);
 		}

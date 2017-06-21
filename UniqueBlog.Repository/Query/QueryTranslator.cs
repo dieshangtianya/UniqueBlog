@@ -23,7 +23,7 @@ namespace UniqueBlog.Repository
             return sqlQuery;
         }
 
-        public static void TranslateIntoSql(this Query query, DbCommand command, string baseQuery = null)
+        public static void TranslateIntoSql(this Query query, IDbCommand command, string baseQuery = null)
         {
             if (query.IsNamedQuery())
             {
@@ -156,13 +156,13 @@ namespace UniqueBlog.Repository
 
         }
 
-        private static void GenerateParameterCollections(Query query, DbCommand command)
+        private static void GenerateParameterCollections(Query query, IDbCommand command)
         {
             IDatabase iDatabase = DatabaseFactory.CreateDataBase();
 
             foreach (Criterion criterion in query.Criteria)
             {
-                DbParameter parameter = iDatabase.CreateDbParameter(criterion.PropertyName, criterion.Value);
+                IDbDataParameter parameter = iDatabase.CreateDbParameter(criterion.PropertyName, criterion.Value);
 
                 command.Parameters.Add(parameter);
             }
