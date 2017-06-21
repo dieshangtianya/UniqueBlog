@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.Composition;
-using System.Data.Common;
+using System.Data;
 using UniqueBlog.Domain.Repository;
 using UniqueBlog.Domain.Entities;
 using UniqueBlog.DBManager;
@@ -51,10 +51,9 @@ namespace UniqueBlog.Repository
             using (var connection = _dbbase.CreateDbConnection())
             {
                 connection.Open();
-                DbCommand command = connection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 query.TranslateIntoSql(command, _baseSql);
-
-                using (DbDataReader reader = command.ExecuteReader())
+                using (IDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -74,14 +73,14 @@ namespace UniqueBlog.Repository
 
         public User FindBy(int entityId)
         {
-            DbConnection connection = _dbbase.CreateDbConnection();
-            DbCommand command = connection.CreateCommand();
+            IDbConnection connection = _dbbase.CreateDbConnection();
+            IDbCommand command = connection.CreateCommand();
             command.CommandText = getUserById;
-            DbParameter parameter = _dbbase.CreateDbParameter("UserId", entityId);
+            IDbDataParameter parameter = _dbbase.CreateDbParameter("UserId", entityId);
             command.Parameters.Add(parameter);
 
             User user = null;
-            using (DbDataReader reader = command.ExecuteReader())
+            using (IDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
@@ -142,7 +141,7 @@ namespace UniqueBlog.Repository
         /// </summary>
         /// <param name="reader"></param>
         /// <returns>User信息</returns>
-        private User GetUserFromReader(DbDataReader reader)
+        private User GetUserFromReader(IDataReader reader)
         {
             int userId = (int)reader["UserId"];
             User user = new User(userId);

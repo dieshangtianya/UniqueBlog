@@ -35,12 +35,12 @@ namespace UniqueBlog.Repository
 
         public void Add(PostComment entity)
         {
-            using (DbConnection dbConnection = _dbbase.CreateDbConnection())
+            using (IDbConnection dbConnection = _dbbase.CreateDbConnection())
             {
                 dbConnection.Open();
                 using (var transaction = dbConnection.BeginTransaction())
                 {
-                    DbCommand dbCommand = dbConnection.CreateCommand();
+                    IDbCommand dbCommand = dbConnection.CreateCommand();
                     dbCommand.CommandText = "sp_add_comment";
                     dbCommand.CommandType = CommandType.StoredProcedure;
                     dbCommand.Transaction = transaction;
@@ -63,11 +63,11 @@ namespace UniqueBlog.Repository
         {
             List<PostComment> commentList = new List<PostComment>();
 
-            using (DbConnection connection = _dbbase.CreateDbConnection())
+            using (IDbConnection connection = _dbbase.CreateDbConnection())
             {
-                DbCommand command = connection.CreateCommand();
+                IDbCommand command = connection.CreateCommand();
                 command.CommandText = _baseSql;
-                using (DbDataReader dataReader = command.ExecuteReader())
+                using (IDataReader dataReader = command.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {
@@ -92,9 +92,9 @@ namespace UniqueBlog.Repository
             using (var dbConnection = _dbbase.CreateDbConnection())
             {
                 dbConnection.Open();
-                DbCommand command = dbConnection.CreateCommand();
+                IDbCommand command = dbConnection.CreateCommand();
                 query.TranslateIntoSql(command, _baseSql);
-                using (DbDataReader dataReader = command.ExecuteReader())
+                using (IDataReader dataReader = command.ExecuteReader())
                 {
                     while (dataReader.Read())
                     {
@@ -116,20 +116,20 @@ namespace UniqueBlog.Repository
 
             var commentList = new List<PostComment>();
 
-            using (DbConnection conn = this._dbbase.CreateDbConnection())
+            using (IDbConnection conn = this._dbbase.CreateDbConnection())
             {
                 conn.Open();
-                DbCommand command = conn.CreateCommand();
+                IDbCommand command = conn.CreateCommand();
                 paginationQuery.TranslateIntoSql(command);
 
-                DbParameter parameterTotalRecords = this._dbbase.CreateDbParameter();
+                IDataParameter parameterTotalRecords = this._dbbase.CreateDbParameter();
                 parameterTotalRecords.ParameterName = "@TotalRecordAmount";
                 parameterTotalRecords.Direction = ParameterDirection.Output;
                 parameterTotalRecords.DbType = DbType.Int32;
 
                 command.Parameters.Add(parameterTotalRecords);
 
-                using (DbDataReader dataReader = command.ExecuteReader())
+                using (IDataReader dataReader = command.ExecuteReader())
                 {
 
                     while (dataReader.Read())
@@ -154,7 +154,7 @@ namespace UniqueBlog.Repository
             using (var dbConnection = _dbbase.CreateDbConnection())
             {
                 dbConnection.Open();
-                DbCommand command = dbConnection.CreateCommand();
+                IDbCommand command = dbConnection.CreateCommand();
                 query.TranslateIntoSql(command, _baseDeleteSql);
 
                 command.ExecuteNonQuery();
@@ -169,7 +169,7 @@ namespace UniqueBlog.Repository
         #endregion
 
         #region private methods
-        private PostComment GetPostCommentFromReader(DbDataReader dataReader)
+        private PostComment GetPostCommentFromReader(IDataReader dataReader)
         {
             int commentId = (int)dataReader["CommentId"];
             int postId = (int)dataReader["PostId"];

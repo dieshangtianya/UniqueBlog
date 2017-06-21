@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,12 +12,11 @@ namespace UniqueBlog.DBManager
 	/// </summary>
 	public interface IDatabase
 	{
-		DbConnection CreateDbConnection();
+		IDbConnection CreateDbConnection();
 
-		DbParameter CreateDbParameter();
+        IDbDataParameter CreateDbParameter();
 
-		DbParameter CreateDbParameter(string propertyName, object value);
-
+        IDbDataParameter CreateDbParameter(string propertyName, object value);
 
 		string ParameterPlaceholder { get; }
 	}
