@@ -1,4 +1,4 @@
-﻿/*===================================
+/*===================================
 Tips:
 There are three ways to avoid the messy code in SQL SERVER database.
 
@@ -16,3 +16,15 @@ INSERT INTO t_user (UserName,Email,`Password`,NickName) VALUES ('frwang','woheav
 
 /***t_blog**/
 INSERT INTO t_blog (BlogTitle,`Description`,UserId,CreationDate) VALUES ('不停地走着','沿着曲折的路坚持走下去，不停歇，不放弃',1,'2016/09/10');
+
+--t_category
+set @blogId=(select blogid from t_blog limit 1);
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'C#基础',NULL,now());
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'Winformm编程',NULL,now());
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'ASP.NET',NULL,now());
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'ASP.NET MVC',NULL,now());
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'WPF',NULL,now());
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'Entity Framework',NULL,now());
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'.NET设计模式',NULL,now());
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'AngularJS',NULL,now());
+INSERT INTO t_category (BlogId,CategoryName,Description,CreatedDate) VALUES (@blogId,'WEB前端',NULL,now());
