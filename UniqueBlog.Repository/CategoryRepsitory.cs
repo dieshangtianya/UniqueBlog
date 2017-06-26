@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -99,7 +99,7 @@ namespace UniqueBlog.Repository
             category.CategoryName = reader["CategoryName"].ToString();
             category.CategoryDescription = reader["Description"].ToString();
             category.CreatedDate = (DateTime)reader["CreatedDate"];
-            category.PostAmount = (int)reader["PostAmount"];
+			category.PostAmount = Convert.ToInt32(reader["PostAmount"].ToString());
             return category;
         }
 

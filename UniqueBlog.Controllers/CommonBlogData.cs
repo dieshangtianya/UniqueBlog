@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -15,19 +15,28 @@ namespace UniqueBlog.Controllers
 {
 	public class CommonBlogData
 	{
+
+		private static readonly object lockObj = new object();
+
 		#region single instance pattern implementation
 
-		private static  CommonBlogData _CurrentInstance;
+		private static  CommonBlogData _currentInstance;
 
 		public static CommonBlogData CurrentInstance
 		{
 			get
 			{
-				if (_CurrentInstance == null)
+				if (_currentInstance == null)
 				{
-					_CurrentInstance = new CommonBlogData();
+					lock (lockObj)
+					{
+						if (_currentInstance==null)
+						{
+							_currentInstance = new CommonBlogData();
+						}
+					}
 				}
-				return _CurrentInstance;
+				return _currentInstance;
 			}
 		}
 
