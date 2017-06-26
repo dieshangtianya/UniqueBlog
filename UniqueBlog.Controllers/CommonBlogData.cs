@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -13,45 +13,54 @@ using UniqueBlog.Service.Interfaces;
 
 namespace UniqueBlog.Controllers
 {
-	public class CommonBlogData
-	{
-		#region single instance pattern implementation
+    public class CommonBlogData
+    {
 
-		private static  CommonBlogData _CurrentInstance;
+        private static readonly object lockObj = new object();
 
-		public static CommonBlogData CurrentInstance
-		{
-			get
-			{
-				if (_CurrentInstance == null)
-				{
-					_CurrentInstance = new CommonBlogData();
-				}
-				return _CurrentInstance;
-			}
-		}
+        #region single instance pattern implementation
 
-		#endregion
+        private static CommonBlogData _currentInstance;
 
-		#region properties
+        public static CommonBlogData CurrentInstance
+        {
+            get
+            {
+                if (_currentInstance == null)
+                {
+                    lock (lockObj)
+                    {
+                        if (_currentInstance == null)
+                        {
+                            _currentInstance = new CommonBlogData();
+                        }
+                    }
+                }
+                return _currentInstance;
+            }
+        }
 
-		public BlogDto BlogInformation
-		{
-			get;
-			private set;
-		}
+        #endregion
 
-		public IList<CategoryDto> CategoryList
-		{
-			get;
-			private set;
-		}
+        #region properties
 
-		public int PostAmount
-		{
-			get;
-			private set;
-		}
+        public BlogDto BlogInformation
+        {
+            get;
+            private set;
+        }
+
+        public IList<CategoryDto> CategoryList
+        {
+            get;
+            private set;
+        }
+
+        public int PostAmount
+        {
+            get;
+            private set;
+        }
 
         public IList<PostCommentDto> LatestComments
         {
@@ -63,45 +72,45 @@ namespace UniqueBlog.Controllers
 
         private IBlogService blogService;
 
-		private ICategoryService categoryService;
+        private ICategoryService categoryService;
 
         private IPostService postService;
 
         private IPostCommentService commentService;
 
-		private WebCache webCache;
+        private WebCache webCache;
 
-		public CommonBlogData()
-		{
-			//For creating instance manually from MEF, there are three approaches they are:
-			//(1)Using the ExportFactory<T> of .net framework 4.5
-			//(2)Using the reflection in .net to create the instance
-			//(3)Using the MEF compositionContainer
-			//Here we use the third way
-			blogService = (IBlogService)MEFConfiguration.MEFContainer.GetExport<IBlogService>().Value;
-			categoryService = (ICategoryService)MEFConfiguration.MEFContainer.GetExport<ICategoryService>().Value;
+        public CommonBlogData()
+        {
+            //For creating instance manually from MEF, there are three approaches they are:
+            //(1)Using the ExportFactory<T> of .net framework 4.5
+            //(2)Using the reflection in .net to create the instance
+            //(3)Using the MEF compositionContainer
+            //Here we use the third way
+            blogService = (IBlogService)MEFConfiguration.MEFContainer.GetExport<IBlogService>().Value;
+            categoryService = (ICategoryService)MEFConfiguration.MEFContainer.GetExport<ICategoryService>().Value;
             postService = (IPostService)MEFConfiguration.MEFContainer.GetExport<IPostService>().Value;
             commentService = (IPostCommentService)MEFConfiguration.MEFContainer.GetExport<IPostCommentService>().Value;
 
-			this.BlogInformation = blogService.GetBlogByUserName();
-			this.CategoryList = categoryService.GetCategoriesByBlogId(this.BlogInformation.Id).ToList();
+            this.BlogInformation = blogService.GetBlogByUserName();
+            this.CategoryList = categoryService.GetCategoriesByBlogId(this.BlogInformation.Id).ToList();
             this.PostAmount = postService.GetPostAmount(this.BlogInformation.Id);
             this.LatestComments = commentService.GetCommentList(this.BlogInformation.Id, 1, 6).Items.ToList();
-		}
+        }
 
-		public void RefreshCategoryList()
-		{
-			this.CategoryList = this.categoryService.GetCategoriesByBlogId(this.BlogInformation.Id).ToList();
-		}
+        public void RefreshCategoryList()
+        {
+            this.CategoryList = this.categoryService.GetCategoriesByBlogId(this.BlogInformation.Id).ToList();
+        }
 
-		public void RefreshBlogInformation()
-		{
-			this.BlogInformation = this.blogService.GetBlogByUserName();
-		}
+        public void RefreshBlogInformation()
+        {
+            this.BlogInformation = this.blogService.GetBlogByUserName();
+        }
 
         public void RefreshPostAmount()
         {
             this.PostAmount = postService.GetPostAmount(this.BlogInformation.Id);
         }
-	}
+    }
 }
