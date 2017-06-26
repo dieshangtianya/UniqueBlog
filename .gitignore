@@ -41,3 +41,8 @@
 /UniqueBlogMySqlDB/obj/Release
 /UniqueBlog.DBManager/bin/Release
 /UniqueBlog.DBManager/obj/Release
+/UniqueBlog.Domain/bin
+/UniqueBlog.Controllers/bin
+/UniqueBlog.Infrastructure/bin
+/UniqueBlog.Repository/bin
+/UniqueBlog.Service/bin
