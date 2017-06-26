@@ -29,7 +29,7 @@ function ExecuteSqlFile($sqlFile)
 
 Write-Output "Begin to open the mysql connection...";
 
-$mySqlConnectionStr="server="+$mySqlInstance+";database=mysql;uid="+$mySqlUser+";pwd="+$mySqlPassword+";";
+$mySqlConnectionStr="server="+$mySqlInstance+";database=mysql;uid="+$mySqlUser+";pwd="+$mySqlPassword+";Allow User Variables=True";
 
 $mySqlConnection = New-Object -TypeName MySql.Data.MySqlClient.MySqlConnection($mySqlConnectionStr);
 $mySqlConnection.Open();
@@ -61,7 +61,7 @@ ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogpost_categories.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_update_blogpost.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_all_categories.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_comment.sql"
-#ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_items_super_pagination.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_items_super_pagination.sql";
 
 <#----------------------------preset data-------------------------------------#>
 if($isPresetData){
