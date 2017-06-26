@@ -1,5 +1,5 @@
-﻿requirejs.config({
-    baseUrl: '/app',
+requirejs.config({
+    baseUrl: 'app',
     paths: {
         'jquery': '../vendor/jquery/2.1.4/jquery',
         'lodash': '../vendor/lodash/4.6.1/lodash.min',
