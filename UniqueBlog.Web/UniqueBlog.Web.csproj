@@ -216,7 +216,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="log4net.config" />
-    <None Include="Properties\PublishProfiles\Web.config.pubxml" />
     <Content Include="Views\Shared\_Base_Blog_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\BlogPost\NewPost.cshtml" />
