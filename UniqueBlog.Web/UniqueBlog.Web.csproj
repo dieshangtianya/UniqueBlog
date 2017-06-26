@@ -33,7 +33,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
+    <OutputPath>..\Bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -232,7 +232,7 @@
     <Content Include="Views\Shared\Pagination\AsyncPagination.cshtml" />
     <Content Include="Views\FileManager\FileUpload.cshtml" />
     <Content Include="Views\PostComment\PostCommentList.cshtml" />
-    <None Include="Properties\PublishProfiles\UniqueBlog.Web.pubxml" />
+    <None Include="Properties\PublishProfiles\Web.config.pubxml.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
