@@ -99,7 +99,7 @@ namespace UniqueBlog.Repository
             category.CategoryName = reader["CategoryName"].ToString();
             category.CategoryDescription = reader["Description"].ToString();
             category.CreatedDate = (DateTime)reader["CreatedDate"];
-			category.PostAmount = Convert.ToInt32(reader["PostAmount"].ToString());
+            category.PostAmount = Convert.ToInt32(reader["PostAmount"].ToString());
             return category;
         }
 
