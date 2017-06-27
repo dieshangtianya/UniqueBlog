@@ -15,6 +15,7 @@ $viewFolder="views";
 $spFolder="storeprocedure";
 $presetDataFolder="presetdata";
 $tableTypeFolder="types";
+$functionFolder="functions";
 
 $isPresetData=$true;
 
@@ -54,18 +55,22 @@ ExecuteSqlFile -sqlFile ".\$tableFolder\t_comment.sql";
 <#----------------------------create data viwes-------------------------------------#>
 ExecuteSqlFile -sqlFile ".\$viewFolder\v_category_info.sql";
 
+<#----------------------------create functions-------------------------------------#>
+ExecuteSqlFile -sqlFile ".\$functionFolder\func_split_str.sql";
+
 <#----------------------------create procedure-------------------------------------#>
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogbyusername.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_blogpost_categories.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_update_blogpost.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_all_categories.sql";
-ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_comment.sql"
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_comment.sql";
+ExecuteSqlFile -sqlFile ".\$spFolder\sp_add_blogpost_relation.sql";
 ExecuteSqlFile -sqlFile ".\$spFolder\sp_get_items_super_pagination.sql";
 
 <#----------------------------preset data-------------------------------------#>
 if($isPresetData){
-	ExecuteSqlFile -sqlFile ".\$presetDataFolder\prestoredata.sql";
+	#ExecuteSqlFile -sqlFile ".\$presetDataFolder\prestoredata.sql";
 }
 
 

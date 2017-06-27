@@ -1,14 +1,14 @@
-﻿USE UniqueBlogDB;
+USE UniqueBlogDB;
 
 DROP PROCEDURE IF EXISTS sp_update_blogpost;
 
 CREATE PROCEDURE sp_update_blogpost
 (
 IN PostId int,
-IN PostTitle NVARCHAR(100),
+IN PostTitle VARCHAR(100),
 IN PostContent TEXT,
 IN PostPlainContent TEXT,
-IN Tags NVARCHAR(100),
+IN Tags VARCHAR(100),
 IN LastUpdatedDate DATETIME
 )
 BEGIN
