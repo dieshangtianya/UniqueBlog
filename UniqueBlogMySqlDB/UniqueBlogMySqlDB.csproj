@@ -45,8 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="db.sql" />
+    <Content Include="functions\func_split_str.sql" />
     <Content Include="presetdata\prestoredata.sql" />
     <Content Include="storeprocedure\sp_add_blogpost.sql" />
+    <Content Include="storeprocedure\sp_add_blogpost_relation.sql" />
     <Content Include="storeprocedure\sp_add_comment.sql" />
     <Content Include="storeprocedure\sp_get_all_categories.sql" />
     <Content Include="storeprocedure\sp_get_blogbyusername.sql" />

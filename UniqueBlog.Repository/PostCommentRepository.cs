@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -38,24 +38,18 @@ namespace UniqueBlog.Repository
             using (IDbConnection dbConnection = _dbbase.CreateDbConnection())
             {
                 dbConnection.Open();
-                using (var transaction = dbConnection.BeginTransaction())
-                {
-                    IDbCommand dbCommand = dbConnection.CreateCommand();
-                    dbCommand.CommandText = "sp_add_comment";
-                    dbCommand.CommandType = CommandType.StoredProcedure;
-                    dbCommand.Transaction = transaction;
+                IDbCommand dbCommand = dbConnection.CreateCommand();
+                dbCommand.CommandText = "sp_add_comment";
+                dbCommand.CommandType = CommandType.StoredProcedure;
 
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", entity.BlogId));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostId", entity.Post.Id));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("UserName", entity.UserName));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("UserId", entity.UserId == 0 ? DBNull.Value : (object)entity.UserId));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CommentContent", entity.CommentContent));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", entity.CreatedDate));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", entity.BlogId));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostId", entity.Post.Id));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("UserName", entity.UserName));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("UserId", entity.UserId == 0 ? DBNull.Value : (object)entity.UserId));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CommentContent", entity.CommentContent));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", entity.CreatedDate));
 
-                    dbCommand.ExecuteScalar();
-
-                    transaction.Commit();
-                }
+                dbCommand.ExecuteScalar();
             }
         }
 

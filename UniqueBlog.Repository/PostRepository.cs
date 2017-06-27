@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -174,37 +174,51 @@ namespace UniqueBlog.Repository
             {
                 dbConnection.Open();
 
-                using (var transaction = dbConnection.BeginTransaction())
-                {
+                IDbCommand dbCommand = dbConnection.CreateCommand();
+                dbCommand.CommandText = "sp_add_blogpost";
+                dbCommand.CommandType = CommandType.StoredProcedure;
 
-                    IDbCommand dbCommand = dbConnection.CreateCommand();
-                    dbCommand.CommandText = "sp_add_blogpost";
-                    dbCommand.CommandType = CommandType.StoredProcedure;
-                    dbCommand.Transaction = transaction;
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", blogPost.BlogId));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostPlainContent", blogPost.PlainContent));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", blogPost.CreatedDate));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("LastUpdatedDate", blogPost.LastUpdatedDate));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
 
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("BlogId", blogPost.BlogId));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostPlainContent", blogPost.PlainContent));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", blogPost.CreatedDate));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("LastUpdatedDate", blogPost.LastUpdatedDate));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
+                int postId = Convert.ToInt32(dbCommand.ExecuteScalar());
+                BlogPost.SetId(blogPost, postId);
 
-                    int postId = Convert.ToInt32(dbCommand.ExecuteScalar());
-                    BlogPost.SetId(blogPost, postId);
 
-                    DataTable dt = this.GetPostCategoryRelationship(blogPost);
-                    IDbCommand relationCommand = dbConnection.CreateCommand();
-                    relationCommand.CommandText = "sp_add_blogpost_relation";
-                    relationCommand.CommandType = CommandType.StoredProcedure;
-                    relationCommand.Transaction = transaction;
+                /********
+                 * there are many ways to implement inserting multiple rows to table
+                 * (1)multiple sql:
+                 *      insert into table (column1,column2)values(v1,v2);
+                 *      insert into table (column1,column2)values(v3,v4);
+                 *      insert into table (column1,column2)values(v5,v6);
+                 * (2)single sql: 
+                 *      insert into table (column1,column2)values(v1,v2),(v3,v4),(v5,v6);
+                 * (3)insert ...select
+                 *      insert into table (column1,column2) select v1,v2 union all select v3,v4 union all select v5,v6
+                 * (4)table value parameter
+                 * (5)split a string to multiple row data.
+                **********/
 
-                    relationCommand.Parameters.Add(this._dbbase.CreateDbParameter("postCategoryTable", dt));
 
-                    relationCommand.ExecuteNonQuery();
+                IDbCommand relationCommand = dbConnection.CreateCommand();
+                relationCommand.CommandText = "sp_add_blogpost_relation";
+                relationCommand.CommandType = CommandType.StoredProcedure;
+                /*SQL SERVER CALL************************************************************
+                //DataTable dt = this.GetPostCategoryRelationship(blogPost);
+                //relationCommand.Parameters.Add(this._dbbase.CreateDbParameter("postCategoryTable", dt));
+                **************************************************************/
 
-                    transaction.Commit();
-                }
+                /*MY SQL CALL****************************************************************/
+                relationCommand.Parameters.Add(this._dbbase.CreateDbParameter("RelationData", this.GetPostCategoryIds(blogPost)));
+                relationCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostId",blogPost.Id));
+                /**************************************************************/
+
+                relationCommand.ExecuteNonQuery();
             }
         }
 
@@ -216,28 +230,22 @@ namespace UniqueBlog.Repository
             {
                 dbConnection.Open();
 
-                using (var transaction = dbConnection.BeginTransaction())
-                {
-                    IDbCommand dbCommand = dbConnection.CreateCommand();
-                    dbCommand.CommandText = "sp_update_blogpost";
-                    dbCommand.CommandType = CommandType.StoredProcedure;
+                IDbCommand dbCommand = dbConnection.CreateCommand();
+                dbCommand.CommandText = "sp_update_blogpost";
+                dbCommand.CommandType = CommandType.StoredProcedure;
 
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostId", blogPost.Id));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostPlainContent", blogPost.PlainContent));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("LastUpdatedDate", blogPost.LastUpdatedDate));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostId", blogPost.Id));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostPlainContent", blogPost.PlainContent));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("LastUpdatedDate", blogPost.LastUpdatedDate));
 
-                    DataTable dt = this.GetPostCategoryRelationship(blogPost);
+                DataTable dt = this.GetPostCategoryRelationship(blogPost);
 
-                    dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostCategoryTable", dt));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostCategoryTable", dt));
 
-                    dbCommand.ExecuteNonQuery();
-
-                    transaction.Commit();
-
-                }
+                dbCommand.ExecuteNonQuery();
             }
         }
 
@@ -282,6 +290,23 @@ namespace UniqueBlog.Repository
             }
 
             return relationDt;
+        }
+
+        private string GetPostCategoryIds(BlogPost blogPost)
+        {
+            StringBuilder sbuilder = new StringBuilder();
+            foreach (var category in blogPost.Categories)
+            {
+                sbuilder.Append(category.Id);
+                sbuilder.Append(",");
+            }
+
+            if (sbuilder.Length > 0)
+            {
+                sbuilder.Remove(sbuilder.Length - 1, 1);
+            }
+
+            return sbuilder.ToString();
         }
 
         #endregion
