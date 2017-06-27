@@ -1,4 +1,4 @@
-﻿--========================================
+--========================================
 --创建博客文章t_blog_post表脚本
 --========================================
 
@@ -20,6 +20,7 @@ CREATE TABLE t_blog_post
 	PostPlainContent NTEXT NOT NULL DEFAULT(''),
 	CreatedDate DATETIME NOT NULL DEFAULT(GETDATE()),
 	LastUpdatedDate DATETIME NULL DEFAULT(GETDATE()),
+	Draft TINYINT(1) NOT NULL DEFAULT(0),
 	Tags NVARCHAR(100) NULL,
 )
 GO

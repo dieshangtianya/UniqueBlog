@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +23,8 @@ namespace UniqueBlog.Controllers.Models.ViewModels
         public DateTime CreatedDate { get; set; }
 
         public ViewType PostViewType { get; set; }
+
+        public bool IsDraft { get; set; }
 
         public PostViewModel()
         {

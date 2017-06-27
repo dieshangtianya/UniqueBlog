@@ -1,4 +1,4 @@
-﻿require(["./../config"], function () {
+require(["./../config"], function () {
     require(["post.newpost"]);
 }),
 define(
@@ -57,19 +57,23 @@ define(
         function registerEventHandler() {
             $("#btnPublish").on("click", function (e) { savePost(e) });
             $("#btnSave").on("click", function (e) { savePost(e) });
-            $("#btnSaveDraft").on("click", saveAsDraft);
+            $("#btnSaveDraft").on("click", function(e){saveAsDraft(e)});
             $("#btnCancel").on("click", cancel);
         }
 
-        function savePost(e) {
+        function savePost(isDraft) {
             var postData = validateData();
             if (!postData) {
                 return;
             }
 
+            if (isDraft) {
+                postData.Draft = isDraft;
+            }
+
             $.ajax({
-                url: $('#postform').attr('action'),
-                type: $('#postform').attr('method'),
+                url: 'SavePost',
+                type: 'Post',
                 data: JSON.stringify(postData),
                 contentType: "application/json;charset=utf-8",
                 success: function (jsonResult) {
@@ -86,7 +90,7 @@ define(
         }
 
         function saveAsDraft() {
-
+            savePost(true);
         }
 
         function cancel() {
