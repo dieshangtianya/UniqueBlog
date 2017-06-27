@@ -24,7 +24,7 @@ namespace UniqueBlog.Controllers.Models.ViewModels
 
         public ViewType PostViewType { get; set; }
 
-        public bool IsDraft { get; set; }
+        public bool Draft { get; set; }
 
         public PostViewModel()
         {

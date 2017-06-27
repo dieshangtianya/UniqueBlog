@@ -23,6 +23,8 @@ namespace UniqueBlog.DTO
 
         public int BlogId { get; set; }
 
+        public bool Draft { get; set; }
+
         public string[] Tags { get; set; }
 
         public DateTime CreatedDate { get; set; }

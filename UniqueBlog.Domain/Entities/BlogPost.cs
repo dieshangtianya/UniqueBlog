@@ -76,6 +76,8 @@ namespace UniqueBlog.Domain.Entities
         /// </summary>
         public DateTime LastUpdatedDate { get; set; }
 
+        public bool Draft { get; set; }
+
         #endregion
 
         #region Business Logical Properties

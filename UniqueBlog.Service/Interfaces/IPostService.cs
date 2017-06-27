@@ -10,7 +10,7 @@ namespace UniqueBlog.Service.Interfaces
 {
     public interface IPostService
     {
-        PagedResult<PostDto> GetPostList(int blogId, int? categoryId, int pageIndex, int pageSize);
+        PagedResult<PostDto> GetPostList(int blogId, int? categoryId, bool containDraft, int pageIndex, int pageSize);
 
         PostDto GetPostById(int postId);
 

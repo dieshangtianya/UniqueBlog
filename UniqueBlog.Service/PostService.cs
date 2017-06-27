@@ -36,7 +36,7 @@ namespace UniqueBlog.Service
             ((IUnitOfWorkRepository)this._postRepository).SetUnitOfWork(unitOfWork);
         }
 
-        public PagedResult<PostDto> GetPostList(int blogId,int? categoryId, int pageIndex, int pageSize)
+        public PagedResult<PostDto> GetPostList(int blogId,int? categoryId, bool containDraft, int pageIndex, int pageSize)
         {
             PagedResult<PostDto> pagedResult = null;
 
@@ -47,6 +47,11 @@ namespace UniqueBlog.Service
                 if(categoryId!=null && categoryId >0)
                 {
                     query.Add(new Criterion("CategoryId", categoryId, CriterionOperator.Equal));
+                }
+
+                if (!containDraft)
+                {
+                    query.Add(new Criterion("Draft", false, CriterionOperator.Equal));
                 }
 
                 var pageData = _postRepository.FindBy(query, pageIndex, pageSize);

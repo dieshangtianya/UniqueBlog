@@ -36,7 +36,14 @@ namespace UniqueBlog.Controllers
         {
             var pageSize = 5;
 
-            var pagedResult = this.postService.GetPostList(CommonBlogData.CurrentInstance.BlogInformation.Id,category, page, pageSize);
+            var containDraft = false;
+
+            if (this.IsUserLogin())
+            {
+                containDraft = true;
+            }
+
+            var pagedResult = this.postService.GetPostList(CommonBlogData.CurrentInstance.BlogInformation.Id, category, containDraft, page, pageSize);
 
             PostListViewModel postListViewModel = new PostListViewModel();
             postListViewModel.PostList = pagedResult.Items;
@@ -194,6 +201,7 @@ namespace UniqueBlog.Controllers
             postDto.Tags = postViewModel.PostTags;
             postDto.Content = postViewModel.PostContent;
             postDto.PlainContent = postViewModel.PostPlainContent;
+            postDto.Draft = postViewModel.Draft;
 
             return postDto;
         }

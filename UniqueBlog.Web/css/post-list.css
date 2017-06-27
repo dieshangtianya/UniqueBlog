@@ -34,6 +34,11 @@
 	color:#AFD6F3;
 }
 
+.post-title .draft{
+    color:#B72A0C;
+    margin:0 10px;
+}
+
 .post-list-container .post-item .post-item-brief{
 	padding:10px;
     height:160px;

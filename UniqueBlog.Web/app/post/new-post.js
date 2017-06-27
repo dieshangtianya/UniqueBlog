@@ -1,4 +1,4 @@
-require(["./../config"], function () {
+﻿require(["./../config"], function () {
     require(["post.newpost"]);
 }),
 define(
@@ -55,9 +55,9 @@ define(
         }
 
         function registerEventHandler() {
-            $("#btnPublish").on("click", function (e) { savePost(e) });
-            $("#btnSave").on("click", function (e) { savePost(e) });
-            $("#btnSaveDraft").on("click", function(e){saveAsDraft(e)});
+            $("#btnPublish").on("click", function (e) { savePost() });
+            $("#btnSave").on("click", function (e) { savePost() });
+            $("#btnSaveDraft").on("click", function (e) { savePost(true) });
             $("#btnCancel").on("click", cancel);
         }
 
@@ -89,12 +89,8 @@ define(
             });
         }
 
-        function saveAsDraft() {
-            savePost(true);
-        }
-
         function cancel() {
-
+            window.location.href = '/Home/Index';
         }
 
         function validateData() {
@@ -143,6 +139,7 @@ define(
                 PostContent: postContent,
                 PostPlainContent: postPlainContent,
                 CategoryList: categories,
+                Draft: false,
                 PostTags: tags,
             };
 

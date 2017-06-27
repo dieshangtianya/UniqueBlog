@@ -184,6 +184,7 @@ namespace UniqueBlog.Repository
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostPlainContent", blogPost.PlainContent));
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("CreatedDate", blogPost.CreatedDate));
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("LastUpdatedDate", blogPost.LastUpdatedDate));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Draft", blogPost.Draft ? 1 : 0));
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
 
                 int postId = Convert.ToInt32(dbCommand.ExecuteScalar());
@@ -238,6 +239,7 @@ namespace UniqueBlog.Repository
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostTitle", blogPost.Title));
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostContent", blogPost.Content));
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("PostPlainContent", blogPost.PlainContent));
+                dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Draft", blogPost.Draft ? 1 : 0));
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("Tags", string.Join("|", blogPost.Tags)));
                 dbCommand.Parameters.Add(this._dbbase.CreateDbParameter("LastUpdatedDate", blogPost.LastUpdatedDate));
 
@@ -266,6 +268,7 @@ namespace UniqueBlog.Repository
             post.Content = dataReader["PostContent"].ToString();
             post.PlainContent = dataReader["PostPlainContent"].ToString();
             post.CreatedDate = DateTime.Parse(dataReader["CreatedDate"].ToString());
+            post.Draft = bool.Parse(dataReader["Draft"].ToString());
             string tagStr = dataReader["Tags"].ToString();
             if (tagStr.Length > 0)
             {

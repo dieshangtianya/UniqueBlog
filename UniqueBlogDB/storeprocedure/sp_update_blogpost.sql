@@ -14,6 +14,7 @@ CREATE PROCEDURE sp_update_blogpost
 @PostPlainContent ntext,
 @Tags nvarchar(100),
 @LastUpdatedDate datetime,
+@Draft tinyint(1),
 @PostCategoryTable udt_post_category_relationship READONLY
 )
 AS
@@ -22,7 +23,7 @@ BEGIN TRY
 		DECLARE @updatedCategoryCount int =0;
 		
 		/**Update the blog post table**/
-		UPDATE t_blog_post SET PostTitle=@PostTitle, PostContent=@PostContent, PostPlainContent=@PostPlainContent, Tags=@Tags, LastUpdatedDate=@LastUpdatedDate WHERE BlogPostId=@PostId
+		UPDATE t_blog_post SET PostTitle=@PostTitle, PostContent=@PostContent, PostPlainContent=@PostPlainContent, Draft=@Draft, Tags=@Tags, LastUpdatedDate=@LastUpdatedDate WHERE BlogPostId=@PostId
 		
 		/**Clear the blog post category list**/
 		SELECT @updatedCategoryCount =COUNT(*) FROM @PostCategoryTable

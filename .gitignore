@@ -46,3 +46,6 @@
 /UniqueBlog.Infrastructure/bin
 /UniqueBlog.Repository/bin
 /UniqueBlog.Service/bin
+/UniqueBlog.DBManager/bin
+/UniqueBlog.DTO/bin
+/UniqueBlog.Web/Properties/PublishProfiles/Web.config.pubxml.pubxml.user
